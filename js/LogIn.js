@@ -112,8 +112,8 @@ async function listarDatos() {
   }
   // Flatten to string to display
   const output = range.values.reduce(
-    (str, row) => `${str}${row[0]}, ${row[4]}\n`,
-    'Name, Major:\n');
+    (str, row) => `${str}${row[0]}, ${row[1]},${row[2]}\n`,
+    'ID, CATEGORIA, SUBCATEGORIA:\n');
   document.getElementById('content').innerText = output;
 }
 
