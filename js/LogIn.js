@@ -68,65 +68,34 @@ async function listarDatos() {
     alert("No se encontraron valores")
     return;
   }
-  
-  //Crear uan tabla de meustra
+
+  CrearFichas(range.values);
+
+
+  //Crear uan tabla/objetos de meustra
   // Obtener la referencia del elemento dode se inserta la tabla
   var ContenedorTabla = document.getElementById("divTableModal");
   //Limpia el contenido dentro del formulario modal
-  document.getElementById("divTableModal").innerHTML = "";
+  //document.getElementById("divTableModal").innerHTML = "";
 
-  //Agrega l atabla nueva a la página
-  const tablabase = document.getElementById("tbResultados");
-  if (tablabase) tablabase.remove();
-
-  const tabla = document.createElement("table");
-  const tablaHeader = document.createElement("thead");
-  tabla.id = "tbResultados";
-
-  //Creamos el cuerpo de la tabla
-  const tablaBody = document.createElement("tbody");
-
-  //Creamos los encabezados
-  const Encabezados = document.createElement("tr");
-
-  //Creamos la matriz de encabezados
-  const titulos = [
-    "ID",
-    "CATEGORÍA",
-    "SUBCATEGORIA",
-    "CONCEPTO",
-    "VARIABLE"
-  ];
-
-  titulos.forEach(titulo => {
-    const elemento = document.createElement("td");
-    elemento.textContent = titulo;
-    Encabezados.appendChild(elemento);
-  });
-
-  //Agregamos los encabezados
-  tablaHeader.appendChild(Encabezados);
-  tabla.appendChild(tablaHeader);
-
+  
 
   (range.values).forEach(registro => {
     const fila = document.createElement("tr");
 
     for (var i = 0; i < 5; i++) {
-      var DatoCelta = document.createElement("td");
-      DatoCelta.textContent = registro[i];
-      fila.appendChild(DatoCelta);
+
     }
 
 
-    //Agrego filas y columnas al cuerpo de la tabla
-    tablaBody.appendChild(fila);
+
   });
 
-  tabla.appendChild(tablaBody);
-  ContenedorTabla.appendChild(tabla);
-  tabla.classList.add("table", "table-striped", "table-hover");
-  tablaHeader.classList.add("table-dark", "fw-bold");
+  
+
+}
+
+async function CrearFichas(datos){
 
 }
 
