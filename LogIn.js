@@ -1,7 +1,3 @@
-    /* exported gapiLoaded */
-    /* exported gisLoaded */
-    /* exported handleAuthClick */
-    /* exported handleSignoutClick */
 
     // TODO(developer): Set to client ID and API key from the Developer Console
     const CLIENT_ID = '965466288635-jen140lkpfuo74hvn1put856lbkhcg29.apps.googleusercontent.com';
@@ -17,6 +13,9 @@
     let tokenClient;
     let gapiInited = false;
     let gisInited = false;
+
+    document.getElementById("gapi").addEventListener("load", gapiLoaded())
+    document.getElementById("load").addEventListener("load", gisLoadedLoaded())
 
     document.getElementById('authorize_button').style.visibility = 'hidden';
     document.getElementById('signout_button').style.visibility = 'hidden';
