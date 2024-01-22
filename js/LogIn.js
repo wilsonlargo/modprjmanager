@@ -118,13 +118,41 @@ async function listarDatos() {
   ContenedorTabla.appendChild(tabla);
   tabla.classList.add("table", "table-striped", "table-hover");
   tablaHeader.classList.add("table-dark", "fw-bold");
+  CrearFichas()
 
-  const Tipos = {
-    id,
-    texto
-  }
-  Tipos= new Tipos("0","3")
-  Tipos= new Tipos("1","r")
-  alert(Tipos)
+}
+
+async function CrearFichas() {
+  //Crea un párrafo
+  const p = document.createElement("p");
+  p.textContent = "Ficha 1";
+  //Crea un entorno vinvulo
+  const a = document.createElement("a");
+  a.href = "#";
+  //a.onclick = () => verCaso(registro);
+  a.classList.add("list-group-item", "list-group-item-action");
+
+  //Crea un encabezado a la ficha
+  const h6 = document.createElement("h6");
+  h6.textContent = "ID de la ficha";
+  h6.classList.add("mb-1");
+
+  const sm = document.createElement("small");
+  sm.classList.add("text-muted");
+  sm.textContent = "Texto ad";
+
+  const divA = document.createElement("div");
+  divA.classList.add("d-flex", "w-100", "justify-content-between");
+
+  divA.appendChild(h6);
+  divA.appendChild(sm);
+  a.appendChild(divA);
+
+  a.appendChild(p);
+
+  // Agregar a la lista de resultados
+  document.getElementById("lstResGis").appendChild(a);
+
+
 }
 
