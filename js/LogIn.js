@@ -110,13 +110,11 @@ async function CrearFichas(datos) {
 }
 
 async function UpdateFica(){
-
-
-
-  responseDB = await gapi.client.sheets.spreadsheets.values.update({
+ let response
+  response = await gapi.client.sheets.spreadsheets.values.update({
     spreadsheetId: '16Lxewlh-ryS6y5d6BPA_HVAqYS4aCuZjq2IaD10mDkk',
     range: 'CONCEPT!A2:B2',
   });
-
+return response;
 }
 
