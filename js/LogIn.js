@@ -149,33 +149,32 @@ async function listarDatos() {
   tablaHeader.appendChild(Encabezados);
   tabla.appendChild(tablaHeader);
 
-  const Keys = [
-    "ID",
-    "CATEGORÍA",
-    "SUBCATEGORIA",
-    "CONCEPTO",
-    "VARIABLE"
-  ];
-
 
   (range.values).forEach(registro => {
     const fila = document.createElement("tr");
 
     for (var i = 0; i < 5; i++) {
-      var DatoCelta = document.createElement("td");     
+      var DatoCelta = document.createElement("td");
       DatoCelta.textContent = registro[i];
       fila.appendChild(DatoCelta);
     }
-    
+
 
     //Agrego filas y columnas al cuerpo de la tabla
     tablaBody.appendChild(fila);
-});
+  });
 
-tabla.appendChild(tablaBody);
-ContenedorTabla.appendChild(tabla);
-tabla.classList.add("table", "table-striped", "table-hover");
-tablaHeader.classList.add("table-dark", "fw-bold");
+  tabla.appendChild(tablaBody);
+  ContenedorTabla.appendChild(tabla);
+  tabla.classList.add("table", "table-striped", "table-hover");
+  tablaHeader.classList.add("table-dark", "fw-bold");
 
+  const Tipos = {
+    id,
+    texto
+  }
+  Tipos= new Tipos("0","3")
+  Tipos= new Tipos("1","r")
+  alert(Tipos)
 }
 
