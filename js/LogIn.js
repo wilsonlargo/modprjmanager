@@ -110,12 +110,6 @@ async function listarDatos() {
     alert("No se encontraron valores")
     return;
   }
-  // Flatten to string to display
-  const output = range.values.reduce(
-    (str, row) => `${str}${row[0]}, ${row[1]},${row[2]},${row[3]},${row[4]}\n`,
-    'ID, CATEGORIA, SUBCATEGORIA, CONCEPTO, VARIBLE\n');
-  document.getElementById('content').innerText = output;
-
   //Crear uan tabla de meustra
   // Obtener la referencia del elemento dode se inserta la tabla
   var ContenedorTabla = document.getElementById("divTableModal");
@@ -172,7 +166,15 @@ async function listarDatos() {
     DatoCelta.textContent = i;
     fila.appendChild(DatoCelta);
     
-    alert(registro[0])
+    //Agrego las columnas para cada fila
+    Keys.forEach(key => {
+        DatoCelta = document.createElement("td");
+        DatoCelta.textContent = registro[i];
+        fila.appendChild(DatoCelta);
+    });
+
+    //Agrego filas y columnas al cuerpo de la tabla
+    tablaBody.appendChild(fila);
     i++;
 });
 
