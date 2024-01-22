@@ -26,12 +26,10 @@ async function initializeGapiClient() {
     discoveryDocs: [DISCOVERY_DOC],
   });
   gapiInited = true;
-  maybeEnableButtons();
+  //maybeEnableButtons();
 }
 
-/**
-     * Callback after Google Identity Services are loaded.
-     */
+
 function gisLoaded() {
   tokenClient = google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
