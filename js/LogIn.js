@@ -61,7 +61,7 @@ function handleAuthClick() {
     }
     document.getElementById('signout_button').style.visibility = 'visible';
     document.getElementById('authorize_button').innerText = 'Actualizar';
-    await listMajors();
+    await listarDatos();
   };
 
   if (gapi.client.getToken() === null) {
@@ -92,21 +92,22 @@ function handleSignoutClick() {
  * Print the names and majors of students in a sample spreadsheet:
  * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
  */
-async function listMajors() {
+async function listarDatos() {
   let response;
   try {
     // Fetch first 10 files
     response = await gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-      range: 'Class Data!A2:E',
+      spreadsheetId: '16Lxewlh-ryS6y5d6BPA_HVAqYS4aCuZjq2IaD10mDkk',
+      range: 'CONCEPT!A2:E',
     });
   } catch (err) {
+    alert(err)
     document.getElementById('content').innerText = err.message;
     return;
   }
   const range = response.result;
   if (!range || !range.values || range.values.length == 0) {
-    document.getElementById('content').innerText = 'No values found.';
+    alert("No se encontraron valores")
     return;
   }
   // Flatten to string to display
