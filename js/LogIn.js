@@ -58,19 +58,7 @@ function handleAuthClick() {
   listarDatos();
 }
 
-/**
- *  Sign out the user upon button click.
- */
-function handleSignoutClick() {
-  const token = gapi.client.getToken();
-  if (token !== null) {
-    google.accounts.oauth2.revoke(token.access_token);
-    gapi.client.setToken('');
-    document.getElementById('content').innerText = '';
-    document.getElementById('authorize_button').innerText = 'Ingresar';
-    document.getElementById('signout_button').style.visibility = 'hidden';
-  }
-}
+
 
 /**
  * Print the names and majors of students in a sample spreadsheet:
