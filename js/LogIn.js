@@ -74,7 +74,7 @@ async function CrearFichas(datos) {
 
 //Crea un párrafo
 const inP = document.createElement("input");
-inP.classList.add("form-control", "bg-primary", "text-white");
+inP.classList.add("form-control");
 inP.value = registro[0];
 
 
@@ -82,7 +82,7 @@ inP.value = registro[0];
 const a = document.createElement("a");
 a.href = "#";
 //a.onclick = () => verCaso(registro);
-a.classList.add("list-group-item", "list-group-item-action");
+a.classList.add("list-group-item", "list-group-item-action", "bg-primary", "text-white");
 
 //Crea un encabezado a la ficha
 const h6 = document.createElement("h6");
