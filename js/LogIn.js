@@ -40,14 +40,7 @@ function gisLoaded() {
   maybeEnableButtons();
 }
 
-/**
- * Enables user interaction after all libraries are loaded.
- */
-function maybeEnableButtons() {
-  if (gapiInited && gisInited) {
-    document.getElementById('authorize_button').style.visibility = 'visible';
-  }
-}
+
 
 /**
      *  Sign in the user upon button click.
@@ -75,6 +68,7 @@ async function listarDatos() {
     alert("No se encontraron valores")
     return;
   }
+  
   //Crear uan tabla de meustra
   // Obtener la referencia del elemento dode se inserta la tabla
   var ContenedorTabla = document.getElementById("divTableModal");
