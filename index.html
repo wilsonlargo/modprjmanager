@@ -18,7 +18,7 @@
 
   <p>Sheets API Quickstart</p>
   <!--Add buttons to initiate auth sequence and sign out-->
-  <button id="authorize_button" type="button" class="btn btn-primary" onclick="handleAuthClick()">Ingresar</button>
+  <button id="authorize_button" type="button" class="btn btn-primary" onclick="handleAuthClick()">Entrar</button>
   <button id="signout_button" type="button" class="btn btn-secondary" onclick="handleSignoutClick()">Cerrar
     Sesión</button>
 
@@ -32,27 +32,7 @@
 
 
 
-    /**
-     * Callback after Google Identity Services are loaded.
-     */
-    function gisLoaded() {
-      tokenClient = google.accounts.oauth2.initTokenClient({
-        client_id: CLIENT_ID,
-        scope: SCOPES,
-        callback: '', // defined later
-      });
-      gisInited = true;
-      maybeEnableButtons();
-    }
-
-    /**
-     * Enables user interaction after all libraries are loaded.
-     */
-    function maybeEnableButtons() {
-      if (gapiInited && gisInited) {
-        document.getElementById('authorize_button').style.visibility = 'visible';
-      }
-    }
+    
 
     /**
      *  Sign in the user upon button click.
