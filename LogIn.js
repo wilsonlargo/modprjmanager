@@ -22,6 +22,3 @@ document.getElementById('signout_button').style.visibility = 'hidden';
 */
 
 
-function gapiLoaded() {
-  gapi.load('client', initializeGapiClient);
-}
