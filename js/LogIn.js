@@ -13,6 +13,8 @@ let tokenClient;
 let gapiInited = false;
 let gisInited = false;
 
+document.getElementById('authorize_button').style.visibility = 'hidden';
+
 
 function gapiLoaded() {
   gapi.load('client', initializeGapiClient);
@@ -24,8 +26,12 @@ async function initializeGapiClient() {
     discoveryDocs: [DISCOVERY_DOC],
   });
   gapiInited = true;
+  maybeEnableButtons();
 }
 
+/**
+     * Callback after Google Identity Services are loaded.
+     */
 function gisLoaded() {
   tokenClient = google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
@@ -36,11 +42,56 @@ function gisLoaded() {
   maybeEnableButtons();
 }
 
-
-function handleAuthClick() {
-  listarDatos()
+/**
+ * Enables user interaction after all libraries are loaded.
+ */
+function maybeEnableButtons() {
+  if (gapiInited && gisInited) {
+    document.getElementById('authorize_button').style.visibility = 'visible';
+  }
 }
 
+/**
+     *  Sign in the user upon button click.
+     */
+function handleAuthClick() {
+  tokenClient.callback = async (resp) => {
+    if (resp.error !== undefined) {
+      throw (resp);
+    }
+    document.getElementById('signout_button').style.visibility = 'visible';
+    document.getElementById('authorize_button').innerText = 'Actualizar';
+    await listarDatos();
+  };
+
+  if (gapi.client.getToken() === null) {
+    // Prompt the user to select a Google Account and ask for consent to share their data
+    // when establishing a new session.
+    tokenClient.requestAccessToken({ prompt: 'consent' });
+  } else {
+    // Skip display of account chooser and consent dialog for an existing session.
+    tokenClient.requestAccessToken({ prompt: '' });
+  }
+}
+
+/**
+ *  Sign out the user upon button click.
+ */
+function handleSignoutClick() {
+  const token = gapi.client.getToken();
+  if (token !== null) {
+    google.accounts.oauth2.revoke(token.access_token);
+    gapi.client.setToken('');
+    document.getElementById('content').innerText = '';
+    document.getElementById('authorize_button').innerText = 'Ingresar';
+    document.getElementById('signout_button').style.visibility = 'hidden';
+  }
+}
+
+/**
+ * Print the names and majors of students in a sample spreadsheet:
+ * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+ */
 async function listarDatos() {
   let responseDB;
   try {
@@ -50,7 +101,8 @@ async function listarDatos() {
       range: 'CONCEPT!A2:E',
     });
   } catch (err) {
-    alert(err.message)
+    alert(err)
+    document.getElementById('content').innerText = err.message;
     return;
   }
   const range = responseDB.result;
@@ -117,5 +169,12 @@ async function listarDatos() {
   tabla.classList.add("table", "table-striped", "table-hover");
   tablaHeader.classList.add("table-dark", "fw-bold");
 
+  const Tipos = {
+    id,
+    texto
+  }
+  Tipos= new Tipos("0","3")
+  Tipos= new Tipos("1","r")
+  alert(Tipos)
 }
 
