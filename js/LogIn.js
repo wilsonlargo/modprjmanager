@@ -100,7 +100,7 @@ divA.appendChild(h6);
 divA.appendChild(sm);
 a.appendChild(divA);
 
-a.appendChild(p);
+a.appendChild(inP);
 
 // Agregar a la lista de resultados
 document.getElementById("lstResGis").appendChild(a);
