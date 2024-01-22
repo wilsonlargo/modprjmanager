@@ -57,7 +57,7 @@ function handleAuthClick() {
       throw (resp);
     }
     document.getElementById('signout_button').style.visibility = 'visible';
-    document.getElementById('authorize_button').innerText = 'Refresh';
+    document.getElementById('authorize_button').innerText = 'Actualizar';
     await listMajors();
   };
 
@@ -80,7 +80,7 @@ function handleSignoutClick() {
     google.accounts.oauth2.revoke(token.access_token);
     gapi.client.setToken('');
     document.getElementById('content').innerText = '';
-    document.getElementById('authorize_button').innerText = 'Authorize';
+    document.getElementById('authorize_button').innerText = 'Ingresar';
     document.getElementById('signout_button').style.visibility = 'hidden';
   }
 }
