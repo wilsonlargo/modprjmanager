@@ -1,4 +1,3 @@
-
     /* exported gapiLoaded */
     /* exported gisLoaded */
     /* exported handleAuthClick */
