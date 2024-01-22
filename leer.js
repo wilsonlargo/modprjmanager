@@ -1,4 +1,4 @@
-const vue = new Vue({
+const vue = new vue({
     el: '#app',
     data: {
         listaDatos: []
@@ -17,7 +17,7 @@ const vue = new Vue({
             //// nuestra      APIKey
             apiKey = 'AIzaSyB929NDkpYyz0bc0qYzUZ9Gx-zQsnNbsmc';
             // rango de la hoja de calculo que queremos leer
-            values = 'A2:E20';
+            values = 'A2:E';
             // fetch es un método nativo para hacer peticiones http
             // en el navegador 
             fetch("https://content-sheets.googleapis.com/v4/spreadsheets/" + idSheets + "/values/A2:AZ100?access_token=" + apiKey + "&key=" + apiKey)
