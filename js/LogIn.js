@@ -158,14 +158,10 @@ async function listarDatos() {
   ];
 
 
-  let i = 1;
-
   (range.values).forEach(registro => {
     const fila = document.createElement("tr");
 
     for (var i = 0; i < 5; i++) {
-      n += i;
-      mifuncion(n);
       var DatoCelta = document.createElement("td");     
       DatoCelta.textContent = registro[i];
     }
@@ -173,7 +169,6 @@ async function listarDatos() {
 
     //Agrego filas y columnas al cuerpo de la tabla
     tablaBody.appendChild(fila);
-    i++;
 });
 
 tabla.appendChild(tablaBody);
