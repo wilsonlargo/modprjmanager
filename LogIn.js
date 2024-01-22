@@ -1,4 +1,9 @@
 
+    /* exported gapiLoaded */
+    /* exported gisLoaded */
+    /* exported handleAuthClick */
+    /* exported handleSignoutClick */
+
     // TODO(developer): Set to client ID and API key from the Developer Console
     const CLIENT_ID = '965466288635-jen140lkpfuo74hvn1put856lbkhcg29.apps.googleusercontent.com';
     const API_KEY = 'AIzaSyA7owurVh6Ev4GuK57d6n21NoEqeRcS8gg';
@@ -13,9 +18,6 @@
     let tokenClient;
     let gapiInited = false;
     let gisInited = false;
-
-    document.getElementById("gapi").addEventListener("load", gapiLoaded());
-    document.getElementById("gis").addEventListener("load", gisLoaded());
 
     document.getElementById('authorize_button').style.visibility = 'hidden';
     document.getElementById('signout_button').style.visibility = 'hidden';
@@ -78,10 +80,10 @@
       if (gapi.client.getToken() === null) {
         // Prompt the user to select a Google Account and ask for consent to share their data
         // when establishing a new session.
-        tokenClient.requestAccessToken({ prompt: 'consent' });
+        tokenClient.requestAccessToken({prompt: 'consent'});
       } else {
         // Skip display of account chooser and consent dialog for an existing session.
-        tokenClient.requestAccessToken({ prompt: '' });
+        tokenClient.requestAccessToken({prompt: ''});
       }
     }
 
@@ -94,7 +96,7 @@
         google.accounts.oauth2.revoke(token.access_token);
         gapi.client.setToken('');
         document.getElementById('content').innerText = '';
-        document.getElementById('authorize_button').innerText = 'Authorize';
+        document.getElementById('authorize_button').innerText = 'Autorizar';
         document.getElementById('signout_button').style.visibility = 'hidden';
       }
     }
@@ -122,7 +124,7 @@
       }
       // Flatten to string to display
       const output = range.values.reduce(
-        (str, row) => `${str}${row[0]}, ${row[4]}\n`,
-        'Name, Major:\n');
+          (str, row) => `${str}${row[0]}, ${row[4]}\n`,
+          'Name, Major:\n');
       document.getElementById('content').innerText = output;
     }
