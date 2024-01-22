@@ -26,5 +26,27 @@ async function initializeGapiClient() {
   maybeEnableButtons();
 }
 
+/**
+     * Callback after Google Identity Services are loaded.
+     */
+function gisLoaded() {
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: CLIENT_ID,
+    scope: SCOPES,
+    callback: '', // defined later
+  });
+  gisInited = true;
+  maybeEnableButtons();
+}
+
+/**
+ * Enables user interaction after all libraries are loaded.
+ */
+function maybeEnableButtons() {
+  if (gapiInited && gisInited) {
+    document.getElementById('authorize_button').style.visibility = 'visible';
+  }
+}
+
 
 
