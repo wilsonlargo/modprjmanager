@@ -166,7 +166,14 @@ async function listarDatos() {
     DatoCelta.textContent = i;
     fila.appendChild(DatoCelta);
     
-alert(registro[0])
+    //Agrego las columnas para cada fila
+    DatoCelta = document.createElement("td");
+    DatoCelta.textContent = "ID";
+
+    fila.appendChild(DatoCelta);
+
+    //Agrego filas y columnas al cuerpo de la tabla
+    tablaBody.appendChild(fila);
     i++;
 });
 
