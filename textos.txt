@@ -4,16 +4,24 @@ API:AIzaSyA7owurVh6Ev4GuK57d6n21NoEqeRcS8gg
 id cliente: 965466288635-jen140lkpfuo74hvn1put856lbkhcg29.apps.googleusercontent.com
 
 
-<!DOCTYPE html>
-<html>
+//si deseo la forma larga con autenticación
 
-<head>
-  <title>Sheets API Quickstart</title>
-  <meta charset="utf-8" />
- </head>
+function handleAuthClick() {
+  tokenClient.callback = async (resp) => {
+    if (resp.error !== undefined) {
+      throw (resp);
+    }
+    document.getElementById('signout_button').style.visibility = 'visible';
+    document.getElementById('authorize_button').innerText = 'Actualizar';
+    await listarDatos();
+  };
 
-<body>
-
-</body>
-
-</html>
+  if (gapi.client.getToken() === null) {
+    // Prompt the user to select a Google Account and ask for consent to share their data
+    // when establishing a new session.
+    tokenClient.requestAccessToken({ prompt: 'consent' });
+  } else {
+    // Skip display of account chooser and consent dialog for an existing session.
+    tokenClient.requestAccessToken({ prompt: '' });
+  }
+}
