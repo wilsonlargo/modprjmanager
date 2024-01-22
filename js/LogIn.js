@@ -13,8 +13,6 @@ let tokenClient;
 let gapiInited = false;
 let gisInited = false;
 
-//document.getElementById('authorize_button').style.visibility = 'hidden';
-
 
 function gapiLoaded() {
   gapi.load('client', initializeGapiClient);
@@ -26,12 +24,8 @@ async function initializeGapiClient() {
     discoveryDocs: [DISCOVERY_DOC],
   });
   gapiInited = true;
-  //maybeEnableButtons();
 }
 
-/**
-     * Callback after Google Identity Services are loaded.
-     */
 function gisLoaded() {
   tokenClient = google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
@@ -43,16 +37,9 @@ function gisLoaded() {
 }
 
 
-/**
-     *  Sign in the user upon button click.
-     */
 function handleAuthClick() {
   listarDatos()
 }
-
-
-
-
 
 async function listarDatos() {
   let responseDB;
