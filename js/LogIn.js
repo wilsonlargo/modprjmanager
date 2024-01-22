@@ -42,14 +42,6 @@ function gisLoaded() {
   maybeEnableButtons();
 }
 
-/**
- * Enables user interaction after all libraries are loaded.
- */
-function maybeEnableButtons() {
-  if (gapiInited && gisInited) {
-    document.getElementById('authorize_button').style.visibility = 'visible';
-  }
-}
 
 /**
      *  Sign in the user upon button click.
@@ -58,24 +50,10 @@ function handleAuthClick() {
   listarDatos()
 }
 
-/**
- *  Sign out the user upon button click.
- */
-function handleSignoutClick() {
-  const token = gapi.client.getToken();
-  if (token !== null) {
-    google.accounts.oauth2.revoke(token.access_token);
-    gapi.client.setToken('');
-    document.getElementById('content').innerText = '';
-    document.getElementById('authorize_button').innerText = 'Ingresar';
-    document.getElementById('signout_button').style.visibility = 'hidden';
-  }
-}
 
-/**
- * Print the names and majors of students in a sample spreadsheet:
- * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
- */
+
+
+
 async function listarDatos() {
   let responseDB;
   try {
