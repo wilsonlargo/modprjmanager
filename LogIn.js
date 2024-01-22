@@ -13,6 +13,8 @@ let tokenClient;
 let gapiInited = false;
 let gisInited = false;
 
+document.getElementById('authorize_button').style.visibility = 'hidden';
+
 function gapiLoaded() {
   gapi.load('client', initializeGapiClient);
 }
