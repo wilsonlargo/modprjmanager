@@ -112,8 +112,74 @@ async function listarDatos() {
   }
   // Flatten to string to display
   const output = range.values.reduce(
-    (str, row) => `${str}${row[0]}, ${row[1]},${row[2]}\n`,
-    'ID, CATEGORIA, SUBCATEGORIA:\n');
+    (str, row) => `${str}${row[0]}, ${row[1]},${row[2]},${row[3]},${row[4]}\n`,
+    'ID, CATEGORIA, SUBCATEGORIA, CONCEPTO, VARIBLE\n');
   document.getElementById('content').innerText = output;
+
+  //Crear uan tabla de meustra
+  // Obtener la referencia del elemento dode se inserta la tabla
+  var ContenedorTabla = document.getElementById("divTableModal");
+  //Limpia el contenido dentro del formulario modal
+  document.getElementById("divTableModal").innerHTML = "";
+
+  //Agrega l atabla nueva a la página
+  const tablabase = document.getElementById("tbResultados");
+  if (tablabase) tablabase.remove();
+
+  const tabla = document.createElement("table");
+  const tablaHeader = document.createElement("thead");
+  tabla.id = "tbResultados";
+
+  //Creamos el cuerpo de la tabla
+  const tablaBody = document.createElement("tbody");
+
+  //Creamos los encabezados
+  const Encabezados = document.createElement("tr");
+
+  //Creamos la matriz de encabezados
+  const titulos = [
+    "ID",
+    "CATEGORÍA",
+    "SUBCATEGORIA",
+    "CONCEPTO",
+    "VARIABLE"
+  ];
+
+  titulos.forEach(titulo => {
+    const elemento = document.createElement("td");
+    elemento.textContent = titulo;
+    Encabezados.appendChild(elemento);
+  });
+
+  //Agregamos los encabezados
+  tablaHeader.appendChild(Encabezados);
+  tabla.appendChild(tablaHeader);
+
+  const Keys = [
+    "ID",
+    "CATEGORÍA",
+    "SUBCATEGORIA",
+    "CONCEPTO",
+    "VARIABLE"
+  ];
+
+
+  let i = 1;
+
+  (range.values).forEach(registro => {
+    const fila = document.createElement("tr");
+    const DatoCelta = document.createElement("td");
+    DatoCelta.textContent = i;
+    fila.appendChild(DatoCelta);
+    
+    alert(registro[0])
+    i++;
+});
+
+tabla.appendChild(tablaBody);
+ContenedorTabla.appendChild(tabla);
+tabla.classList.add("table", "table-striped", "table-hover");
+tablaHeader.classList.add("table-dark", "fw-bold");
+
 }
 
