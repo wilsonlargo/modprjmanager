@@ -10,6 +10,9 @@ const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4'
 const SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly';
 
 let tokenClient;
+
+document.getElementById('authorize_button').addEventListener("load",gapiLoaded())
+
 let gapiInited = false;
 let gisInited = false;
 
@@ -19,6 +22,8 @@ document.getElementById('signout_button').style.visibility = 'hidden';
 /**
 * Callback after api.js is loaded.
 */
+
+
 function gapiLoaded() {
   gapi.load('client', initializeGapiClient);
 }
