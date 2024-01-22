@@ -29,6 +29,7 @@
      */
     function gapiLoaded() {
       gapi.load('client', initializeGapiClient);
+      alert("Hola")
     }
 
     /**
