@@ -167,7 +167,6 @@ async function listarDatos() {
     fila.appendChild(DatoCelta);
     
     //Agrego las columnas para cada fila
-    DatoCelta = document.createElement("td");
     DatoCelta.textContent = "ID";
 
     fila.appendChild(DatoCelta);
