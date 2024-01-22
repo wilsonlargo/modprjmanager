@@ -85,8 +85,7 @@ async function listarDatos() {
       range: 'CONCEPT!A2:E',
     });
   } catch (err) {
-    alert(err)
-    document.getElementById('content').innerText = err.message;
+    alert(err.message)
     return;
   }
   const range = responseDB.result;
