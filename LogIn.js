@@ -11,13 +11,15 @@ const SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly';
 
 let tokenClient;
 
-document.getElementById('authorize_button').addEventListener("load",gapiLoaded())
+
 
 let gapiInited = false;
 let gisInited = false;
 
 document.getElementById('authorize_button').style.visibility = 'hidden';
 document.getElementById('signout_button').style.visibility = 'hidden';
+
+document.getElementById('authorize_button').addEventListener("load",gapiLoad())
 
 /**
 * Callback after api.js is loaded.
