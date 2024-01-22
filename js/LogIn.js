@@ -162,13 +162,13 @@ async function listarDatos() {
 
   (range.values).forEach(registro => {
     const fila = document.createElement("tr");
-    const DatoCelta = document.createElement("td");
-    DatoCelta.textContent = i;
-    fila.appendChild(DatoCelta);
-    
-    //Agrego las columnas para cada fila
-    DatoCelta.textContent = "ID";
 
+    for (var i = 0; i < 5; i++) {
+      n += i;
+      mifuncion(n);
+      var DatoCelta = document.createElement("td");     
+      DatoCelta.textContent = registro[i];
+    }
     fila.appendChild(DatoCelta);
 
     //Agrego filas y columnas al cuerpo de la tabla
