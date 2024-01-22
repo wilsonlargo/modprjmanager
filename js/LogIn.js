@@ -167,11 +167,12 @@ async function listarDatos() {
     fila.appendChild(DatoCelta);
     
     //Agrego las columnas para cada fila
-    Keys.forEach(key => {
-        DatoCelta = document.createElement("td");
-        DatoCelta.textContent = registro[i];
-        fila.appendChild(DatoCelta);
-    });
+    DatoCelta = document.createElement("td");
+    DatoCelta.textContent = registro[0];
+
+    DatoCelta = document.createElement("td");
+    DatoCelta.textContent = registro[1];
+    fila.appendChild(DatoCelta);
 
     //Agrego filas y columnas al cuerpo de la tabla
     tablaBody.appendChild(fila);
