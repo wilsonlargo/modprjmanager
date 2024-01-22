@@ -17,6 +17,14 @@ function gapiLoaded() {
   gapi.load('client', initializeGapiClient);
 }
 
+async function initializeGapiClient() {
+  await gapi.client.init({
+    apiKey: API_KEY,
+    discoveryDocs: [DISCOVERY_DOC],
+  });
+  gapiInited = true;
+  maybeEnableButtons();
+}
 
 
 
