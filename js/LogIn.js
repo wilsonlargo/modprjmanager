@@ -61,7 +61,7 @@ async function listarDatos() {
     return;
   }
 
-  document.getElementById("divTableModal").innerHTML = "";
+  //document.getElementById("divTableModal").innerHTML = "";
 
 
   CrearFichas(range.values)
