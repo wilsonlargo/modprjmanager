@@ -73,8 +73,11 @@ async function CrearFichas(datos) {
   (datos).forEach(registro => {
 
 //Crea un párrafo
-const p = document.createElement("p");
-p.textContent = registro[0];
+const inP = document.createElement("input");
+inP.classList.add("form-control");
+inP.textContent = registro[0];
+
+
 //Crea un entorno vinvulo
 const a = document.createElement("a");
 a.href = "#";
