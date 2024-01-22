@@ -13,11 +13,10 @@ let tokenClient;
 let gapiInited = false;
 let gisInited = false;
 
+function gapiLoaded() {
+  gapi.load('client', initializeGapiClient);
+}
 
 
-
-/**
-* Callback after api.js is loaded.
-*/
 
 
