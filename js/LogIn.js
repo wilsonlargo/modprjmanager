@@ -116,6 +116,6 @@ async function UpdateFica(){
     values: "Hola",
     valueInputOption:"USER_ENTERED"
   });
-  return responseDB;
+alert("Bien")
 }
 
