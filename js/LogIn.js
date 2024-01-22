@@ -118,40 +118,48 @@ async function listarDatos() {
   ContenedorTabla.appendChild(tabla);
   tabla.classList.add("table", "table-striped", "table-hover");
   tablaHeader.classList.add("table-dark", "fw-bold");
-  CrearFichas()
+  CrearFichas(range.values)
 
 }
 
-async function CrearFichas() {
-  //Crea un párrafo
-  const p = document.createElement("p");
-  p.textContent = "Ficha 1";
-  //Crea un entorno vinvulo
-  const a = document.createElement("a");
-  a.href = "#";
-  //a.onclick = () => verCaso(registro);
-  a.classList.add("list-group-item", "list-group-item-action");
+async function CrearFichas(datos) {
 
-  //Crea un encabezado a la ficha
-  const h6 = document.createElement("h6");
-  h6.textContent = "ID de la ficha";
-  h6.classList.add("mb-1");
+  (datos).forEach(registro => {
 
-  const sm = document.createElement("small");
-  sm.classList.add("text-muted");
-  sm.textContent = "Texto ad";
+//Crea un párrafo
+const p = document.createElement("p");
+p.textContent = registro[0];
+//Crea un entorno vinvulo
+const a = document.createElement("a");
+a.href = "#";
+//a.onclick = () => verCaso(registro);
+a.classList.add("list-group-item", "list-group-item-action");
 
-  const divA = document.createElement("div");
-  divA.classList.add("d-flex", "w-100", "justify-content-between");
+//Crea un encabezado a la ficha
+const h6 = document.createElement("h6");
+h6.textContent = "ID de la ficha";
+h6.classList.add("mb-1");
 
-  divA.appendChild(h6);
-  divA.appendChild(sm);
-  a.appendChild(divA);
+const sm = document.createElement("small");
+sm.classList.add("text-muted");
+sm.textContent = "Texto ad";
 
-  a.appendChild(p);
+const divA = document.createElement("div");
+divA.classList.add("d-flex", "w-100", "justify-content-between");
 
-  // Agregar a la lista de resultados
-  document.getElementById("lstResGis").appendChild(a);
+divA.appendChild(h6);
+divA.appendChild(sm);
+a.appendChild(divA);
+
+a.appendChild(p);
+
+// Agregar a la lista de resultados
+document.getElementById("lstResGis").appendChild(a);
+
+  });
+
+
+  
 
 
 }
