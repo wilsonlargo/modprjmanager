@@ -74,7 +74,11 @@ async function CrearFichas(datos) {
 
 //Crea un párrafo
 const inP = document.createElement("input");
+<<<<<<< HEAD
 inP.classList.add("form-control", "bg-primary", "text-white");
+=======
+inP.classList.add("form-control");
+>>>>>>> bc653aefe7abff9baf9ed0d9a28f2fc41b0ee98c
 inP.value = registro[0];
 
 
