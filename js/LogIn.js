@@ -75,7 +75,7 @@ async function CrearFichas(datos) {
 //Crea un párrafo
 const inP = document.createElement("input");
 inP.classList.add("form-control");
-inP.textContent = registro[0];
+inP.text = registro[0];
 
 
 //Crea un entorno vinvulo
