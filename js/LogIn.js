@@ -169,12 +169,5 @@ async function listarDatos() {
   tabla.classList.add("table", "table-striped", "table-hover");
   tablaHeader.classList.add("table-dark", "fw-bold");
 
-  const Tipos = {
-    id,
-    texto
-  }
-  Tipos= new Tipos("0","3")
-  Tipos= new Tipos("1","r")
-  alert(Tipos)
 }
 
