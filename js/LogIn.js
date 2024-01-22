@@ -119,6 +119,6 @@ async function UpdateFica(){
     values: ["Hola","hola"],
     valueInputOption:"USER_ENTERED"
   });
-  return;
+
 }
 
