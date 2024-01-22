@@ -18,7 +18,7 @@
 
   <p>Sheets API Quickstart</p>
   <!--Add buttons to initiate auth sequence and sign out-->
-  <button id="authorize_button" type="button" class="btn btn-primary" onclick="handleAuthClick()">Ingresar</button>
+  <button id="authorize_button" type="button" class="btn btn-primary" onclick="handleAuthClick()">Acceder</button>
   <button id="signout_button" type="button" class="btn btn-secondary" onclick="handleSignoutClick()">Cerrar
     Sesión</button>
 
@@ -30,12 +30,7 @@
 
     
 
-    /**
-     * Callback after api.js is loaded.
-     */
-    function gapiLoaded() {
-      gapi.load('client', initializeGapiClient);
-    }
+
 
     /**
      * Callback after the API client is loaded. Loads the
