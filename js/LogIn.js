@@ -94,7 +94,7 @@ async function listarDatos() {
     Fichas.push(nuevaFicha);
   });
 
-  CrearFichas(range.values)
+  CrearFichas(Fichas)
 
 }
 
