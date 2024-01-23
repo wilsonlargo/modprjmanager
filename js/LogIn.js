@@ -148,7 +148,7 @@ async function editTurno() {
     variable: "concepto[4]"
   };
   //Hola
-  const filaAEditar = 2;
+  const filaAEditar = 1;
   let responseA = await gapi.client.sheets.spreadsheets.values.update({
     spreadsheetId: '16Lxewlh-ryS6y5d6BPA_HVAqYS4aCuZjq2IaD10mDkk',
     //range: 'CONCEPT!A2:E2',
