@@ -26,18 +26,6 @@ const db = getFirestore(app);
 const NuevoReg = addDoc;
 
 const coleccionProyectos = collection(db, "proyectos");
-const objetivo = {
-    nombre: "Nombre objetivo",
-    actividad: {
-        "1": {
-            actividad: "nombre actvidad",
-            evidencias: [
-                "UNO",
-                "DOS",
-            ]
-        }
-    }
-}
 
 
 
