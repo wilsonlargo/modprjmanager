@@ -24,7 +24,7 @@ const db = getFirestore(app);
 const coleccionProyectos = collection(db, "proyectos");
 const objetivo = {
     nombre: "Nombre objetivo",
-    activas: {
+    actividad: {
         "1": {
             actividad: "nombre actvidad",
             evidencias: [
