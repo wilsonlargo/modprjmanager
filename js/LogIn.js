@@ -85,13 +85,13 @@ async function listarDatos() {
 
   range.values.forEach((concepto) => {
      const nuevaFicha = {
-      id: fila[0],
-      categoria: fila[1],
-      subcategoria: fila[2],
-      concepto: fila[3],
-      variable: fila[4]
+      id: concepto[0],
+      categoria: concepto[1],
+      subcategoria: concepto[2],
+      concepto: concepto[3],
+      variable: concepto[4]
     };
-    Fichas.push(nuevoTurno);
+    Fichas.push(nuevaFicha);
   });
 
   CrearFichas(range.values)
