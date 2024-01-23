@@ -35,8 +35,6 @@ const objetivo = {
     }
 }
 
-async function crear(){
-alert("hola")
-}
+
 
 
