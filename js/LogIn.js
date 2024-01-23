@@ -140,19 +140,13 @@ async function CrearFichas(datos) {
 }
 
 async function editTurno() {
-  const update = [
-    contenido.id = "6",
-    contenido.categoria = "MI CATEGORIA",
-    contenido.subcategoria = "MI SUB CATEGORIA",
-    contenido.concepto = "MI CONCEPTO",
-    contenido.variable = "MI VARIABLE"
-  ]
+
   const filaAEditar = 2;
   response = await gapi.client.sheets.spreadsheets.values.update({
     spreadsheetId: SPREADSHEET,
     range: 'CONCEPT!A2:E2',
-    values: [update],
-    valueInputOption: "USER_ENTERED"
+    //values: [update],
+    //valueInputOption: "USER_ENTERED"
   });
   return response;
 }
