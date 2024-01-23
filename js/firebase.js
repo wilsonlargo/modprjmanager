@@ -28,8 +28,8 @@ const objetivo = {
         "1": {
             actividad: "nombre actvidad",
             evidencias: [
-                "una",
-                "dos",
+                {},
+                {},
             ]
         }
     }
