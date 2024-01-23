@@ -16,3 +16,21 @@ const firebaseConfig = {
     messagingSenderId: "780787597404",
     appId: "1:780787597404:web:198f32a864505b22812699"
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const coleccionProyectos = collection(db, "proyectos");
+const objetivo = {
+    nombre: "Nombre objetivo",
+    activas: {
+        "1": {
+            actividad: "nombre actvidad",
+            evidencias: [
+                "una",
+                "dos",
+            ]
+        }
+    }
+}
