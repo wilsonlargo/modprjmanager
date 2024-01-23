@@ -110,10 +110,25 @@ async function CrearFichas(datos) {
 }
 
 async function UpdateFica(){
-  responseDB = await gapi.client.sheets.spreadsheets.values.update({
-    spreadsheetId: '16Lxewlh-ryS6y5d6BPA_HVAqYS4aCuZjq2IaD10mDkk',    
-  });
-  return responseDB;
-  alert("hola");
+  var spreadsheetId= '16Lxewlh-ryS6y5d6BPA_HVAqYS4aCuZjq2IaD10mDkk'
+  sheets.spreadsheets.values.update(
+    {
+      spreadsheetId,
+      range: 'Sheet1!B3:C4',
+      valueInputOption:'RAW',
+      resource: {
+        values: [
+          ['A2', new Date()],
+          ['B2', 'C2']
+        ],
+      }
+    }
+  )
+
+
+
+
+
+  
 }
 
