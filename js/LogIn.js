@@ -105,7 +105,7 @@ async function CrearFichas(datos) {
     //Crea un párrafo
     const inP = document.createElement("input");
     inP.classList.add("form-control");
-    inP.value = concepto.id;
+    inP.value = concepto.categoria;
 
 
     //Crea un entorno vinvulo
