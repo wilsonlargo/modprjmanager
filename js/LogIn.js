@@ -42,7 +42,6 @@ function handleAuthClick() {
     if (resp.error !== undefined) {
       throw (resp);
     }
-    await getTurnos();
     listarDatos();
   };
 
