@@ -114,7 +114,7 @@ async function UpdateFica(){
   sheets.spreadsheets.values.update(
     {
       spreadsheetId,
-      range: 'Sheet1!B3:C4',
+      range: 'CONCEPT!A2:E',
       valueInputOption:'RAW',
       resource: {
         values: [
