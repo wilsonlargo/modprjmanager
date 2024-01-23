@@ -6,6 +6,9 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
 import { getFirestore, collection, doc, addDoc, setDoc, getDocs, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+//REferencia esta propiedad
+
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,6 +23,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const NuevoReg = addDoc;
 
 const coleccionProyectos = collection(db, "proyectos");
 const objetivo = {
@@ -35,9 +39,6 @@ const objetivo = {
     }
 }
 
-        // Guardar un objeto e imprimir su id automatico despues de guardar
-        const docRef = await addDoc(coleccionProyectos, objetivo);
-        const key = docRef.id;
-        console.log(key);
+
 
 
