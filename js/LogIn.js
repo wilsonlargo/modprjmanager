@@ -100,12 +100,12 @@ async function listarDatos() {
 
 async function CrearFichas(datos) {
 
-  (datos).forEach(registro => {
+  (datos).forEach(concepto => {
 
     //Crea un párrafo
     const inP = document.createElement("input");
     inP.classList.add("form-control");
-    inP.value = registro[0];
+    inP.value = concepto.id;
 
 
     //Crea un entorno vinvulo
