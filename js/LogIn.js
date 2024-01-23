@@ -48,16 +48,19 @@ function handleAuthClick() {
   if (gapi.client.getToken() === null) {
     // Prompt the user to select a Google Account and ask for consent to share their data
     // when establishing a new session.
-    tokenClient.requestAccessToken({prompt: 'consent'});
+    tokenClient.requestAccessToken({ prompt: 'consent' });
   } else {
     // Skip display of account chooser and consent dialog for an existing session.
-    tokenClient.requestAccessToken({prompt: ''});
+    tokenClient.requestAccessToken({ prompt: '' });
   }
 }
 
-
+let Fichas;
 
 async function listarDatos() {
+
+
+
   let responseDB;
   try {
     // Fetch first 10 files
@@ -78,6 +81,18 @@ async function listarDatos() {
 
   document.getElementById("lstResGis").innerHTML = "";
 
+  Fichas = [];
+
+  range.values.forEach((concepto) => {
+     const nuevaFicha = {
+      id: fila[0],
+      categoria: fila[1],
+      subcategoria: fila[2],
+      concepto: fila[3],
+      variable: fila[4]
+    };
+    Fichas.push(nuevoTurno);
+  });
 
   CrearFichas(range.values)
 
@@ -124,15 +139,12 @@ async function CrearFichas(datos) {
 
 }
 
-async function UpdateFica(){
-  responseDB = await gapi.client.sheets.spreadsheets.values.update({
-    spreadsheetId: '16Lxewlh-ryS6y5d6BPA_HVAqYS4aCuZjq2IaD10mDkk',
-    range: 'CONCEPT!A2:E',
-  });
+async function UpdateFica() {
 
 
 
 
-  
+
+
 }
 
