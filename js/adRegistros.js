@@ -36,7 +36,7 @@ function CrearFichas(datos) {
         //Crea un encabezado a la ficha
         const h6 = document.createElement("p");
         h6.textContent = "Proyecto";
-        h6.classList.add("mb-1");
+        h6.classList.add("mb-2");
 
         const sm = document.createElement("small");
         sm.classList.add("text-white");
