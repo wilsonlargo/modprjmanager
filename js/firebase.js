@@ -42,6 +42,7 @@ async function viewRegistro(key) {
       id: objRef.id,
     ...objRef.data(),
     }
+    alert(obj)
     return docRef;
 }
 
