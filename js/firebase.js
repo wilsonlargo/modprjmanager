@@ -37,12 +37,12 @@ async function addRegistro(objeto) {
 
 async function viewRegistro(key) {
     //Usa las propiedades importadas en la linea 8
-    const objRef = await getDoc(doc(db, "proyectos", key));
+    const docRef = await getDoc(doc(db, "proyectos", key));
     const obj = {
-      id: objRef.id,
-    ...objRef.data(),
+      id: docRef.id,
+    ...docRef.data(),
     }
-    alert(obj)
+    alert(obj.nombre[0])
     return docRef;
 }
 
