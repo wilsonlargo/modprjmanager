@@ -30,22 +30,12 @@ async function addRegistro(objeto) {
     //Usa las propiedades importadas en la linea 8
     const docRef = await addDoc(coleccionProyectos, objeto);
     return docRef;
+    verProyectos()
 }
 
-const muestra = {
-
-}
-
-async function viewRegistro(key) {
+async function delRegistro(key) {
     //Usa las propiedades importadas en la linea 8
-    const docRef = await getDoc(doc(db, "proyectos", key));
-    const obj = {
-        id: docRef.id,
-        ...docRef.data(),
-    }
-    alert(obj.actividad.actividad(0))
-
-    return docRef;
+    const docRef = await deleteDoc(doc(db, "proyectos", key));   
 }
 
 async function viewProyects() {
@@ -63,15 +53,15 @@ async function viewProyects() {
                     id: doc.id
                 });
             });
-
             return Proyectos;
-
         });
         DataProyectos= Proyectos;
-        
+        verProyectos()    
 }
 
 //Agregamos en UTILS, a la variable global, las funciones que estan aquí
 GLOBAL.addRegistro = addRegistro;
-GLOBAL.viewRegistro = viewRegistro;
+//GLOBAL.viewRegistro = viewRegistro;
 GLOBAL.viewProyects = viewProyects;
+GLOBAL.delRegistro = delRegistro;
+
