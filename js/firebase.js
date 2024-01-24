@@ -28,15 +28,13 @@ const coleccionProyectos = collection(db, "proyectos");
 //Creamos una función [addRegistro] interna, que se accede desde el archivo utils
 async function addRegistro(objeto) {
     //Usa las propiedades importadas en la linea 8
-    const docRef = await addDoc(coleccionProyectos, objeto);
-    return docRef;
-    verProyectos()
+    const docRef = await addDoc(coleccionProyectos, objeto);   
 }
 
 async function delRegistro(key) {
     //Usa las propiedades importadas en la linea 8
     const docRef = await deleteDoc(doc(db, "proyectos", key));
-
+    viewProyects()
 }
 
 async function viewProyects() {
@@ -56,8 +54,7 @@ async function viewProyects() {
             });
             return Proyectos;
         });
-        DataProyectos= Proyectos;
-        verProyectos()    
+        CrearFichas(Proyectos)
 }
 
 //Agregamos en UTILS, a la variable global, las funciones que estan aquí

@@ -2,17 +2,17 @@
 function crear() {
     // Guardar un objeto e imprimir su id automatico despues de guardar
     const docRef = GLOBAL.addRegistro(TempProject);
-    verProyectos()
+    const docRef2 = GLOBAL.viewProyects()
 }
 
 function borrar(key) {
     // Guardar un objeto e imprimir su id automatico despues de guardar
     const docRef = GLOBAL.delRegistro(key);
+    const docRef2 = GLOBAL.viewProyects()
 }
 
 function verProyectos() {
-    const docRef = GLOBAL.viewProyects();
-    CrearFichas(DataProyectos)
+    const docRef = GLOBAL.viewProyects();   
 }
 
 function CrearFichas(datos) {
@@ -29,7 +29,7 @@ function CrearFichas(datos) {
         const a = document.createElement("a");
         a.href = "#";
         //a.onclick = () => verCaso(registro);
-        a.classList.add("list-group-item", "list-group-item-action", "text-white", "mb-1");
+        a.classList.add("list-group-item", "list-group-item-action", "text-white", "mb-2");
         a.setAttribute("style", "background-color:#AF7AC5;")
 
 
