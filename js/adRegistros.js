@@ -8,7 +8,6 @@ function crear() {
 function borrar(key) {
     // Guardar un objeto e imprimir su id automatico despues de guardar
     const docRef = GLOBAL.delRegistro(key);
-    alert("borrado")
 }
 
 function verProyectos() {
