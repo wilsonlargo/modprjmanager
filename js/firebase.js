@@ -35,7 +35,8 @@ async function addRegistro(objeto) {
 
 async function delRegistro(key) {
     //Usa las propiedades importadas en la linea 8
-    const docRef = await deleteDoc(doc(db, "proyectos", key));   
+    const docRef = await deleteDoc(doc(db, "proyectos", key));
+
 }
 
 async function viewProyects() {
