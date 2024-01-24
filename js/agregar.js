@@ -18,3 +18,9 @@ async function crear() {
     const docRef=GLOBAL.guardarDoc(objetivo);
 
 }
+
+
+
+async function VerRegistro(){
+    const docRef=GLOBAL.viewRegistro("8SXC8PbUHv0Td0NhZKgL");
+}

@@ -6,11 +6,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
 import { getFirestore, collection, doc, addDoc, setDoc, getDocs, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
-//REferencia esta propiedad
 
-
-
-// Your web app's Firebase configuration
+// Usa las claves y accesos de mi db firebase
 const firebaseConfig = {
     apiKey: "AIzaSyDpAJ6PAMfIe-fZ5TSh1NO_bi3Gnkk5LWI",
     authDomain: "modtense.firebaseapp.com",
@@ -20,17 +17,36 @@ const firebaseConfig = {
     appId: "1:780787597404:web:198f32a864505b22812699"
 };
 
-// Initialize Firebase
+// Initializa Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+//Hace referencia a la tabla proyectos
 const coleccionProyectos = collection(db, "proyectos");
 
 
-async function guardarDoc(objeto) {
+//Creamos una función [addRegistro] interna, que se accede desde el archivo utils
+async function addRegistro(objeto) {
+    //Usa las propiedades importadas en la linea 8
     const docRef = await addDoc(coleccionProyectos, objeto);
-    const key = docRef.id;
-    alert(key);
+    //Para ver el numero de registro si es el caso
+    //const key = docRef.id;
+    //alert(key);
     return docRef;
 }
-GLOBAL.guardarDoc = guardarDoc;
+
+async function viewRegistro(key) {
+    //Usa las propiedades importadas en la linea 8
+    const objRef = await getDoc(doc(db, "proyectos", key));
+    const obj = {
+      id: objRef.id,
+    ...objRef.data(),
+    }
+    return docRef;
+}
+
+
+
+//Agregamos en UTILS, a la variable global, las funciones que estan aquí
+GLOBAL.addRegistro = addRegistro;
+GLOBAL.viewRegistro = viewRegistro;
