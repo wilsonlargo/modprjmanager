@@ -15,7 +15,7 @@ async function crear() {
     }
     
     // Guardar un objeto e imprimir su id automatico despues de guardar
-    const docRef=GLOBAL.guardarDoc(objetivo);
+    const docRef=GLOBAL.addRegistro(objetivo);
 
 }
 
