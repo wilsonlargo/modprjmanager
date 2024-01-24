@@ -26,6 +26,9 @@ const db = getFirestore(app);
 
 const coleccionProyectos = collection(db, "proyectos");
 
+async function guardarDoc(objeto) {
+    const docRef = await addDoc(coleccionProyectos, objeto);
+    return docRef;
+}
 
-
-
+GLOBAL.guardarDoc = guardarDoc;

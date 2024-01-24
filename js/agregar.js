@@ -15,7 +15,7 @@ async function crear() {
     }
     
     // Guardar un objeto e imprimir su id automatico despues de guardar
-    const docRef = await coleccionProyectos.addDoc(coleccionProyectos, objetivo);
+    const docRef=GLOBAL.guardarDoc(objetivo)
     const key = docRef.id;
-    //alert(key)
+    alert(key)
 }
