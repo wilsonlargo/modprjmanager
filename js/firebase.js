@@ -29,25 +29,49 @@ const coleccionProyectos = collection(db, "proyectos");
 async function addRegistro(objeto) {
     //Usa las propiedades importadas en la linea 8
     const docRef = await addDoc(coleccionProyectos, objeto);
-    //Para ver el numero de registro si es el caso
-    //const key = docRef.id;
-    //alert(key);
     return docRef;
+}
+
+const muestra = {
+
 }
 
 async function viewRegistro(key) {
     //Usa las propiedades importadas en la linea 8
     const docRef = await getDoc(doc(db, "proyectos", key));
     const obj = {
-      id: docRef.id,
-    ...docRef.data(),
+        id: docRef.id,
+        ...docRef.data(),
     }
-    alert(obj.nombre[0])
+    alert(obj.actividad.actividad(0))
+
     return docRef;
 }
 
+async function viewProyects() {
+    const Proyectos=[];
+    //Limpiamos la variable o array
+    //;
+    // Lee todos los registros de una coleccion y lo guarda en un array con todos los objetos
+    //const refDatos = await getDocs(coleccionProyectos);
+    const todos = await getDocs(coleccionProyectos)
+        .then((querySnapshot) => {
+            ;
+            querySnapshot.forEach((doc) => {
+                Proyectos.push({
+                    ...doc.data(),
+                    id: doc.id
+                });
+            });
 
+            return Proyectos;
+
+        });
+        DataProyectos= Proyectos;
+        
+}
 
 //Agregamos en UTILS, a la variable global, las funciones que estan aquí
 GLOBAL.addRegistro = addRegistro;
 GLOBAL.viewRegistro = viewRegistro;
+GLOBAL.viewProyects = viewProyects;

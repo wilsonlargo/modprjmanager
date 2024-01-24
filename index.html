@@ -13,24 +13,32 @@
 
   <script src="./js/util.js"></script>
   <script defer src="./js/firebase.js" type="module"></script>
-  <script src="./js/agregar.js"></script>
+  <script src="./js/adRegistros.js"></script>
 </head>
+<header id="headerMap" class="sticky-top">
+  <!-- barra de menu de mapas -->
+  <div class="row row-cols-auto p-2" style="background-color: #8E44AD;">
+    <div class="col">
+      <button class="btn btn-outline-secondary text-white ms-3" type="button" onclick="crear()" style="background-color: #8E44AD;">
+        <i class="bi bi-folder-plus"></i>
+        NUEVO PROYECTO
+      </button>
+    </div>
+    <div class="col">
+      <button class="btn btn-outline-secondary text-white ms-3" type="button" onclick="verProyectos()" style="background-color: #8E44AD;">
+        <i class="bi bi-folder-plus"></i>
+        VER PROYECTOS
+      </button>
+    </div>
+  </div>
+
+</header>
 
 <body>
-
-
-  <!--botones de inicio-->
-  <div class="p-2" style="width: 200px;">
-    <button type="button" class="btn btn-primary mb-4" onclick="VerRegistro()">Ver</button>
-    <button type="button" class="btn btn-primary mb-4" onclick="crear()">Agregar</button>
-
-
+  <div class="mx-auto p-2" style="width: 500px;">
     <div class="list-group" id="lstResGis">
 
     </div>
   </div>
-
-
 </body>
-
 </html>
