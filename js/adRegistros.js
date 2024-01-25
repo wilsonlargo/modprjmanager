@@ -4,7 +4,7 @@ function crear() {
     const docRef = GLOBAL.addRegistro(TempProject);
     const docRef2 = GLOBAL.viewProyects()
 }
-
+var VarKey;
 function borrar(key) {
     // Guardar un objeto e imprimir su id automatico despues de guardar
     const docRef = GLOBAL.delRegistro(key);
