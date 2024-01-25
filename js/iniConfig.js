@@ -1,6 +1,8 @@
 
-
+//Desactiva estos componentes al inicio de la página
 document.getElementById("barBorrar").hidden=true;
+document.getElementById("divProyectoGeneral").hidden=true;
+
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import {
@@ -30,14 +32,17 @@ const coleccionProyectos = collection(db, "proyectos");
 
 //Creamos una función [addRegistro] interna, que se accede desde el archivo utils
 async function addRegistro(objeto) {
-    //Usa las propiedades importadas en la linea 8
+
+    //objeto.nProyecto="Caminos"; //Si deseo colocar un valor antes de crear
+    //objeto.nWilson="Caminos"; //Si quiero agregar una propiedad adicional al campo
+    //Usa las propiedades importadas en la linea 8  
     const docRef = await addDoc(coleccionProyectos, objeto);   
 }
 
 async function delRegistro(key) {
     //Usa las propiedades importadas en la linea 8
     const docRef = await deleteDoc(doc(db, "proyectos", key));
-    viewProyects()
+    CrearFichas(Proyectos)
 }
 
 async function viewProyects() {

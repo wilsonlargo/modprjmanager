@@ -1,20 +1,4 @@
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
-const coleccionProyectos = collection(db, "proyectos");
-const objetivo = {
-    nombre: "Nombre objetivo",
-    activas: {
-        "1": {
-            actividad: "nombre actvidad",
-            evidencias: [
-                "una",
-                "dos",
-            ]
-        }
-    }
-}
 
 (async () => {   
     // Guardar un objeto e imprimir su id automatico despues de guardar

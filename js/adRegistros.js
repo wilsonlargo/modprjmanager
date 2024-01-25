@@ -5,68 +5,95 @@ function crear() {
     const docRef2 = GLOBAL.viewProyects()
 }
 var VarKey;
+
+
 function borrar(Key) {
     // Guardar un objeto e imprimir su id automatico despues de guardar
     const docRef = GLOBAL.delRegistro(VarKey);
-    const docRef2 = GLOBAL.viewProyects()
-    document.getElementById("barBorrar").hidden=true;
+    const docRef2 = GLOBAL.viewProyects();
+    document.getElementById("barBorrar").hidden = true;
+
 }
 
 function verProyectos() {
-    const docRef = GLOBAL.viewProyects();  
+    document.getElementById("divProyectoGeneral").hidden=true;
+    document.getElementById("VisorProyectosFicha").hidden=false;
+    const docRef = GLOBAL.viewProyects();
 }
 
 function CrearFichas(datos) {
     document.getElementById("lstResGis").innerHTML = "";
     datos.forEach(proyecto => {
-        //Crea un párrafo
-        const inP = document.createElement("input");
-        inP.classList.add("form-control");
-        inP.value = proyecto.id;
+        //Crear un contenedor mayor/geneal por cada ficha.
+        const divFicha = document.createElement("div");
+        divFicha.classList.add("w-100", "mb-2");
+        divFicha.setAttribute("style", "background-color:#AF7AC5;")
 
-        //Crea un entorno vinvulo
-        const a = document.createElement("a");
-        a.href = "#";
-        a.classList.add("list-group-item", "list-group-item-action", "text-white", "mb-2");
-        a.setAttribute("style", "background-color:#AF7AC5;")
-        //a.onclick = () => verProyectoGen(proyecto.id);
+        //Creamos un contenedor/barra de los textos/botones de acciones
+        const divBarFicha = document.createElement("div");
+        divBarFicha.classList.add("d-flex", "w-100", "flex-row-reverse", "p-2");
+
+        //Creamos el botón ver proyecto
+        const bVer = document.createElement("small");
+        bVer.classList.add("text-white", "ms-2");
+        bVer.textContent = "Ver";
+        bVer.onclick = () => verProyectoGen(proyecto)
+
+        //Creamos el botón eliminar proyecto
+        const bEliminar = document.createElement("small");
+        bEliminar.classList.add("text-white");
+        bEliminar.textContent = "Eliminar";
+        bEliminar.onclick = () => verBarBorrarPrj(proyecto.id)
+
+        //Agregamos los botones/texto la barra de botones
+        divBarFicha.appendChild(bVer)
+        divBarFicha.appendChild(bEliminar)
+
+        //Agregamos los la barra de botones al contenedor ficha
+        divFicha.appendChild(divBarFicha);
+        divFicha.appendChild(divBarFicha);
 
 
-        //Crea un encabezado a la ficha
-        const h6 = document.createElement("p");
-        h6.textContent = "Proyecto";
-        h6.classList.add("mb-2");
 
-        const sm = document.createElement("small");
-        sm.classList.add("text-white");
-        sm.textContent = "Eliminar";
-        sm.onclick = () => verBarBorrarPrj(proyecto.id)
+        //Creamos un contendor del contenido de la ficha
+        const divFichaTexto = document.createElement("div");
+        divFichaTexto.classList.add("d-flex", "w-100");
+        divFichaTexto.setAttribute("style", "background-color:#C39BD3;")
 
-        const divA = document.createElement("div");
-        divA.classList.add("d-flex", "w-100", "justify-content-between");
+        //Creamos un texto para nombre del proyecto
+        const tNombreProyecto = document.createElement("h6");
+        tNombreProyecto.classList.add("text-white", "ms-3", "mb-3");
+        const nomProyecto= proyecto.nProyecto;
+        tNombreProyecto.textContent = nomProyecto;
 
-        divA.appendChild(h6);
-        divA.appendChild(sm);
-        a.appendChild(divA);
+        //Agregamos el texto 1 a la ficha
+        divFichaTexto.appendChild(tNombreProyecto);
+        //Agregamos el agregamos el contenedor a la ficha mayor
+        divFicha.appendChild(divFichaTexto);
 
-        a.appendChild(inP);
 
-        // Agregar a la lista de resultados
-        document.getElementById("lstResGis").appendChild(a);
+
+
+        // Agregar las fichas al contenedor de fichas
+        document.getElementById("lstResGis").appendChild(divFicha);
     })
 }
 
-function verProyectoGen(key){
-    //alert(key)
+function verProyectoGen(datos) {
+    document.getElementById("VisorProyectosFicha").hidden=true;
+    document.getElementById("divProyectoGeneral").hidden=false;
+
+    const Especificos= datos.ObjetivosEsp;
+    //alert(Especificos(0).ObjetivoEsp)
 }
 
-function verBarBorrarPrj(key){
-    document.getElementById("barBorrar").hidden=false;
-    VarKey=key
+function verBarBorrarPrj(key) {
+    document.getElementById("barBorrar").hidden = false;
+    VarKey = key
 }
-function hideBarBorrarPrj(){
-    document.getElementById("barBorrar").hidden=true;
-    VarKey=""
+function hideBarBorrarPrj() {
+    document.getElementById("barBorrar").hidden = true;
+    VarKey = ""
 }
 
 
