@@ -1,4 +1,7 @@
 
+
+document.getElementById("barBorrar").hidden=true;
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import {
     getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged,
@@ -40,7 +43,6 @@ async function delRegistro(key) {
 async function viewProyects() {
     const Proyectos=[];
     //Limpiamos la variable o array
-    //;
     // Lee todos los registros de una coleccion y lo guarda en un array con todos los objetos
     //const refDatos = await getDocs(coleccionProyectos);
     const todos = await getDocs(coleccionProyectos)
@@ -59,7 +61,7 @@ async function viewProyects() {
 
 //Agregamos en UTILS, a la variable global, las funciones que estan aquí
 GLOBAL.addRegistro = addRegistro;
-//GLOBAL.viewRegistro = viewRegistro;
 GLOBAL.viewProyects = viewProyects;
 GLOBAL.delRegistro = delRegistro;
+
 

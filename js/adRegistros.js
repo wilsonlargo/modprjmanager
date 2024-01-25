@@ -5,20 +5,19 @@ function crear() {
     const docRef2 = GLOBAL.viewProyects()
 }
 var VarKey;
-function borrar(key) {
+function borrar(Key) {
     // Guardar un objeto e imprimir su id automatico despues de guardar
-    const docRef = GLOBAL.delRegistro(key);
+    const docRef = GLOBAL.delRegistro(VarKey);
     const docRef2 = GLOBAL.viewProyects()
+    document.getElementById("barBorrar").hidden=true;
 }
 
 function verProyectos() {
-    const docRef = GLOBAL.viewProyects();   
+    const docRef = GLOBAL.viewProyects();  
 }
 
 function CrearFichas(datos) {
-
     document.getElementById("lstResGis").innerHTML = "";
-
     datos.forEach(proyecto => {
         //Crea un párrafo
         const inP = document.createElement("input");
@@ -28,9 +27,9 @@ function CrearFichas(datos) {
         //Crea un entorno vinvulo
         const a = document.createElement("a");
         a.href = "#";
-        //a.onclick = () => verCaso(registro);
         a.classList.add("list-group-item", "list-group-item-action", "text-white", "mb-2");
         a.setAttribute("style", "background-color:#AF7AC5;")
+        //a.onclick = () => verProyectoGen(proyecto.id);
 
 
         //Crea un encabezado a la ficha
@@ -41,7 +40,7 @@ function CrearFichas(datos) {
         const sm = document.createElement("small");
         sm.classList.add("text-white");
         sm.textContent = "Eliminar";
-        sm.onclick = () => borrar(proyecto.id)
+        sm.onclick = () => verBarBorrarPrj(proyecto.id)
 
         const divA = document.createElement("div");
         divA.classList.add("d-flex", "w-100", "justify-content-between");
@@ -57,6 +56,18 @@ function CrearFichas(datos) {
     })
 }
 
+function verProyectoGen(key){
+    //alert(key)
+}
+
+function verBarBorrarPrj(key){
+    document.getElementById("barBorrar").hidden=false;
+    VarKey=key
+}
+function hideBarBorrarPrj(){
+    document.getElementById("barBorrar").hidden=true;
+    VarKey=""
+}
 
 
 
