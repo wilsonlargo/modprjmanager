@@ -1,23 +1,104 @@
+const proyectos = [
+    {
+        nombre: "Nombre",
+        objetivos: {
+            "1": {
+                texto: "Hola",
+                actividades: {
+                    "1": {
+                        name: "nombre actividad"
+                    },
+                }
+            },
+            "2": {
+                texto: "Hola",
+                actividades: {
+                    "1": {
+                        name: "nombre actividad"
+                    },
+                }
+            },
+        }
+    },
+]
 
+let proyecto = proyectos[0];
 
-(async () => {   
-    // Guardar un objeto e imprimir su id automatico despues de guardar
-    const docRef = await addDoc(coleccionProyectos, objetivo);
-    const key = docRef.id;
-    console.log(key);
-    
-    // Leer un documento en firebase en la coleccion proyectos con la id "key"
-    //const objRef = await getDoc(doc(db, "proyectos", key));
-    // Guarda los datos de la referencia del documento que cargamos y de paso le agrega la id
-    //const obj = {
-      //  id: objRef.id,
-        //...objRef.data(),
-    //}
+proyecto = {
+    nombre: "Nombre",
+    objetivos: {
+        "1": {
+            texto: "Hola",
+            actividades: {
+                "1": {
+                    name: "nombre actividad"
+                },
+            }
+        },
+        "2": {
+            texto: "Hola",
+            actividades: {
+                "1": {
+                    name: "nombre actividad"
+                },
+            }
+        },
+    }
+}
 
-    // Lee todos los registros de una coleccion y lo guarda en un array con todos los objetos
-    //const refDatos = await getDocs(coleccionProyectos);
-    //const datos = refDatos.map(obj => obj.data());
+let  objetivos = proyecto.objetivos
 
-})();
+objetivos = {
+    "1": {
+        texto: "Hola",
+        actividades: {
+            "1": {
+                name: "nombre actividad"
+            },
+        }
+    },
+    "2": {
+        texto: "Hola",
+        actividades: {
+            "1": {
+                name: "nombre actividad"
+            },
+        }
+    }
+}
 
-style="background-color: #8E44AD;
+const cantidad = Object.keys(objetivos).length;
+
+for (const key in objetivos) {
+    const objetivoEsp = objetivos[key];
+    console.log(objetivoEsp.texto);
+    let actvEsp = objetivoEsp.actividades;
+    let claves = Object.keys(actvEsp)
+
+    for (const claveAct of claves) {
+     
+        console.log(claveAct);
+        console.log(actvEsp[claveAct].name);
+    }
+
+}
+
+obj = {
+    texto: "Hola",
+    actividades: {
+        "1": {
+            name: "nombre actividad"
+        },
+    }
+}
+
+const clavesNum = Object.keys(obj.actividades).map(clave => parseInt(clave))
+const lastIndex = Math.max(...clavesNum);
+
+const newClave = (lastIndex + 1).toString();
+obj.actividades[newClave] = {
+    name: "actividad2"
+}
+
+texto = obj["texto"]
+texto = obj.texto
