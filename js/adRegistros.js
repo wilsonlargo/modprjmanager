@@ -36,13 +36,13 @@ function CrearFichas(datos) {
         const bVer = document.createElement("small");
         bVer.classList.add("text-white", "ms-2");
         bVer.textContent = "Ver";
-        bVer.onclick = () => verProyectoGen(proyecto)
+        bVer.onclick = () => verProyectoGen(proyecto);
 
         //Creamos el botón eliminar proyecto
         const bEliminar = document.createElement("small");
         bEliminar.classList.add("text-white");
         bEliminar.textContent = "Eliminar";
-        bEliminar.onclick = () => verBarBorrarPrj(proyecto.id)
+        bEliminar.onclick = () => verBarBorrarPrj(proyecto.id);
 
         //Agregamos los botones/texto la barra de botones
         divBarFicha.appendChild(bVer)
@@ -78,78 +78,7 @@ function CrearFichas(datos) {
     })
 }
 
-function verProyectoGen(datos) {
-    document.getElementById("VisorProyectosFicha").hidden = true;
-    document.getElementById("divProyectoGeneral").hidden = false;
-    document.getElementById("divObjetivos").innerHTML="";
 
-    //Guarda en variable la colección de objetivos específicos del
-    // proyecto seleccionado.
-    let iObjetivos_Especificos = datos.ObjetivosEspecificos
-
-    //Inicio la lectura de objetivos especificos dentro de la colección
-    //Identifica las claves dentro de esa colección.
-    for (const keyObj in iObjetivos_Especificos) {
-        //El valor encontrado por secuencia lo almacena en un
-        // variable de objetivo individual
-        const Objetivos = iObjetivos_Especificos[keyObj];
-
-        //CREAR UN CONTENEDOR POR CADA OBJETIVO DEL PROYECTO
-
-        //Primero creamos el contenedor general del objetivo
-        const divObjetivo = document.createElement("div");
-        divObjetivo.classList.add("mb-2","p-2");
-        divObjetivo.setAttribute("style", "background-color:#AEB6BF;");
-
-        //Ahora colocamos el objetivo dentro de un input
-        const inputText = document.createElement("input");
-        inputText.classList.add("text-white","form-control");
-        inputText.setAttribute("style", "background-color:#AEB6BF;");
-        inputText.value = Objetivos.Titulo;
-
-        //Agregamos el texto a la barra
-        divObjetivo.appendChild(inputText);
-
-       
-        let ContenedorObjetivos = document.getElementById("divObjetivos");
-
-        ContenedorObjetivos.appendChild(divObjetivo)
-
-        //El objetivo o elemento actual o activo + su propiedad actividad dentro del contador
-        // se almacena en una variable de actividad. 
-        let iActividades = Objetivos.Actividades;
-        //Identificamos cuantos elementos están dentro de esa coleccion de actividades
-        let Actividades = Object.keys(iActividades);
-
-        for (const keyActiv of Actividades) {
-            
-            //Actividad por actividad se va mostrando en esta varaible
-            const Actividad = iActividades[keyActiv].nActividad;
-            alert(Actividad);
-
-            //Almacenamos las estrategias que dependen de esta actividad
-            let iEstrategias = iActividades[keyActiv].Estrategias;
-            let Estrategias = Object.keys(iEstrategias);
-            //Contamos o enumeramos las entretegias dentro de cada actividad
-            for (const keyEstr of Estrategias) {
-                const Estrategia = iEstrategias[keyEstr].nEstrategia;
-                alert(Estrategia);
-
-
-            }
-
-
-
-
-        }
-
-
-
-    }
-
-
-    //alert(DataGlobal.id[0].especifico[0].textoobjetivo)
-}
 
 function verBarBorrarPrj(key) {
     document.getElementById("barBorrar").hidden = false;
