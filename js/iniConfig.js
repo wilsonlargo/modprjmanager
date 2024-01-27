@@ -89,6 +89,16 @@ async function NuevoObjetivo() {
 }
 GLOBAL.NuevoObjetivo = NuevoObjetivo;
 
+//Función borrar objetivos
+async function borrarObjetivo(id) {
+    //Función global para borrar objetivos por su id
+
+    const docRef = await deleteDoc(doc(db, "objetivos", id));
+    LoadObjetivos(KeyActivo)
+}
+GLOBAL.borrarObjetivo = borrarObjetivo;
+
+
 async function LoadObjetivos(keyActivo) {
     const Objetivos = [];
     const todos = await getDocs(coleccionObjetivos)
