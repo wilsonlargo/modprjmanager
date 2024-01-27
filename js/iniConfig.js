@@ -1,7 +1,7 @@
 
 //Desactiva estos componentes al inicio de la página
-document.getElementById("barBorrar").hidden=true;
-document.getElementById("divProyectoGeneral").hidden=true;
+document.getElementById("barBorrar").hidden = true;
+document.getElementById("divProyectoGeneral").hidden = true;
 
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
@@ -10,7 +10,7 @@ import {
     setPersistence, browserLocalPersistence, browserSessionPersistence
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
-import { getFirestore, collection, doc, addDoc, setDoc, getDocs, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getFirestore, collection, doc, addDoc, setDoc, getDocs, getDoc, deleteDoc, updateDoc, deleteField } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 // Usa las claves y accesos de mi db firebase
 const firebaseConfig = {
@@ -28,27 +28,39 @@ const db = getFirestore(app);
 
 //Hace referencia a la tabla proyectos
 const coleccionProyectos = collection(db, "proyectos");
+const coleccionObjetivos = collection(db, "objetivos");
 
-
-//Creamos una función [addRegistro] interna, que se accede desde el archivo utils
-async function addRegistro(objeto) {
-
-    //objeto.nProyecto="Caminos"; //Si deseo colocar un valor antes de crear
-    //objeto.nWilson="Caminos"; //Si quiero agregar una propiedad adicional al campo
+//Función para crear proyectos
+async function NuevoProyecto() {
     //Usa las propiedades importadas en la linea 8  
-    const docRef = await addDoc(coleccionProyectos, objeto);   
+    const docRef = await addDoc(coleccionProyectos, PlantillaProyecto);
+    verProyectos()
 }
+GLOBAL.NuevoProyecto = NuevoProyecto;
 
-async function delRegistro(key) {
-    //Usa las propiedades importadas en la linea 8
-    const docRef = await deleteDoc(doc(db, "proyectos", key));
+async function BorrarProyecto(id) {
+    //Función global para borrar proyectos por su id
+    const docRef = await deleteDoc(doc(db, "proyectos", id));
 }
+GLOBAL.BorrarProyecto = BorrarProyecto;
 
-async function viewProyects() {
-    const Proyectos=[];
-    //Limpiamos la variable o array
-    // Lee todos los registros de una coleccion y lo guarda en un array con todos los objetos
-    //const refDatos = await getDocs(coleccionProyectos);
+async function GuardarProyecto(keyActivo) {
+    const nProyecto = document.getElementById("inputNProyecto").value;
+    const objGProyecto = document.getElementById("inputObjGeneral").value;
+    const admProyecto = document.getElementById("inputAdministrador").value;
+    //Guardamos los datos del proyecto, datos generales
+    const ref = doc(db, "proyectos", keyActivo)
+    await updateDoc(
+        ref, {
+        nProyecto: nProyecto,
+        objGProyecto: objGProyecto,
+        admProyecto: admProyecto,
+    })
+}
+GLOBAL.GuardarProyecto = GuardarProyecto;
+
+async function verProyectos() {
+    const Proyectos = [];
     const todos = await getDocs(coleccionProyectos)
         .then((querySnapshot) => {
             ;
@@ -60,13 +72,39 @@ async function viewProyects() {
             });
             return Proyectos;
         });
-        CrearFichas(Proyectos)
-        DataGlobal=Proyectos;
+    CrearFichas(Proyectos)
+
 }
+GLOBAL.verProyectos = verProyectos;
 
-//Agregamos en UTILS, a la variable global, las funciones que estan aquí
-GLOBAL.addRegistro = addRegistro;
-GLOBAL.viewProyects = viewProyects;
-GLOBAL.delRegistro = delRegistro;
+//*******************************************************************************//
+//Sección para los objetivos
 
+//Función para crear objetivos
+async function NuevoObjetivo() {
+    //Creamos una tabla objetivo con una plantilla objetivo
+    PlantillaObjetivo.idProyecto = KeyActivo;
+    const docRef = await addDoc(coleccionObjetivos, PlantillaObjetivo);
+    LoadObjetivos(KeyActivo)
+}
+GLOBAL.NuevoObjetivo = NuevoObjetivo;
 
+async function LoadObjetivos(keyActivo) {
+    const Objetivos = [];
+    const todos = await getDocs(coleccionObjetivos)
+        .then((querySnapshot) => {
+            ;
+            querySnapshot.forEach((doc) => {
+                Objetivos.push({
+                    ...doc.data(),
+                    id: doc.id
+                });
+            });
+            return Objetivos;
+        });
+
+    // FIltra segun una condicion true o false
+    const filtrado = Objetivos.filter(proyecto => proyecto.idProyecto == keyActivo)
+    CrearFichasObjetivos(filtrado)
+}
+GLOBAL.LoadObjetivos = LoadObjetivos;

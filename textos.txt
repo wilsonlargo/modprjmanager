@@ -1,104 +1,105 @@
-const proyectos = [
-    {
-        nombre: "Nombre",
-        objetivos: {
-            "1": {
-                texto: "Hola",
-                actividades: {
-                    "1": {
-                        name: "nombre actividad"
-                    },
-                }
-            },
-            "2": {
-                texto: "Hola",
-                actividades: {
-                    "1": {
-                        name: "nombre actividad"
-                    },
-                }
-            },
-        }
-    },
-]
+ //Guarda en variable la colección de objetivos específicos del
+    // proyecto seleccionado.
+    let iObjetivos_Especificos = datos.ObjetivosEspecificos
 
-let proyecto = proyectos[0];
+    //Inicio la lectura de objetivos especificos dentro de la colección
+    //Identifica las claves dentro de esa colección.
+    for (const keyObj in iObjetivos_Especificos) {
+        //El valor encontrado por secuencia lo almacena en un
+        // variable de objetivo individual
+        const Objetivos = iObjetivos_Especificos[keyObj];
 
-proyecto = {
-    nombre: "Nombre",
-    objetivos: {
-        "1": {
-            texto: "Hola",
-            actividades: {
-                "1": {
-                    name: "nombre actividad"
-                },
+        //CREAR UN CONTENEDOR POR CADA OBJETIVO DEL PROYECTO
+
+        //Primero creamos el contenedor general del objetivo
+        const divObjetivo = document.createElement("div");
+        divObjetivo.classList.add("mb-2","p-2");
+        divObjetivo.setAttribute("style", "background-color:#AEB6BF;");
+
+        //Ahora colocamos el objetivo dentro de un input
+        const inputText = document.createElement("input");
+        inputText.classList.add("text-white","form-control");
+        inputText.setAttribute("style", "background-color:#AEB6BF;");
+        inputText.value = Objetivos.Titulo;
+
+        //Agregamos el texto a la barra
+        divObjetivo.appendChild(inputText);
+
+       
+        let ContenedorObjetivos = document.getElementById("divObjetivos");
+
+        ContenedorObjetivos.appendChild(divObjetivo)
+
+        //El objetivo o elemento actual o activo + su propiedad actividad dentro del contador
+        // se almacena en una variable de actividad. 
+        let iActividades = Objetivos.Actividades;
+        //Identificamos cuantos elementos están dentro de esa coleccion de actividades
+        let Actividades = Object.keys(iActividades);
+
+        for (const keyActiv of Actividades) {
+            
+            //Actividad por actividad se va mostrando en esta varaible
+            const Actividad = iActividades[keyActiv].nActividad;
+            //alert(Actividad);
+
+            //Almacenamos las estrategias que dependen de esta actividad
+            let iEstrategias = iActividades[keyActiv].Estrategias;
+            let Estrategias = Object.keys(iEstrategias);
+            //Contamos o enumeramos las entretegias dentro de cada actividad
+            for (const keyEstr of Estrategias) {
+                const Estrategia = iEstrategias[keyEstr].nEstrategia;
+                //alert(Estrategia);
             }
-        },
-        "2": {
-            texto: "Hola",
-            actividades: {
-                "1": {
-                    name: "nombre actividad"
-                },
-            }
-        },
-    }
-}
-
-let  objetivos = proyecto.objetivos
-
-objetivos = {
-    "1": {
-        texto: "Hola",
-        actividades: {
-            "1": {
-                name: "nombre actividad"
-            },
-        }
-    },
-    "2": {
-        texto: "Hola",
-        actividades: {
-            "1": {
-                name: "nombre actividad"
-            },
         }
     }
+
+
+
+
+// Definir el objeto nuevoProyecto
+const nuevoProyecto = {
+    nombre: 'Proyecto 1',
+    objetivos: {},
 }
 
-const cantidad = Object.keys(objetivos).length;
+// Función para crear un nuevo objetivo
+function crearObjetivo() {
+    // Obtener los valores de los campos de entrada
+    const nombre = document.getElementById("nombre").value;
+    const fechaInicio = document.getElementById("fecha-1").value;
 
-for (const key in objetivos) {
-    const objetivoEsp = objetivos[key];
-    console.log(objetivoEsp.texto);
-    let actvEsp = objetivoEsp.actividades;
-    let claves = Object.keys(actvEsp)
-
-    for (const claveAct of claves) {
-     
-        console.log(claveAct);
-        console.log(actvEsp[claveAct].name);
+    // Generar un nuevo ID para el objetivo
+    const lasId = 1;
+    nuevoProyecto.objetivos[lasId + 1] = {
+        nombre: nombre,
+        fechaInicio: fechaInicio,
     }
 
+    // Crear un nuevo elemento div para mostrar el objetivo
+    const nuevoObjetivo = document.createElement('div');
+    nuevoObjetivo.innerHTML = `
+    <div class="border rounded p-3 my-3 objetivo">
+        <p>Nombre Objetivo: ${nombre}</p>
+        <p>Fecha Inicio: ${fechaInicio}</p>
+    </div>`;
+
+    // Crear un botón para eliminar el objetivo
+    const button = document.createElement('button');
+    button.textContent = 'Eliminar';
+    button.onclick = () => nuevoObjetivo.remove();
+    nuevoObjetivo.appendChild(button);
+
+    // Agregar el nuevo objetivo al contenedor de objetivos
+    const contenedorObjetivos = document.getElementById("contenedor-objetivos");
+    contenedorObjetivos.appendChild(nuevoObjetivo);
 }
 
-obj = {
-    texto: "Hola",
-    actividades: {
-        "1": {
-            name: "nombre actividad"
-        },
-    }
+// Obtener el botón de "Nuevo" y asignarle la función crearObjetivo como evento onclick
+const button = document.querySelector('#new');
+button.onclick = () => crearObjetivo();
+
+// Función para enviar el nuevo proyecto a la base de datos
+function enviar() {
+    // Ejemplo de cómo agregar un documento a una colección
+    addDoc(coleccion, nuevoProyecto);
 }
-
-const clavesNum = Object.keys(obj.actividades).map(clave => parseInt(clave))
-const lastIndex = Math.max(...clavesNum);
-
-const newClave = (lastIndex + 1).toString();
-obj.actividades[newClave] = {
-    name: "actividad2"
-}
-
-texto = obj["texto"]
-texto = obj.texto
