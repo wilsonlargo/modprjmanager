@@ -48,6 +48,8 @@ async function GuardarProyecto(keyActivo) {
     const nProyecto = document.getElementById("inputNProyecto").value;
     const objGProyecto = document.getElementById("inputObjGeneral").value;
     const admProyecto = document.getElementById("inputAdministrador").value;
+    document.getElementById("tTitulo").textContent=nProyecto;
+
     //Guardamos los datos del proyecto, datos generales
     const ref = doc(db, "proyectos", keyActivo)
     await updateDoc(

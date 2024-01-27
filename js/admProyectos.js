@@ -102,6 +102,8 @@ function verProyectoGen(datos) {
     //Carga los objetivos del proyecto activo
     const docRef=GLOBAL.LoadObjetivos(KeyActivo)
 
+    document.getElementById("tTitulo").textContent=datos.nProyecto;
+
 }
 
 
