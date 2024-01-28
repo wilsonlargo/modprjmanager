@@ -25,12 +25,12 @@ function CrearFichas(datos) {
     datos.forEach(proyecto => {
         //Crear un contenedor mayor/geneal por cada ficha.
         const divFicha = document.createElement("div");
-        divFicha.classList.add("w-100", "mb-2", "rounded");
+        divFicha.classList.add("mb-2", "rounded");
         divFicha.setAttribute("style", "background-color:#AF7AC5;")
 
         //Creamos un contenedor/barra de los textos/botones de acciones
         const divBarFicha = document.createElement("div");
-        divBarFicha.classList.add("d-flex", "w-100", "flex-row-reverse", "p-2");
+        divBarFicha.classList.add("flex-row-reverse");
 
         //Creamos el botón ver proyecto
         const bVer = document.createElement("small");
