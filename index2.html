@@ -55,7 +55,7 @@
 </header>
 
 <body>
-  <div>
+  <div class="container-fluid">
     <div id="VisorProyectosFicha" class="container-fluid">
       <div id="barBorrar">
         ¿Está seguro de borrar este proyecto y todos sus elementos?
@@ -69,13 +69,16 @@
     </div>
 
     <!-- sección de proyecto único -->
-    <div id="divProyectoGeneral">
-      <div class="container-fluid rounded text-white p-2 mb-1" style="background-color: #AF7AC5;"
+    <div id="divProyectoGeneral" class="container-fluid mt-2">
+
+      <div  class="rounded text-white p-2 mb-1" style="background-color: #AF7AC5;"
         data-bs-toggle="collapse" data-bs-target="#ContenedorGeneral" aria-expanded="false"
         aria-controls="ContenedorGeneral">
-        Esto es el titulo del proyecto
+        <i class="bi bi-arrow-return-left" onclick="verProyectos()"></i>
+        <i class="bi bi-arrow-return-left" onclick="verProyectos()"></i>
+          <p id="tTitulo" class="ms-3"></p>
       </div>
-      <div class="container-fluid collapse" id="ContenedorGeneral">
+      <div class="collapse" id="ContenedorGeneral">
         <div class="card card-body">
           <!-- datos del proyecto -->
           <form class="form-floating mb-2">
@@ -92,7 +95,7 @@
           </form>
         </div>
       </div>
-<div id="divObjetivos"></div>
+      <div id="divObjetivos"></div>
     </div>
   </div>
 
