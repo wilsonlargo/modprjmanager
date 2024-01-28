@@ -71,12 +71,16 @@
     <!-- sección de proyecto único -->
     <div id="divProyectoGeneral" class="container-fluid mt-2">
 
-      <div  class="rounded text-white p-2 mb-1" style="background-color: #AF7AC5;"
-        data-bs-toggle="collapse" data-bs-target="#ContenedorGeneral" aria-expanded="false"
-        aria-controls="ContenedorGeneral">
-        <i class="bi bi-arrow-return-left" onclick="verProyectos()"></i>
-        <i class="bi bi-floppy" onclick="SaveData()"></i>
-          <p id="tTitulo" class="ms-3"></p>
+      <div class="rounded text-white p-2 mb-1" style="background-color: #AF7AC5;" data-bs-toggle="collapse"
+        data-bs-target="#ContenedorGeneral" aria-expanded="false" aria-controls="ContenedorGeneral">
+        <div>
+          <div class="h6 text-white style="color:#BB8FCE;">
+            <i class="bi bi-arrow-return-left" onclick="verProyectos()"></i>
+            <i class="bi bi-floppy" onclick="SaveData()"></i>
+            <a id="tTitulo"></a>
+          </div>
+        </div>
+
       </div>
       <div class="collapse" id="ContenedorGeneral">
         <div class="card card-body">
@@ -97,10 +101,11 @@
       </div>
       <div class="h5 ms-4" style="color:#BB8FCE;">
         <i class="bi bi-folder-plus" onclick="NuevoObjetivo()">
-        </i> 
+        </i>
         OBJETIVOS GENERALES
+      </div>
       <div id="divObjetivos">
-        
+
       </div>
     </div>
   </div>
