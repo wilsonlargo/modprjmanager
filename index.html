@@ -49,19 +49,27 @@
                 </div>
             </div>
         </nav>
-        <div class="rounded mt-2 p-2" style="background-color:#AF7AC5;">
-            <div class="">
-                <div class="row">
-                    <div class="col-auto me-auto text-white"></div>
-                    <div class="col-auto"">
-                    <a href=" #" class="nav-link text-white me-3" onclick="verBarBorrarPrj(proyecto.id)">
-                        <i class="bi bi-trash"></i></a>
-                    </div>
-                </div>
-                <div class="ms-3" onclick="verProyectoGen(proyecto)">
-                    <div class="h6 text-white">Nombre del proyecto</div>
-                </div>
-            </div>
+        <div class="container-fluid rounded text-white" style="background-color: #AF7AC5;"
+            data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+            aria-controls="ContenedorGeneral">
+            Esto es el titulo del proyecto
+        </div>
+        <div class="collapse" id="ContenedorGeneral">
+            <div class="card card-body">
+                <!-- datos del proyecto -->
+                <form class="form-floating mb-2">
+                    <input type="text" class="form-control" id="inputNProyecto" value="">
+                    <label for="floatingInputValue">Nombre del proyecto</label>
+                </form>
+                <form class="form-floating mb-2">
+                    <input type="text" class="form-control" id="inputObjGeneral" value="">
+                    <label for="floatingInputValue">Objetivo geneal del proyecto</label>
+                </form>
+                <form class="form-floating mb-2">
+                    <input type="text" class="form-control" id="inputAdministrador" value="">
+                    <label for="floatingInputValue">Administrador/coordinador del proyecto</label>
+                </form>
+            </div>           
         </div>
 </body>
 

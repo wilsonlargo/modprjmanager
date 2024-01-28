@@ -29,9 +29,10 @@ function CrearFichas(datos) {
         nuevoProyectoHtml.innerHTML = `
         <div class="">
         <div class="row">
-            <div class="col-auto me-auto text-white"></div>
+            <div class="col-auto me-auto text-white">
+            </div>
             <div class="col-auto"">
-            <a href=" #" class="nav-link text-white me-2" onclick="verBarBorrarPrj('${proyecto.id}')">
+                <a href=" #" class="nav-link text-white me-3" onclick="verBarBorrarPrj('${proyecto.id}')">
                 <i class="bi bi-trash"></i></a>
             </div>
         </div>
@@ -39,8 +40,9 @@ function CrearFichas(datos) {
         `
         const cProyectoNombre = document.createElement("div");
         const cNombre = document.createElement("p")
-        cNombre.classList.add("text-white", "ms-3");
+        cNombre.classList.add("text-white","rounded", "p-2");
         cNombre.onclick = () => verProyectoGen(proyecto);
+        cNombre.setAttribute("style", "background-color:#C39BD3;")
         cNombre.textContent = proyecto.nProyecto;
         cProyectoNombre.appendChild(cNombre)
         nuevoProyectoHtml.appendChild(cProyectoNombre)
