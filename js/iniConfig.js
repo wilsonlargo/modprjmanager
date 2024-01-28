@@ -61,6 +61,18 @@ async function GuardarProyecto(keyActivo) {
 }
 GLOBAL.GuardarProyecto = GuardarProyecto;
 
+async function GuardarObjetivo(key){
+    const ref = doc(db, "objetivos", key)
+    await updateDoc(
+        ref, {
+        Referencia: document.getElementById("ref|"+key).value,
+        Titulo: document.getElementById("tit|"+key).value,
+        pAvanceObjetivo:document.getElementById("ava|"+key).value
+})
+}
+GLOBAL.GuardarObjetivo = GuardarObjetivo;
+
+
 async function verProyectos() {
     const Proyectos = [];
     const todos = await getDocs(coleccionProyectos)

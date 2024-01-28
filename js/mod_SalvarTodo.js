@@ -5,3 +5,6 @@
 async function SaveData(){
     const docRef = GLOBAL.GuardarProyecto(KeyActivo);
 }
+async function SaveObjetivo(ref, titulo){
+    const docRef = GLOBAL.GuardarObjetivos(ref, titulo)
+}
