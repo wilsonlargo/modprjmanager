@@ -23,53 +23,28 @@ function verProyectos() {
 function CrearFichas(datos) {
     document.getElementById("lstResGis").innerHTML = "";
     datos.forEach(proyecto => {
-        //Crear un contenedor mayor/geneal por cada ficha.
-        const divFicha = document.createElement("div");
-        divFicha.classList.add("mb-2", "rounded");
-        divFicha.setAttribute("style", "background-color:#AF7AC5;")
-
-        //Creamos un contenedor/barra de los textos/botones de acciones
-        const divBarFicha = document.createElement("div");
-        divBarFicha.classList.add("flex-row-reverse");
-
-        //Creamos el botón ver proyecto
-        const bVer = document.createElement("small");
-        bVer.classList.add("text-white", "ms-2");
-        bVer.textContent = "Ver";
-        bVer.onclick = () => verProyectoGen(proyecto);
-
-        //Creamos el botón eliminar proyecto
-        const bEliminar = document.createElement("small");
-        bEliminar.classList.add("text-white");
-        bEliminar.textContent = "Eliminar";
-        bEliminar.onclick = () => verBarBorrarPrj(proyecto.id);
-
-        //Agregamos los botones/texto la barra de botones
-        divBarFicha.appendChild(bVer)
-        divBarFicha.appendChild(bEliminar)
-
-        //Agregamos los la barra de botones al contenedor ficha
-        divFicha.appendChild(divBarFicha);
-        divFicha.appendChild(divBarFicha);
-
-        //Creamos un contendor del contenido de la ficha
-        const divFichaTexto = document.createElement("div");
-        divFichaTexto.classList.add("d-flex", "w-100");
-        divFichaTexto.setAttribute("style", "background-color:#C39BD3;")
-
-        //Creamos un texto para nombre del proyecto
-        const tNombreProyecto = document.createElement("h6");
-        tNombreProyecto.classList.add("text-white", "ms-3", "mb-3");
-        const nomProyecto = proyecto.nProyecto;
-        tNombreProyecto.textContent = nomProyecto;
-
-        //Agregamos el texto 1 a la ficha
-        divFichaTexto.appendChild(tNombreProyecto);
-        //Agregamos el agregamos el contenedor a la ficha mayor
-        divFicha.appendChild(divFichaTexto);
-
-        // Agregar las fichas al contenedor de fichas
-        document.getElementById("lstResGis").appendChild(divFicha);
+        const nuevoProyectoHtml = document.createElement('div');
+        nuevoProyectoHtml.classList.add("rounded", "mt-2", "p-2");
+        nuevoProyectoHtml.setAttribute("style", "background-color:#AF7AC5;")
+        nuevoProyectoHtml.innerHTML = `
+        <div class="">
+        <div class="row">
+            <div class="col-auto me-auto text-white"></div>
+            <div class="col-auto"">
+            <a href=" #" class="nav-link text-white me-2" onclick="verBarBorrarPrj('${proyecto.id}')">
+                <i class="bi bi-trash"></i></a>
+            </div>
+        </div>
+        </div>
+        `
+        const cProyectoNombre = document.createElement("div");
+        const cNombre = document.createElement("p")
+        cNombre.classList.add("text-white", "ms-3");
+        cNombre.onclick = () => verProyectoGen(proyecto);
+        cNombre.textContent = proyecto.nProyecto;
+        cProyectoNombre.appendChild(cNombre)
+        nuevoProyectoHtml.appendChild(cProyectoNombre)
+        document.getElementById("lstResGis").appendChild(nuevoProyectoHtml);
     })
 }
 
