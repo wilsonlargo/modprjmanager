@@ -669,6 +669,7 @@ function handlerCargarProyecto(proyectoObj) {
 function handlerCargarTodo() {
     GLOBAL.firestore.getProyectos().then(proyectos => {
         const contenedor = document.getElementById('contenedor-proyecto');
+        limpiarContenedor();
         proyectos.forEach(proyecto => {
             const component = Proyecto.getPreviewComponent(proyecto);
             contenedor.appendChild(component);
