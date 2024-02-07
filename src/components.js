@@ -208,15 +208,20 @@ class Proyecto {
         const buttonGuardar = document.createElement('button');
         buttonGuardar.className = "btn my-btn-accent w-100 py-2";
         buttonGuardar.textContent = 'Guardar en la nube';
+
         buttonGuardar.addEventListener('click', () => {
             this.enumerarObjetivos();
 
-            if (this.id) {
-                this.updateInDB();
-            } else {
-                this.saveInDB();
+            const buttonConfirmar = document.getElementById('btn-modal-confirmar');
+            document.getElementById('modal-confirmar-body').textContent = this.id ? 'Desea guardar los cambios realizados?' : 'Desea guardar el proyecto en la base de datos?';
+
+            buttonConfirmar.onclick = () => {
+                this.id ? this.updateInDB() : this.saveInDB();
+                modal.hide();
             }
 
+            const modal = new bootstrap.Modal(document.getElementById('modalConfirmacion'));
+            modal.show();
         });
 
         const buttonCancelar = document.createElement('button');
@@ -226,10 +231,27 @@ class Proyecto {
             this.cancel();
         });
 
+        const buttonEliminar = document.createElement('button');
+        buttonEliminar.className = "btn btn-outline-danger";
+        buttonEliminar.textContent = 'Eliminar';
+        buttonEliminar.addEventListener('click', () => {
+            const buttonConfirmar = document.getElementById('btn-modal-confirmar');
+            document.getElementById('modal-confirmar-body').textContent = "Desea eliminar el proyecto? esta accion no se puede deshacer";
+
+            buttonConfirmar.onclick = () => {
+                this.deleteInDB();
+                modal.hide();
+                this.cancel();
+            }
+
+            const modal = new bootstrap.Modal(document.getElementById('modalConfirmacion'));
+            modal.show();
+        });
+
         const rowTitulo = document.createElement('div');
         rowTitulo.className = "d-flex justify-content-between align-items-center mb-3";
         rowTitulo.appendChild(labelTitulo);
-
+        if (this.id) rowTitulo.appendChild(buttonEliminar);
         rowTitulo.appendChild(buttonCancelar);
 
         component.appendChild(rowTitulo);
@@ -625,7 +647,6 @@ class Evidencia {
         row.appendChild(colMeta);
         row.appendChild(colIndicador);
 
-
         component.appendChild(row);
 
         this.component = component;
@@ -647,7 +668,6 @@ class Mes {
     }
 }
 
-
 function limpiarContenedor() {
     document.getElementById('contenedor-proyecto').innerHTML = '';
 }
@@ -661,10 +681,6 @@ function handlerCrearProyecto() {
     document.getElementById('contenedor-proyecto').appendChild(proyecto.component);
 }
 
-function handlerGuardarCambios() {
-    GLOBAL.state.proyecto.updateInDB();
-}
-
 function handlerCargarProyecto(proyectoObj) {
     limpiarContenedor();
     const proyecto = Proyecto.loadAsInstance(proyectoObj);
@@ -675,14 +691,17 @@ function handlerCargarProyecto(proyectoObj) {
 
 function handlerCargarTodo() {
     limpiarContenedor();
-    GLOBAL.firestore.getProyectos().then(proyectos => {
-        const contenedor = document.getElementById('contenedor-proyecto');
-        limpiarContenedor();
+
+    const proyectos = GLOBAL.state.proyectos;
+    const contenedor = document.getElementById('contenedor-proyecto');
+    if (proyectos.length === 0) {
+        alert('No hay proyectos en la base de datos');
+    } else {
         proyectos.forEach(proyecto => {
             const component = Proyecto.getPreviewComponent(proyecto);
             contenedor.appendChild(component);
         });
-    });
+    }
 }
 
 document.getElementById('btn-header-crear').addEventListener('click', handlerCrearProyecto);
