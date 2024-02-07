@@ -210,7 +210,13 @@ class Proyecto {
         buttonGuardar.textContent = 'Guardar en la nube';
         buttonGuardar.addEventListener('click', () => {
             this.enumerarObjetivos();
-            this.saveInDB();
+
+            if (this.id) {
+                this.updateInDB();
+            } else {
+                this.saveInDB();
+            }
+
         });
 
         const buttonCancelar = document.createElement('button');
@@ -257,7 +263,6 @@ class Proyecto {
         component.appendChild(titulo);
 
         component.addEventListener('click', () => {
-            limpiarContenedor();
             handlerCargarProyecto(objProyecto);
         });
 
@@ -648,6 +653,7 @@ function limpiarContenedor() {
 }
 
 function handlerCrearProyecto() {
+    limpiarContenedor();
     const proyecto = new Proyecto('', '', '', 0);
     proyecto.initComponent();
     GLOBAL.state.proyecto = proyecto;
@@ -660,6 +666,7 @@ function handlerGuardarCambios() {
 }
 
 function handlerCargarProyecto(proyectoObj) {
+    limpiarContenedor();
     const proyecto = Proyecto.loadAsInstance(proyectoObj);
     proyecto.initComponent();
     GLOBAL.state.proyecto = proyecto;
@@ -667,6 +674,7 @@ function handlerCargarProyecto(proyectoObj) {
 }
 
 function handlerCargarTodo() {
+    limpiarContenedor();
     GLOBAL.firestore.getProyectos().then(proyectos => {
         const contenedor = document.getElementById('contenedor-proyecto');
         limpiarContenedor();
