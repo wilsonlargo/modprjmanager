@@ -277,11 +277,16 @@ class Proyecto {
 
     static getPreviewComponent(objProyecto) {
         const component = document.createElement('div');
-        component.className = "proyecto-preview";
+        component.className = "proyecto-preview p-3 mb-3 border rounded";
+
+        const labelTitulo = document.createElement('label');
+        labelTitulo.textContent = 'Título del proyecto';
+        labelTitulo.className = "mb-2 fs-6 fw-light";
 
         const titulo = document.createElement('h3');
         titulo.textContent = objProyecto.titulo;
 
+        component.appendChild(labelTitulo);
         component.appendChild(titulo);
 
         component.addEventListener('click', () => {
