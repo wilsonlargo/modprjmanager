@@ -24,9 +24,7 @@ body {
     background-color: var(--background);
 }
 
-nav {
-    background-color: var(--primary-original);
-}
+
 
 .mybtn-main i {
     margin-right: 0.2rem;

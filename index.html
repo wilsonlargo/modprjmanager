@@ -7,11 +7,13 @@
     <title>Plan Manager</title>
     <link rel="shortcut icon" href="assets/logo.png" type="image/png" />
 
-    <!-- Boostrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- librerias de bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <script src="https://kit.fontawesome.com/3d0f9c201e.js" crossorigin="anonymous"></script>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="src/util.js"></script>
@@ -25,26 +27,34 @@
 <body>
     <!-- Header -->
     <header>
-        <nav class="container navbar d-flex justify-content-between pe-3">
-            <a href="#" class="navbar-brand text-white">
-                <img class="ms-3" src="assets/logo.png" width="50" height="50" />
-            </a>
 
-            <div class="d-flex justify-content-between gap-3">
-
-                <button id="btn-header-crear" class="btn mybtn-main">
-                    <i class="bi bi-folder-plus"></i>
-                    Crear
+        <nav class="navbar navbar-expand-lg bg-body-tertiary bg-success">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white" href="#">
+                    <img src="./assets/logo.png" width="50px" height="50px">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="bi bi-list text-white"></i>
                 </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    
+                        <li class="nav-item">
+                            <a id="btn-header-crear" 
+                            class="nav-link active text-white" href="#">Crear proyecto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="btn-header-cargar" 
+                            class="nav-link active text-white" href="#">Mostrar proyectos</a>
+                        </li>
 
-                <button id="btn-header-cargar" class="btn mybtn-main">
-                    <i class="bi bi-eye"></i>
-                    Cargar
-                </button>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
-
     <hr class="container hr-blue">
 
     <!-- Seccion pricipal -->
