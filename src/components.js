@@ -51,6 +51,8 @@ class Proyecto {
     }
 
     updateAvance() {
+        const avance = this.calcularAvance()
+        //this.tagAvance.textContent = `${parseFloat(avance.toFixed(2))}%`;
     }
 
     calcularAvance() {
@@ -119,7 +121,14 @@ class Proyecto {
     }
 
     convertToJSON() {
-        return JSON.stringify(this);
+        const cache = [];
+        return JSON.stringify(this, (key, value) => {
+            if (typeof value === 'object' && value !== null) {
+                if (cache.includes(value)) return;
+                cache.push(value);
+            }
+            return value;
+        });
     }
 
     cancel() {
@@ -313,12 +322,14 @@ class Proyecto {
         divProgress.setAttribute('aria-valuemin', '0');
         divProgress.setAttribute('aria-valuemax', '100');
 
-        const totalAvance = proyecto.calcularAvance();
+        const avance = proyecto.calcularAvance();
+        const valueAvance = avance ? parseFloat(avance.toFixed(2)) : 0;
 
         const divProgressBar = document.createElement('div');
         divProgressBar.className = 'progress-bar bg-success';
-        divProgressBar.style.width = `${totalAvance ? totalAvance : 0}%`;
-        divProgressBar.textContent = `${totalAvance ? totalAvance : 0}%`;
+
+        divProgressBar.style.width = `${valueAvance}%`;
+        divProgressBar.textContent = `${valueAvance}%`;
 
         // Agregar el div secundario al div principal
         divProgress.appendChild(divProgressBar);
@@ -398,7 +409,8 @@ class Objetivo {
 
     updateAvance() {
         this.parent.updateAvance();
-        this.tagAvance.textContent = `${this.calcularAvance()}%`;
+        const avance = this.calcularAvance()
+        this.tagAvance.textContent = `${parseFloat(avance.toFixed(2))}%`;
     }
 
     calcularAvance() {
@@ -560,7 +572,8 @@ class Actividad {
 
     updateAvance() {
         this.parent.updateAvance();
-        this.tagAvance.textContent = `${this.calcularAvance()}%`;
+        const avance = this.calcularAvance()
+        this.tagAvance.textContent = `${parseFloat(avance.toFixed(2))}%`;
     }
 
     calcularAvance() {
@@ -688,7 +701,9 @@ class Evidencia {
 
     updateAvance() {
         this.parent.updateAvance();
-        this.tagAvance.textContent = `${this.calcularAvance()}%`;
+
+        const avance = this.calcularAvance()
+        this.tagAvance.textContent = `${parseFloat(avance.toFixed(2))}%`;
     }
 
     calcularAvance() {
