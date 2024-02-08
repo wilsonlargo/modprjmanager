@@ -189,7 +189,7 @@ class Proyecto {
         contenedorHeaderObjetivos.style.add="background-color: gold"
 
         const headerObjetivos = document.createElement('h4');
-        headerObjetivos.className = "text-white";
+        headerObjetivos.className = "text-black";
         headerObjetivos.textContent = 'Objetivos';
 
         const btnObjetivo = document.createElement('button');
@@ -197,9 +197,10 @@ class Proyecto {
         btnObjetivo.textContent = 'Agregar Objetivo';
         btnObjetivo.addEventListener('click', () => {
             const objetivo = new Objetivo('');
-            objetivo.initComponent();
-
             this.addObjetivo(objetivo);
+            GLOBAL.state.proyecto.enumerarObjetivos();
+
+            objetivo.initComponent();
             contenedorObjetivos.appendChild(objetivo.component);
         });
 
@@ -412,13 +413,13 @@ class Objetivo {
 
         const summary = document.createElement('summary');
         GLOBAL.state.proyecto.enumerarObjetivos();
-        summary.textContent = `Objetivo ${this.enumerador}`;
+        summary.textContent = `Objetivo ${this.enumerador} - ${this.titulo ? this.titulo : 'Titulo proyecto'}`; 
 
         const headObjetivo = document.createElement('div');
         headObjetivo.className = "row align-items-end";
 
         const labelTitulo = document.createElement('label');
-        labelTitulo.textContent = 'Objetivo';
+        labelTitulo.textContent = 'Titulo Objetivo';
         labelTitulo.className = "mb-2";
         const titulo = document.createElement('input');
         titulo.className = "form-control";
@@ -426,7 +427,7 @@ class Objetivo {
         titulo.placeholder = 'Título';
         titulo.addEventListener('input', () => {
             this.titulo = titulo.value;
-            summary.textContent = titulo.value;
+            summary.textContent = `Objetivo ${this.enumerador} - ${this.titulo}`; 
         });
         titulo.value = this.titulo;
 
@@ -447,9 +448,10 @@ class Objetivo {
         btnActividad.textContent = '+ Actividad';
         btnActividad.addEventListener('click', () => {
             const actividad = new Actividad('');
-            actividad.initComponent();
-
             this.addActividad(actividad);
+            GLOBAL.state.proyecto.enumerarObjetivos();
+            
+            actividad.initComponent();
             contenedorActividades.appendChild(actividad.component);
         });
 
@@ -498,7 +500,6 @@ class Actividad {
         this.evidencias = [];
 
         this.enumerador = null;
-        GLOBAL.state.proyecto.enumerarObjetivos();
     }
 
     calcularAvance() {
@@ -529,7 +530,7 @@ class Actividad {
 
         const summary = document.createElement('summary');
         GLOBAL.state.proyecto.enumerarObjetivos();
-        summary.textContent = `${this.enumerador} - ${this.nombre}`;
+        summary.textContent = `${this.enumerador}`;
 
         const contenedorActividad = document.createElement('div');
         contenedorActividad.className = "mt-3";
@@ -537,7 +538,7 @@ class Actividad {
         const contenedorEvidencias = document.createElement('div');
 
         const labelNombre = document.createElement('label');
-        labelNombre.textContent = 'Actividades';
+        labelNombre.textContent = 'Nombre actividad';
         labelNombre.className = "mb-2";
         const nombre = document.createElement('input');
         nombre.className = "form-control";
@@ -551,9 +552,10 @@ class Actividad {
         btnEvidencia.textContent = '+ Evidencia';
         btnEvidencia.addEventListener('click', () => {
             const evidencia = new Evidencia('', '', 0);
-            evidencia.initComponent();
-
             this.addEvidencia(evidencia);
+            GLOBAL.state.proyecto.enumerarObjetivos();
+
+            evidencia.initComponent();
             contenedorEvidencias.appendChild(evidencia.component);
         });
 
@@ -633,7 +635,7 @@ class Evidencia {
         contenedorEvidencia.className = "mt-3";
 
         const labelDescripcion = document.createElement('label');
-        labelDescripcion.textContent = 'Evidencia / Estrategia';
+        labelDescripcion.textContent = 'Descripcion Evidencia / Estrategia';
         labelDescripcion.className = "mb-2";
         const descripcion = document.createElement('textarea');
         descripcion.className = "form-control mb-3";
