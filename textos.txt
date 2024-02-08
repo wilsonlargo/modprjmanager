@@ -1,109 +1,20 @@
-                 <a href=" #" class="nav-link text-white" onclick="verProyectos()">
-                <i class="bi bi-arrow-return-left"></i></a>
- 
- 
- //Guarda en variable la colección de objetivos específicos del
-    // proyecto seleccionado.
-    let iObjetivos_Especificos = datos.ObjetivosEspecificos
-
-    //Inicio la lectura de objetivos especificos dentro de la colección
-    //Identifica las claves dentro de esa colección.
-    for (const keyObj in iObjetivos_Especificos) {
-        //El valor encontrado por secuencia lo almacena en un
-        // variable de objetivo individual
-        const Objetivos = iObjetivos_Especificos[keyObj];
-
-        //CREAR UN CONTENEDOR POR CADA OBJETIVO DEL PROYECTO
-
-        //Primero creamos el contenedor general del objetivo
-        const divObjetivo = document.createElement("div");
-        divObjetivo.classList.add("mb-2","p-2");
-        divObjetivo.setAttribute("style", "background-color:#AEB6BF;");
-
-        //Ahora colocamos el objetivo dentro de un input
-        const inputText = document.createElement("input");
-        inputText.classList.add("text-white","form-control");
-        inputText.setAttribute("style", "background-color:#AEB6BF;");
-        inputText.value = Objetivos.Titulo;
-
-        //Agregamos el texto a la barra
-        divObjetivo.appendChild(inputText);
-
-       
-        let ContenedorObjetivos = document.getElementById("divObjetivos");
-
-        ContenedorObjetivos.appendChild(divObjetivo)
-
-        //El objetivo o elemento actual o activo + su propiedad actividad dentro del contador
-        // se almacena en una variable de actividad. 
-        let iActividades = Objetivos.Actividades;
-        //Identificamos cuantos elementos están dentro de esa coleccion de actividades
-        let Actividades = Object.keys(iActividades);
-
-        for (const keyActiv of Actividades) {
-            
-            //Actividad por actividad se va mostrando en esta varaible
-            const Actividad = iActividades[keyActiv].nActividad;
-            //alert(Actividad);
-
-            //Almacenamos las estrategias que dependen de esta actividad
-            let iEstrategias = iActividades[keyActiv].Estrategias;
-            let Estrategias = Object.keys(iEstrategias);
-            //Contamos o enumeramos las entretegias dentro de cada actividad
-            for (const keyEstr of Estrategias) {
-                const Estrategia = iEstrategias[keyEstr].nEstrategia;
-                //alert(Estrategia);
-            }
-        }
-    }
-
-
-
-
-// Definir el objeto nuevoProyecto
-const nuevoProyecto = {
-    nombre: 'Proyecto 1',
-    objetivos: {},
-}
-
-// Función para crear un nuevo objetivo
-function crearObjetivo() {
-    // Obtener los valores de los campos de entrada
-    const nombre = document.getElementById("nombre").value;
-    const fechaInicio = document.getElementById("fecha-1").value;
-
-    // Generar un nuevo ID para el objetivo
-    const lasId = 1;
-    nuevoProyecto.objetivos[lasId + 1] = {
-        nombre: nombre,
-        fechaInicio: fechaInicio,
-    }
-
-    // Crear un nuevo elemento div para mostrar el objetivo
-    const nuevoObjetivo = document.createElement('div');
-    nuevoObjetivo.innerHTML = `
-    <div class="border rounded p-3 my-3 objetivo">
-        <p>Nombre Objetivo: ${nombre}</p>
-        <p>Fecha Inicio: ${fechaInicio}</p>
-    </div>`;
-
-    // Crear un botón para eliminar el objetivo
-    const button = document.createElement('button');
-    button.textContent = 'Eliminar';
-    button.onclick = () => nuevoObjetivo.remove();
-    nuevoObjetivo.appendChild(button);
-
-    // Agregar el nuevo objetivo al contenedor de objetivos
-    const contenedorObjetivos = document.getElementById("contenedor-objetivos");
-    contenedorObjetivos.appendChild(nuevoObjetivo);
-}
-
-// Obtener el botón de "Nuevo" y asignarle la función crearObjetivo como evento onclick
-const button = document.querySelector('#new');
-button.onclick = () => crearObjetivo();
-
-// Función para enviar el nuevo proyecto a la base de datos
-function enviar() {
-    // Ejemplo de cómo agregar un documento a una colección
-    addDoc(coleccion, nuevoProyecto);
-}
+ <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Accordion Item #2
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>This is the second item's accordion body.</strong> It is hidden by default, until
+                            the collapse plugin adds the appropriate classes that we use to style each element. These
+                            classes control the overall appearance, as well as the showing and hiding via CSS
+                            transitions. You can modify any of this with custom CSS or overriding our default variables.
+                            It's also worth noting that just about any HTML can go within the
+                            <code>.accordion-body</code>, though the transition does limit overflow.
+                        </div>
+                    </div>
+                </div>
+            </div>

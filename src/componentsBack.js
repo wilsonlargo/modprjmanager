@@ -127,36 +127,32 @@ class Proyecto {
     initComponent() {
         //Inicio un contenedor DIV con sus estilos
         const component = document.createElement('div');
-        component.className = "bg-body-tertiary bg-opacity-100 ";
+        component.className = "proyecto";
         component.classList.add("container-fluid");
 
-        //Etiqueta y control de entrada para el nombre del proyecto
         const labelTitulo = document.createElement('label');
-        labelTitulo.className="text-secondary"
         labelTitulo.textContent = 'Nombre del proyecto';
 
         const titulo = document.createElement('input');
-        titulo.className = "form-control fs-5";
+        titulo.className = "form-control";
         titulo.type = 'text';
-        titulo.placeholder = 'Nombre proyecto / componente';
+        titulo.placeholder = 'Título';
         titulo.addEventListener('input', () => this.titulo = titulo.value);
         titulo.value = this.titulo;
 
-        //Etiqueta y control de entrada para el nombre del Objetivo o descripción del proyecto
         const labelDescripcion = document.createElement('label');
-        labelDescripcion.textContent = 'Descripción / Objetivo';
-        labelDescripcion.className = "text-secondary mt-3";
+        labelDescripcion.textContent = 'Descripción';
+        labelDescripcion.className = "mt-3 mb-2";
 
         const descripcion = document.createElement('textarea');
-        descripcion.className = "form-control fs-5";
+        descripcion.className = "form-control";
         descripcion.placeholder = 'Descripción';
         descripcion.addEventListener('input', () => this.descripcion = descripcion.value);
         descripcion.value = this.descripcion;
 
-        //Etiqueta y control de entrada para el administrador del proyecto
         const labelAdministrador = document.createElement('label');
-        labelAdministrador.textContent = 'Administrador ';
-        labelAdministrador.className = "text-secondary mt-3";
+        labelAdministrador.textContent = 'Administrador';
+        labelAdministrador.className = "mt-3 mb-2";
 
         const administrador = document.createElement('input');
         administrador.className = "form-control";
@@ -165,7 +161,6 @@ class Proyecto {
         administrador.addEventListener('input', () => this.administrador = administrador.value);
         administrador.value = this.administrador;
 
-        /*
         const labelValor = document.createElement('label');
         labelValor.textContent = 'Valor';
         labelValor.className = "mt-3 mb-2";
@@ -175,24 +170,20 @@ class Proyecto {
         valor.type = 'number';
         valor.placeholder = 'Valor';
         valor.addEventListener('input', () => this.valor = valor.value);
-        valor.value = this.valor;*/
+        valor.value = this.valor;
 
-        
-        //Etiqueta y control de entrada para el nombre del proyecto
         const contenedorObjetivos = document.createElement('div');
         contenedorObjetivos.className = "mt-4 accordion";
         contenedorObjetivos.id = "contenedorObjetivos";
 
-
         const contenedorHeaderObjetivos = document.createElement('div');
         contenedorHeaderObjetivos.className = "d-flex justify-content-between align-items-center";
 
-        const headerObjetivos = document.createElement('h4');
-        headerObjetivos.className = "text-secondary";
+        const headerObjetivos = document.createElement('h3');
         headerObjetivos.textContent = 'Objetivos';
 
         const btnObjetivo = document.createElement('button');
-        btnObjetivo.className = "btn btn-secondary";
+        btnObjetivo.className = "btn my-btn-accent";
         btnObjetivo.textContent = 'Agregar Objetivo';
         btnObjetivo.addEventListener('click', () => {
             const objetivo = new Objetivo('');
@@ -217,7 +208,7 @@ class Proyecto {
         hr2.className = "hr-blue my-4";
 
         const buttonGuardar = document.createElement('button');
-        buttonGuardar.className = "btn btn-secondary w-100 py-2";
+        buttonGuardar.className = "btn my-btn-accent w-100 py-2";
         buttonGuardar.textContent = 'Guardar en la nube';
 
         buttonGuardar.addEventListener('click', () => {
@@ -236,16 +227,14 @@ class Proyecto {
         });
 
         const buttonCancelar = document.createElement('button');
-        buttonCancelar.className = "btn btn-secondary";
-        buttonCancelar.textContent = 'Cerrar';
+        buttonCancelar.className = "btn my-btn-secondary";
+        buttonCancelar.textContent = 'Cancelar';
         buttonCancelar.addEventListener('click', () => {
             this.cancel();
         });
 
-
-
         const buttonEliminar = document.createElement('button');
-        buttonEliminar.className = "btn btn-secondary";
+        buttonEliminar.className = "btn btn-outline-danger";
         buttonEliminar.textContent = 'Eliminar';
         buttonEliminar.addEventListener('click', () => {
             const buttonConfirmar = document.getElementById('btn-modal-confirmar');
@@ -273,8 +262,8 @@ class Proyecto {
         component.appendChild(descripcion);
         component.appendChild(labelAdministrador);
         component.appendChild(administrador);
-        //component.appendChild(labelValor);
-        //component.appendChild(valor);
+        component.appendChild(labelValor);
+        component.appendChild(valor);
 
         component.appendChild(hr);
 
@@ -441,7 +430,7 @@ class Objetivo {
         const contenedorActividades = document.createElement('div');
 
         const btnActividad = document.createElement('button');
-        btnActividad.className = "btn btn-secondary";
+        btnActividad.className = "btn my-btn-secondary";
         btnActividad.textContent = 'Agregar Actividad';
         btnActividad.addEventListener('click', () => {
             const actividad = new Actividad('');
@@ -537,7 +526,7 @@ class Actividad {
         nombre.value = this.nombre;
 
         const btnEvidencia = document.createElement('button');
-        btnEvidencia.className = "btn btn-secondary";
+        btnEvidencia.className = "btn btn-primary";
         btnEvidencia.textContent = 'Agregar Evidencia';
         btnEvidencia.addEventListener('click', () => {
             const evidencia = new Evidencia('', '', 0);
