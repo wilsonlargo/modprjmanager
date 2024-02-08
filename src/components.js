@@ -341,7 +341,7 @@ class Proyecto {
 
         const loadMeses = (meses) => {
             return meses.map(mes => {
-                const mesObj = new Mes(mes.nombre, mes.mes, mes.semana, mes.meta);
+                const mesObj = new Mes(mes.fecha, mes.meta);
                 mesObj.cumplido = mes.cumplido;
                 return mesObj;
             });
@@ -614,9 +614,8 @@ class Evidencia {
         const labelDescripcion = document.createElement('label');
         labelDescripcion.textContent = 'Descripción';
         labelDescripcion.className = "mb-2";
-        const descripcion = document.createElement('input');
+        const descripcion = document.createElement('textarea');
         descripcion.className = "form-control mb-3";
-        descripcion.type = 'text';
         descripcion.placeholder = 'Descripción';
         descripcion.value = this.descripcion;
         descripcion.addEventListener('input', () => this.descripcion = descripcion.value);
@@ -712,7 +711,7 @@ class Mes {
 
     initComponent() {
         const component = document.createElement('div');
-        component.className = "mes rounded border mb-3 p-3";
+        component.className = "mes mb-3 p-3";
 
         const row = document.createElement('div');
         row.className = "row";
@@ -776,11 +775,11 @@ class Mes {
         colAvance.className = "col";
 
         const labelAvance = document.createElement('label');
-        labelAvance.className = "mb-2";
+        labelAvance.className = "mb-2 text-center mx-auto";
         labelAvance.textContent = 'Avance';
 
         const avance = document.createElement('h4');
-        avance.className = "fw-bold";
+        avance.className = "fw-bold text-center";
         avance.textContent = '0%';
         this.h3Avance = avance;
 
