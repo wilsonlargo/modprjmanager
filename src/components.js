@@ -178,17 +178,18 @@ class Proyecto {
         valor.value = this.valor;*/
 
         
-        //Etiqueta y control de entrada para el nombre del proyecto
+        //Un control contenedor tipo acordeon para gardar los objetivos
         const contenedorObjetivos = document.createElement('div');
         contenedorObjetivos.className = "mt-4 accordion";
         contenedorObjetivos.id = "contenedorObjetivos";
 
-
+         //Un control contenedor tipo div para gardar colocar boton y título...
         const contenedorHeaderObjetivos = document.createElement('div');
-        contenedorHeaderObjetivos.className = "d-flex justify-content-between align-items-center";
+        contenedorHeaderObjetivos.className = "d-flex justify-content-between align-items-center rounded p-2 bg-opacity-20";
+        contenedorHeaderObjetivos.style.add="background-color: gold"
 
         const headerObjetivos = document.createElement('h4');
-        headerObjetivos.className = "text-secondary";
+        headerObjetivos.className = "text-white";
         headerObjetivos.textContent = 'Objetivos';
 
         const btnObjetivo = document.createElement('button');
@@ -410,13 +411,13 @@ class Objetivo {
         contenedorObjetivo.className = "mt-3";
 
         const summary = document.createElement('summary');
-        summary.textContent = "Titulo Objetivo";
+        summary.textContent = "Objetivos del proyecto / componente";
 
         const headObjetivo = document.createElement('div');
         headObjetivo.className = "row align-items-end";
 
         const labelTitulo = document.createElement('label');
-        labelTitulo.textContent = 'Título';
+        labelTitulo.textContent = 'Objetivo';
         labelTitulo.className = "mb-2";
         const titulo = document.createElement('input');
         titulo.className = "form-control";
@@ -442,7 +443,7 @@ class Objetivo {
 
         const btnActividad = document.createElement('button');
         btnActividad.className = "btn btn-secondary";
-        btnActividad.textContent = 'Agregar Actividad';
+        btnActividad.textContent = '+ Actividad';
         btnActividad.addEventListener('click', () => {
             const actividad = new Actividad('');
             actividad.initComponent();
@@ -527,7 +528,7 @@ class Actividad {
         const contenedorEvidencias = document.createElement('div');
 
         const labelNombre = document.createElement('label');
-        labelNombre.textContent = 'Nombre';
+        labelNombre.textContent = 'Actividades';
         labelNombre.className = "mb-2";
         const nombre = document.createElement('input');
         nombre.className = "form-control";
@@ -538,7 +539,7 @@ class Actividad {
 
         const btnEvidencia = document.createElement('button');
         btnEvidencia.className = "btn btn-secondary";
-        btnEvidencia.textContent = 'Agregar Evidencia';
+        btnEvidencia.textContent = '+ Evidencia';
         btnEvidencia.addEventListener('click', () => {
             const evidencia = new Evidencia('', '', 0);
             evidencia.initComponent();
@@ -612,7 +613,7 @@ class Evidencia {
         component.className = "evidencia rounded border mb-3 p-3";
 
         const labelDescripcion = document.createElement('label');
-        labelDescripcion.textContent = 'Descripción';
+        labelDescripcion.textContent = 'Evidencia / Estrategia';
         labelDescripcion.className = "mb-2";
         const descripcion = document.createElement('input');
         descripcion.className = "form-control";
@@ -664,8 +665,8 @@ class Evidencia {
         const contenedorMeses = document.createElement('div');
         contenedorMeses.className = "mt-3";
         const btnMes = document.createElement('button');
-        btnMes.className = "col btn btn-primary";
-        btnMes.textContent = 'Agregar Mes';
+        btnMes.className = "col btn btn-secondary";
+        btnMes.textContent = '+ Programar';
         btnMes.addEventListener('click', () => {
             const mes = new Mes('', 0);
             mes.initComponent();
