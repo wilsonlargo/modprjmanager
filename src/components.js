@@ -661,28 +661,139 @@ class Evidencia {
         colIndicador.appendChild(labelIndicador);
         colIndicador.appendChild(indicador);
 
+        const contenedorMeses = document.createElement('div');
+        contenedorMeses.className = "mt-3";
+        const btnMes = document.createElement('button');
+        btnMes.className = "col btn btn-primary";
+        btnMes.textContent = 'Agregar Mes';
+        btnMes.addEventListener('click', () => {
+            const mes = new Mes('', 0);
+            mes.initComponent();
+
+            this.addMes(mes);
+            contenedorMeses.appendChild(mes.component);
+        });
+
         row.appendChild(colDescripcion);
         row.appendChild(colMeta);
         row.appendChild(colIndicador);
+        row.appendChild(btnMes);
 
         component.appendChild(row);
+        component.appendChild(contenedorMeses);
 
         this.component = component;
     }
 }
 
 class Mes {
-    constructor(nombre, mes, semana, meta) {
-        this.nombre = nombre; // Nombre mes
-        this.mes = mes; // Número de mes en el objetivo
-        this.semana = semana; // Semana del mes
+    constructor(fecha, meta) {
+        this.fecha = fecha; // Fecha del mes
         this.meta = meta; // Meta del mes
 
-        this.cumplido = 0; // Avance del mes
+        this.cumplido = 0; // Cumplido
+        this.h3Avance = null; // Porcentaje de avance
+    }
+
+    updateAvance() {
+        const avance = this.calcularAvance();
+        this.h3Avance.textContent = `${avance}%`;
+        avance == 100 ? this.h3Avance.classList.add('text-success') : this.h3Avance.classList.remove('text-success');
+        avance >= 50 && avance < 100 ? this.h3Avance.classList.add('text-warning') : this.h3Avance.classList.remove('text-warning');
     }
 
     calcularAvance() {
-        return calcPorcenaje(this.cumplido, this.meta);
+        const avance = calcPorcenaje(this.cumplido, this.meta)
+        return parseFloat(
+            avance.toFixed(2)
+        );
+    }
+
+    initComponent() {
+        const component = document.createElement('div');
+        component.className = "mes rounded border mb-3 p-3";
+
+        const row = document.createElement('div');
+        row.className = "row";
+
+        const colFecha = document.createElement('div');
+        colFecha.className = "col";
+
+        const labelFecha = document.createElement('label');
+        labelFecha.textContent = 'Fecha';
+        labelFecha.className = "mb-2";
+        
+        const fecha = document.createElement('input');
+        fecha.className = "form-control";
+        fecha.type = 'date';
+        fecha.placeholder = 'Fecha';
+        fecha.addEventListener('input', () => this.fecha = fecha.value);
+
+        colFecha.appendChild(labelFecha);
+        colFecha.appendChild(fecha);
+
+        const colMeta = document.createElement('div');
+        colMeta.className = "col";
+
+        const labelMeta = document.createElement('label');
+        labelMeta.textContent = 'Meta';
+        labelMeta.className = "mb-2";
+        const meta = document.createElement('input');
+        meta.className = "form-control";
+        meta.type = 'number';
+        meta.placeholder = 'Meta';
+        meta.addEventListener('input', () => {
+            this.meta = meta.value;
+            console.log(this.meta);
+            this.updateAvance();
+        });
+
+        colMeta.appendChild(labelMeta);
+        colMeta.appendChild(meta);
+
+        const colCumplido = document.createElement('div');
+        colCumplido.className = "col";
+
+        const labelCumplido = document.createElement('label');
+        labelCumplido.className = "mb-2";
+        labelCumplido.textContent = 'Cumplido';
+
+        const cumplido = document.createElement('input');
+        cumplido.className = "form-control";
+        cumplido.type = 'number';
+        cumplido.placeholder = 'Cumplido';
+        cumplido.addEventListener('input', () => {
+            this.cumplido = cumplido.value;
+            console.log(this.cumplido);
+            this.updateAvance();
+        });
+
+        colCumplido.appendChild(labelCumplido);
+        colCumplido.appendChild(cumplido);
+
+        const colAvance = document.createElement('div');
+        colAvance.className = "col";
+
+        const labelAvance = document.createElement('label');
+        labelAvance.className = "mb-2";
+        labelAvance.textContent = 'Avance';
+
+        const avance = document.createElement('h4');
+        avance.className = "fw-bold";
+        avance.textContent = '0%';
+        this.h3Avance = avance;
+
+        colAvance.appendChild(labelAvance);
+        colAvance.appendChild(avance);
+
+        row.appendChild(colFecha);
+        row.appendChild(colMeta);
+        row.appendChild(colCumplido);
+        row.appendChild(colAvance);
+
+        component.appendChild(row);
+
+        this.component = component;
     }
 }
 
