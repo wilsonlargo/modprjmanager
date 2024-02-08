@@ -186,13 +186,15 @@ class Proyecto {
         contenedorObjetivos.className = "mt-4 accordion";
         contenedorObjetivos.id = "contenedorObjetivos";
 
+
+
          //Un control contenedor tipo div para gardar colocar boton y título...
         const contenedorHeaderObjetivos = document.createElement('div');
-        contenedorHeaderObjetivos.className = "d-flex justify-content-between align-items-center rounded p-2 bg-opacity-20";
-        contenedorHeaderObjetivos.style.add="background-color: gold"
+        contenedorHeaderObjetivos.className = "d-flex justify-content-between align-items-center rounded p-2";
+        contenedorHeaderObjetivos.style.background="#424949"
 
         const headerObjetivos = document.createElement('h4');
-        headerObjetivos.className = "text-black";
+        headerObjetivos.className = "text-white";
         headerObjetivos.textContent = 'Objetivos';
 
         const btnObjetivo = document.createElement('button');
@@ -439,12 +441,16 @@ class Objetivo {
     initComponent() {
 
         const component = document.createElement('details');
-        component.className = "objetivo border rounded p-3 mb-3";
+        component.className = "objetivo border rounded p-3 ms-3 mb-3";
 
         const contenedorObjetivo = document.createElement('div');
         contenedorObjetivo.className = "mt-3";
 
+        //Titulo del control de objetivo, collapse
         const summary = document.createElement('summary');
+        summary.className = "text-uppercase text-white fs-6"
+        summary.style.background="#707B7C"
+
         GLOBAL.state.proyecto.enumerarObjetivos();
 
         const summaryHead = document.createElement('div');
@@ -466,8 +472,10 @@ class Objetivo {
         headObjetivo.className = "row align-items-end";
 
         const labelTitulo = document.createElement('label');
-        labelTitulo.textContent = 'Titulo Objetivo';
-        labelTitulo.className = "mb-2";
+        labelTitulo.textContent = 'Objetivo';
+        labelTitulo.className = "mb-2 text-secondary";
+
+
         const titulo = document.createElement('input');
         titulo.className = "form-control";
         titulo.type = 'text';
@@ -480,7 +488,7 @@ class Objetivo {
 
         const labelPorcentaje = document.createElement('label');
         labelPorcentaje.textContent = 'Porcentaje';
-        labelPorcentaje.className = "mb-2";
+        labelPorcentaje.className = "mb-2 text-secondary";
         const porcentaje = document.createElement('input');
         porcentaje.className = "form-control";
         porcentaje.type = 'number';
@@ -582,9 +590,11 @@ class Actividad {
         const component = document.createElement('details');
         component.className = "actividad rounded border mb-3 p-3";
 
+        //Control encabezado arcordeon de actividades 
         const summary = document.createElement('summary');
         GLOBAL.state.proyecto.enumerarObjetivos();
-
+        summary.style.background="#B2BABB"
+        summary.className = "text-uppercase fs-6 p-3 border rounded"
         const summaryHead = document.createElement('div');
         summaryHead.className = "d-flex justify-content-between align-items-center";
 
@@ -701,8 +711,11 @@ class Evidencia {
         component.className = "actividad rounded border mb-3 p-3";
 
         const summary = document.createElement('summary');
-        GLOBAL.state.proyecto.enumerarObjetivos();
+        summary.className = "p-3 border rounded text-uppercase fs-6";
+        summary.style.background="#F2F4F4 "
 
+        GLOBAL.state.proyecto.enumerarObjetivos();
+      
         const summaryHead = document.createElement('div');
         summaryHead.className = "d-flex justify-content-between align-items-center";
 
@@ -722,16 +735,17 @@ class Evidencia {
 
         const labelDescripcion = document.createElement('label');
         labelDescripcion.textContent = 'Descripcion Evidencia / Estrategia';
-        labelDescripcion.className = "mb-2";
+        labelDescripcion.className = "mb-2 text-secondary";
+
         const descripcion = document.createElement('textarea');
-        descripcion.className = "form-control mb-3";
+        descripcion.className = "form-control mb-3 ";
         descripcion.placeholder = 'Descripción';
         descripcion.value = this.descripcion;
         descripcion.addEventListener('input', () => this.descripcion = descripcion.value);
 
         const labelMeta = document.createElement('label');
         labelMeta.textContent = 'Meta';
-        labelMeta.className = "mb-2";
+        labelMeta.className = "mb-2 text-secondary";
         const meta = document.createElement('input');
         meta.className = "form-control";
         meta.type = 'number';
@@ -744,7 +758,7 @@ class Evidencia {
 
         const labelIndicador = document.createElement('label');
         labelIndicador.textContent = 'Indicador';
-        labelIndicador.className = "mb-2";
+        labelIndicador.className = "mb-2 text-secondary";
         const indicador = document.createElement('select');
         indicador.className = "form-control";
         addOptions(indicador, CONSTANTS.indicadores);
