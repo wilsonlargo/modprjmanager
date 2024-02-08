@@ -189,7 +189,7 @@ class Proyecto {
         contenedorHeaderObjetivos.style.add="background-color: gold"
 
         const headerObjetivos = document.createElement('h4');
-        headerObjetivos.className = "text-white";
+        headerObjetivos.className = "text-black";
         headerObjetivos.textContent = 'Objetivos';
 
         const btnObjetivo = document.createElement('button');
