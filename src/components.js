@@ -669,6 +669,11 @@ class Evidencia {
             contenedorMeses.appendChild(mes.component);
         });
 
+        this.meses.forEach(mes => {
+            mes.initComponent();
+            contenedorMeses.appendChild(mes.component);
+        });
+
         row.appendChild(colMeta);
         row.appendChild(colIndicador);
         row.appendChild(btnMes);
