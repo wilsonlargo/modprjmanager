@@ -130,7 +130,7 @@ class Proyecto {
     initComponent() {
         //Inicio un contenedor DIV con sus estilos
         const component = document.createElement('div');
-        component.className = "bg-body-tertiary bg-opacity-100 ";
+        component.className = "bg-body-tertiary bg-opacity-100 p-2";
         component.classList.add("container-fluid");
 
         //Etiqueta y control de entrada para el nombre del proyecto
@@ -185,8 +185,6 @@ class Proyecto {
         const contenedorObjetivos = document.createElement('div');
         contenedorObjetivos.className = "mt-4 accordion";
         contenedorObjetivos.id = "contenedorObjetivos";
-
-
 
         //Un control contenedor tipo div para gardar colocar boton y título...
         const contenedorHeaderObjetivos = document.createElement('div');
@@ -442,14 +440,14 @@ class Objetivo {
     initComponent() {
 
         const component = document.createElement('details');
-        component.className = "objetivo border rounded p-3 ms-3 mb-3";
+        component.className = "objetivo border rounded ms-3 mb-3";
 
         const contenedorObjetivo = document.createElement('div');
-        contenedorObjetivo.className = "mt-3";
+        contenedorObjetivo.className = "mt-3 px-3";
 
         //Titulo del control de objetivo, collapse
         const summary = document.createElement('summary');
-        summary.className = "text-uppercase text-white fs-6"
+        summary.className = "text-uppercase text-white border rounded p-3";
         summary.style.background = "#707B7C"
 
         GLOBAL.state.proyecto.enumerarObjetivos();
@@ -457,10 +455,10 @@ class Objetivo {
         const summaryHead = document.createElement('div');
         summaryHead.className = "d-flex justify-content-between align-items-center";
 
-        const h3 = document.createElement('h4');
-        h3.textContent = `Objetivo ${this.enumerador} - ${this.titulo ? this.titulo : 'Titulo proyecto'}`;
+        const h3 = document.createElement('h5');
+        h3.textContent = `${this.enumerador} - ${this.titulo ? this.titulo : 'Titulo proyecto'}`;
 
-        const totalAvance = document.createElement('h4');
+        const totalAvance = document.createElement('h5');
         totalAvance.textContent = `${this.calcularAvance()}%`;
         this.tagAvance = totalAvance;
 
@@ -483,7 +481,7 @@ class Objetivo {
         titulo.placeholder = 'Título';
         titulo.addEventListener('input', () => {
             this.titulo = titulo.value;
-            h3.textContent = `Objetivo ${this.enumerador} - ${this.titulo}`;
+            h3.textContent = `${this.enumerador} - ${this.titulo}`;
         });
         titulo.value = this.titulo;
 
@@ -590,20 +588,21 @@ class Actividad {
 
     initComponent() {
         const component = document.createElement('details');
-        component.className = "actividad rounded border mb-3 p-3";
+        component.className = "actividad rounded border mb-3";
 
         //Control encabezado arcordeon de actividades 
         const summary = document.createElement('summary');
         GLOBAL.state.proyecto.enumerarObjetivos();
         summary.style.background = "#B2BABB"
-        summary.className = "text-uppercase fs-6 p-3 border rounded"
-        const summaryHead = document.createElement('div');
-        summaryHead.className = "d-flex justify-content-between align-items-center";
+        summary.className = "text-uppercase border rounded p-2"
 
-        const summaryTitle = document.createElement('h4');
+        const summaryHead = document.createElement('div');
+        summaryHead.className = "d-flex justify-content-between";
+
+        const summaryTitle = document.createElement('h5');
         summaryTitle.textContent = `${this.enumerador}`;
 
-        const totalAvance = document.createElement('h4');
+        const totalAvance = document.createElement('h5');
         totalAvance.textContent = `${this.calcularAvance()}%`;
         this.tagAvance = totalAvance;
 
@@ -612,7 +611,7 @@ class Actividad {
         summary.appendChild(summaryHead);
 
         const contenedorActividad = document.createElement('div');
-        contenedorActividad.className = "mt-3";
+        contenedorActividad.className = "mt-3 px-3";
 
         const contenedorEvidencias = document.createElement('div');
 
@@ -710,10 +709,10 @@ class Evidencia {
     initComponent() {
 
         const component = document.createElement('details');
-        component.className = "actividad rounded border mb-3 p-3";
+        component.className = "actividad rounded border mb-3";
 
         const summary = document.createElement('summary');
-        summary.className = "p-3 border rounded text-uppercase fs-6";
+        summary.className = "p-2 border rounded text-uppercase fs-6";
         summary.style.background = "#F2F4F4 "
 
         GLOBAL.state.proyecto.enumerarObjetivos();
@@ -721,10 +720,10 @@ class Evidencia {
         const summaryHead = document.createElement('div');
         summaryHead.className = "d-flex justify-content-between align-items-center";
 
-        const summaryTitle = document.createElement('h4');
+        const summaryTitle = document.createElement('h6');
         summaryTitle.textContent = `Evidencia / Estrategia ${this.enumerador}`;
 
-        const totalAvance = document.createElement('h4');
+        const totalAvance = document.createElement('h6');
         totalAvance.textContent = `${this.calcularAvance()}%`;
         this.tagAvance = totalAvance;
 
@@ -733,7 +732,7 @@ class Evidencia {
         summary.appendChild(summaryHead);
 
         const contenedorEvidencia = document.createElement('div');
-        contenedorEvidencia.className = "mt-3";
+        contenedorEvidencia.className = "mt-3 px-3";
 
         const labelDescripcion = document.createElement('label');
         labelDescripcion.textContent = 'Descripcion Evidencia / Estrategia';
