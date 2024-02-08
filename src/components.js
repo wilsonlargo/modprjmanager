@@ -50,13 +50,16 @@ class Proyecto {
         this.id = null;
     }
 
+    updateAvance() {
+    }
+
     calcularAvance() {
         let ponderado = 0;
         let pesos = 0;
 
         this.objetivos.forEach(objetivo => {
-            ponderado += objetivo.calcularAvance() * objetivo.porcentaje;
-            pesos += objetivo.porcentaje;
+            ponderado += objetivo.calcularAvance() * parseInt(objetivo.porcentaje);
+            pesos += parseInt(objetivo.porcentaje);
         });
 
         return pesos === 0 ? 0 : ponderado / pesos;
@@ -196,7 +199,7 @@ class Proyecto {
         btnObjetivo.className = "btn btn-secondary";
         btnObjetivo.textContent = 'Agregar Objetivo';
         btnObjetivo.addEventListener('click', () => {
-            const objetivo = new Objetivo('');
+            const objetivo = new Objetivo('', 0, this);
             this.addObjetivo(objetivo);
             GLOBAL.state.proyecto.enumerarObjetivos();
 
@@ -289,6 +292,9 @@ class Proyecto {
     }
 
     static getPreviewComponent(objProyecto) {
+
+        const proyecto = Proyecto.loadAsInstance(objProyecto);
+
         const component = document.createElement('div');
         component.className = "proyecto-preview p-3 mb-3 border rounded";
 
@@ -297,10 +303,29 @@ class Proyecto {
         labelTitulo.className = "mb-2 fs-6 fw-light";
 
         const titulo = document.createElement('h3');
+        titulo.className = "mb-3";
         titulo.textContent = objProyecto.titulo;
+
+        const divProgress = document.createElement('div');
+        divProgress.className = 'progress';
+        divProgress.setAttribute('role', 'progressbar');
+        divProgress.setAttribute('aria-valuenow', '25');
+        divProgress.setAttribute('aria-valuemin', '0');
+        divProgress.setAttribute('aria-valuemax', '100');
+
+        const totalAvance = proyecto.calcularAvance();
+
+        const divProgressBar = document.createElement('div');
+        divProgressBar.className = 'progress-bar bg-success';
+        divProgressBar.style.width = `${totalAvance ? totalAvance : 0}%`;
+        divProgressBar.textContent = `${totalAvance ? totalAvance : 0}%`;
+
+        // Agregar el div secundario al div principal
+        divProgress.appendChild(divProgressBar);
 
         component.appendChild(labelTitulo);
         component.appendChild(titulo);
+        component.appendChild(divProgress);
 
         component.addEventListener('click', () => {
             handlerCargarProyecto(objProyecto);
@@ -310,38 +335,39 @@ class Proyecto {
     }
 
     static loadAsInstance(objProyecto) {
-        const loadObjetivos = (objetivos) => {
+        const loadObjetivos = (objetivos, parent) => {
             return objetivos.map(objetivo => {
-                const objetivoObj = new Objetivo(objetivo.titulo);
+                const objetivoObj = new Objetivo(objetivo.titulo, objetivo.porcentaje, parent);
                 objetivoObj.cumplido = objetivo.cumplido;
-                objetivoObj.actividades = loadActividades(objetivo.actividades);
-                objetivoObj.portcentaje = objetivo.porcentaje;
+                objetivoObj.actividades = loadActividades(objetivo.actividades, objetivoObj);
                 return objetivoObj;
             });
         }
 
-        const loadActividades = (actividades) => {
+        const loadActividades = (actividades, parent) => {
             return actividades.map(actividad => {
-                const actividadObj = new Actividad(actividad.nombre);
+                const actividadObj = new Actividad(actividad.nombre, parent);
                 actividadObj.cumplido = actividad.cumplido;
-                actividadObj.evidencias = loadEvidencias(actividad.evidencias);
+                actividadObj.evidencias = loadEvidencias(actividad.evidencias, actividadObj);
                 return actividadObj;
             });
         }
 
-        const loadEvidencias = (evidencias) => {
+        const loadEvidencias = (evidencias, parent) => {
             return evidencias.map(evidencia => {
-                const evidenciaObj = new Evidencia(evidencia.descripcion, evidencia.indicador, evidencia.meta);
+                const evidenciaObj = new Evidencia(
+                    evidencia.descripcion, evidencia.indicador, evidencia.meta, evidencia.porcentaje, parent
+                );
                 evidenciaObj.cumplido = evidencia.cumplido;
-                evidenciaObj.meses = loadMeses(evidencia.meses);
+                evidenciaObj.meses = loadMeses(evidencia.meses, evidenciaObj);
                 evidenciaObj.porcentaje = evidencia.porcentaje;
                 return evidenciaObj;
             });
         }
 
-        const loadMeses = (meses) => {
+        const loadMeses = (meses, parent) => {
             return meses.map(mes => {
-                const mesObj = new Mes(mes.fecha, mes.meta);
+                const mesObj = new Mes(mes.fecha, mes.meta, parent);
                 mesObj.cumplido = mes.cumplido;
                 return mesObj;
             });
@@ -350,7 +376,7 @@ class Proyecto {
         const proyecto = new Proyecto(objProyecto.titulo, objProyecto.descripcion, objProyecto.administrador, objProyecto.valor);
         GLOBAL.state.proyecto = proyecto;
         proyecto.cumplido = objProyecto.cumplido;
-        proyecto.objetivos = loadObjetivos(objProyecto.objetivos);
+        proyecto.objetivos = loadObjetivos(objProyecto.objetivos, proyecto);
         proyecto.id = objProyecto.id;
         proyecto.enumerarObjetivos();
 
@@ -359,13 +385,20 @@ class Proyecto {
 }
 
 class Objetivo {
-    constructor(titulo, porcentaje) {
+    constructor(titulo, porcentaje, parent) {
         this.titulo = titulo;
         this.cumplido = 0;
         this.actividades = [];
         this.porcentaje = porcentaje;
 
         this.enumerador = null;
+        this.tagAvance = null;
+        this.parent = parent; // Referencia al elemento padre
+    }
+
+    updateAvance() {
+        this.parent.updateAvance();
+        this.tagAvance.textContent = `${this.calcularAvance()}%`;
     }
 
     calcularAvance() {
@@ -374,12 +407,12 @@ class Objetivo {
 
         this.actividades.forEach(actividad => {
             actividad.evidencias.forEach(evidencia => {
-                ponderado += evidencia.calcularAvance() * evidencia.porcentaje;
-                pesos += evidencia.porcentaje;
+                ponderado += evidencia.calcularAvance() * parseInt(evidencia.porcentaje);
+                pesos += parseInt(evidencia.porcentaje);
             });
         });
 
-        return sumPesos === 0 ? 0 : ponderado / sumPesos;
+        return pesos === 0 ? 0 : ponderado / pesos;
     }
 
     verificarPorcentajes() {
@@ -413,7 +446,21 @@ class Objetivo {
 
         const summary = document.createElement('summary');
         GLOBAL.state.proyecto.enumerarObjetivos();
-        summary.textContent = `Objetivo ${this.enumerador} - ${this.titulo ? this.titulo : 'Titulo proyecto'}`; 
+
+        const summaryHead = document.createElement('div');
+        summaryHead.className = "d-flex justify-content-between align-items-center";
+
+        const h3 = document.createElement('h4');
+        h3.textContent = `Objetivo ${this.enumerador} - ${this.titulo ? this.titulo : 'Titulo proyecto'}`; 
+
+        const totalAvance = document.createElement('h4');
+        totalAvance.textContent = `${this.calcularAvance()}%`;
+        this.tagAvance = totalAvance;
+
+        summaryHead.appendChild(h3);
+        summaryHead.appendChild(totalAvance);
+
+        summary.appendChild(summaryHead);
 
         const headObjetivo = document.createElement('div');
         headObjetivo.className = "row align-items-end";
@@ -427,7 +474,7 @@ class Objetivo {
         titulo.placeholder = 'Título';
         titulo.addEventListener('input', () => {
             this.titulo = titulo.value;
-            summary.textContent = `Objetivo ${this.enumerador} - ${this.titulo}`; 
+            h3.textContent = `Objetivo ${this.enumerador} - ${this.titulo}`; 
         });
         titulo.value = this.titulo;
 
@@ -447,7 +494,7 @@ class Objetivo {
         btnActividad.className = "btn btn-secondary";
         btnActividad.textContent = '+ Actividad';
         btnActividad.addEventListener('click', () => {
-            const actividad = new Actividad('');
+            const actividad = new Actividad('', this);
             this.addActividad(actividad);
             GLOBAL.state.proyecto.enumerarObjetivos();
             
@@ -494,12 +541,19 @@ class Objetivo {
 }
 
 class Actividad {
-    constructor(nombre) {
+    constructor(nombre, parent) {
         this.nombre = nombre;
         this.cumplido = 0;
         this.evidencias = [];
 
         this.enumerador = null;
+        this.tagAvance = null;
+        this.parent = parent; // Referencia al elemento padre
+    }
+
+    updateAvance() {
+        this.parent.updateAvance();
+        this.tagAvance.textContent = `${this.calcularAvance()}%`;
     }
 
     calcularAvance() {
@@ -508,11 +562,11 @@ class Actividad {
         let pesos = 0;
 
         this.evidencias.forEach(evidencia => {
-            ponderado += evidencia.calcularAvance() * evidencia.porcentaje;
-            pesos += evidencia.porcentaje;
+            ponderado += evidencia.calcularAvance() * parseInt(evidencia.porcentaje ?? 0);
+            pesos += parseInt(evidencia.porcentaje);
         });
 
-        return sumPesos === 0 ? 0 : ponderado / sumPesos;
+        return pesos === 0 ? 0 : ponderado / pesos;
     }
 
     /* Funciones CRUD para las evidencias */
@@ -530,7 +584,20 @@ class Actividad {
 
         const summary = document.createElement('summary');
         GLOBAL.state.proyecto.enumerarObjetivos();
-        summary.textContent = `${this.enumerador}`;
+
+        const summaryHead = document.createElement('div');
+        summaryHead.className = "d-flex justify-content-between align-items-center";
+
+        const summaryTitle = document.createElement('h4');
+        summaryTitle.textContent = `${this.enumerador}`;
+
+        const totalAvance = document.createElement('h4');
+        totalAvance.textContent = `${this.calcularAvance()}%`;
+        this.tagAvance = totalAvance;
+
+        summaryHead.appendChild(summaryTitle);
+        summaryHead.appendChild(totalAvance);
+        summary.appendChild(summaryHead);
 
         const contenedorActividad = document.createElement('div');
         contenedorActividad.className = "mt-3";
@@ -551,7 +618,7 @@ class Actividad {
         btnEvidencia.className = "btn btn-secondary";
         btnEvidencia.textContent = '+ Evidencia';
         btnEvidencia.addEventListener('click', () => {
-            const evidencia = new Evidencia('', '', 0);
+            const evidencia = new Evidencia('', '', 0, 0, this);
             this.addEvidencia(evidencia);
             GLOBAL.state.proyecto.enumerarObjetivos();
 
@@ -594,24 +661,29 @@ class Actividad {
 }
 
 class Evidencia {
-    constructor(descripcion, indicador, meta, porcentaje) {
+    constructor(descripcion, indicador, meta, porcentaje, parent) {
         this.descripcion = descripcion;
         this.indicador = indicador;
         this.meta = meta;
-        this.porcentaje = porcentaje;
+        this.porcentaje = porcentaje ?? 0;
 
         this.cumplido = 0;
         this.meses = [];
         this.enumerador = null;
+        this.tagAvance = null;
         GLOBAL.state.proyecto.enumerarObjetivos();
+        this.parent = parent; // Referencia al elemento padre
+    }
+
+    updateAvance() {
+        this.parent.updateAvance();
+        this.tagAvance.textContent = `${this.calcularAvance()}%`;
     }
 
     calcularAvance() {
 
-        const sumCumplido = this.meses.reduce((acc, mes) => acc + mes.cumplido, 0);
-        const sumMeta = this.meses.reduce((acc, mes) => acc + mes.meta, 0);
-
-        return calcPorcenaje(sumCumplido, sumMeta);
+        const sumCumplido = this.meses.reduce((acc, mes) => acc + parseInt(mes.cumplido), 0);
+        return calcPorcenaje(sumCumplido, this.meta);
     }
 
     /* Funciones CRUD para los meses */
@@ -624,12 +696,26 @@ class Evidencia {
     }
 
     initComponent() {
+
         const component = document.createElement('details');
         component.className = "actividad rounded border mb-3 p-3";
 
         const summary = document.createElement('summary');
         GLOBAL.state.proyecto.enumerarObjetivos();
-        summary.textContent = `Evidencia / Estrategia ${this.enumerador}`;
+
+        const summaryHead = document.createElement('div');
+        summaryHead.className = "d-flex justify-content-between align-items-center";
+
+        const summaryTitle = document.createElement('h4');
+        summaryTitle.textContent = `Evidencia / Estrategia ${this.enumerador}`;
+
+        const totalAvance = document.createElement('h4');
+        totalAvance.textContent = `${this.calcularAvance()}%`;
+        this.tagAvance = totalAvance;
+
+        summaryHead.appendChild(summaryTitle);
+        summaryHead.appendChild(totalAvance);
+        summary.appendChild(summaryHead);
 
         const contenedorEvidencia = document.createElement('div');
         contenedorEvidencia.className = "mt-3";
@@ -651,7 +737,10 @@ class Evidencia {
         meta.type = 'number';
         meta.placeholder = 'Meta';
         meta.value = this.meta;
-        meta.addEventListener('input', () => this.meta = meta.value);
+        meta.addEventListener('input', () => {
+            this.meta = meta.value
+            this.updateAvance();
+        });
 
         const labelIndicador = document.createElement('label');
         labelIndicador.textContent = 'Indicador';
@@ -660,6 +749,19 @@ class Evidencia {
         indicador.className = "form-control";
         addOptions(indicador, CONSTANTS.indicadores);
         indicador.addEventListener('change', () => this.indicador = indicador.value);
+
+        const labelPorcentaje = document.createElement('label');
+        labelPorcentaje.textContent = 'Porcentaje';
+        labelPorcentaje.className = "mb-2";
+        const porcentaje = document.createElement('input');
+        porcentaje.className = "form-control";
+        porcentaje.type = 'number';
+        porcentaje.placeholder = 'Porcentaje';
+        porcentaje.value = this.porcentaje ? this.porcentaje : 0;
+        porcentaje.addEventListener('input', () => {
+            this.porcentaje = porcentaje.value
+            this.updateAvance();
+        });
 
         if (this.indicador) {
             indicador.value = this.indicador;
@@ -678,13 +780,22 @@ class Evidencia {
         colIndicador.appendChild(labelIndicador);
         colIndicador.appendChild(indicador);
 
+        const colPorcentaje = document.createElement('div');
+        colPorcentaje.className = "col";
+        colPorcentaje.appendChild(labelPorcentaje);
+        colPorcentaje.appendChild(porcentaje);
+
         const contenedorMeses = document.createElement('div');
         contenedorMeses.className = "mt-3";
+
+        const colProgramar = document.createElement('div');
+        colProgramar.className = "col";
+
         const btnMes = document.createElement('button');
         btnMes.className = "col btn btn-secondary";
         btnMes.textContent = '+ Programar';
         btnMes.addEventListener('click', () => {
-            const mes = new Mes('', 0);
+            const mes = new Mes('', 0, this);
             mes.initComponent();
 
             this.addMes(mes);
@@ -696,9 +807,12 @@ class Evidencia {
             contenedorMeses.appendChild(mes.component);
         });
 
+        colProgramar.appendChild(btnMes);
+
         row.appendChild(colMeta);
         row.appendChild(colIndicador);
-        row.appendChild(btnMes);
+        row.appendChild(colPorcentaje);
+        row.appendChild(colProgramar);
 
         contenedorEvidencia.appendChild(labelDescripcion);
         contenedorEvidencia.appendChild(descripcion);
@@ -713,19 +827,22 @@ class Evidencia {
 }
 
 class Mes {
-    constructor(fecha, meta) {
+    constructor(fecha, meta, parent) {
         this.fecha = fecha; // Fecha del mes
         this.meta = meta; // Meta del mes
 
         this.cumplido = 0; // Cumplido
-        this.h3Avance = null; // Porcentaje de avance
+        this.tagAvance = null; // Porcentaje de avance
+
+        this.parent = parent; // Referencia al elemento padre
     }
 
     updateAvance() {
+        this.parent.updateAvance();
         const avance = this.calcularAvance();
-        this.h3Avance.textContent = `${avance}%`;
-        avance == 100 ? this.h3Avance.classList.add('text-success') : this.h3Avance.classList.remove('text-success');
-        avance >= 50 && avance < 100 ? this.h3Avance.classList.add('text-warning') : this.h3Avance.classList.remove('text-warning');
+        this.tagAvance.textContent = `${avance}%`;
+        avance == 100 ? this.tagAvance.classList.add('text-success') : this.tagAvance.classList.remove('text-success');
+        avance >= 50 && avance < 100 ? this.tagAvance.classList.add('text-warning') : this.tagAvance.classList.remove('text-warning');
     }
 
     calcularAvance() {
@@ -771,7 +888,6 @@ class Mes {
         meta.placeholder = 'Meta';
         meta.addEventListener('input', () => {
             this.meta = meta.value;
-            console.log(this.meta);
             this.updateAvance();
         });
         meta.value = this.meta;
@@ -792,7 +908,6 @@ class Mes {
         cumplido.placeholder = 'Cumplido';
         cumplido.addEventListener('input', () => {
             this.cumplido = cumplido.value;
-            console.log(this.cumplido);
             this.updateAvance();
         });
         cumplido.value = this.cumplido;
@@ -810,7 +925,7 @@ class Mes {
         const avance = document.createElement('h4');
         avance.className = "fw-bold text-center";
         avance.textContent = '0%';
-        this.h3Avance = avance;
+        this.tagAvance = avance;
         this.updateAvance();
 
         colAvance.appendChild(labelAvance);

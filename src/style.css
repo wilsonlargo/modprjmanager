@@ -29,19 +29,22 @@ body {
 .mybtn-main i {
     margin-right: 0.2rem;
 }
+
 .mybtn-main {
     background-color: var(--primary-600);
     color: white;
     font-weight: 550;
 }
+
 .mybtn-main:hover {
     background-color: var(--primary-700);
     color: white;
     font-weight: 550;
 }
+
 .mybtn-main:active {
-    color: white!important;
-    font-weight: 550!important;
+    color: white !important;
+    font-weight: 550 !important;
 }
 
 
@@ -97,4 +100,8 @@ body {
     width: calc(0.25em + .25ex);
     top: 50%;
     transform: translateY(-50%);
+}
+
+details summary {
+    cursor: pointer;
 }

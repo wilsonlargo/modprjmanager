@@ -7,7 +7,7 @@ const GLOBAL = {
 };
 
 function calcPorcenaje(cumplido, meta) {
-    return meta === 0 ? 0 : (cumplido / meta) * 100;
+    return parseInt(meta) === 0 ? 0 : (parseInt(cumplido) / parseInt(meta)) * 100;
 }
 
 const CONSTANTS = {
