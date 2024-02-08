@@ -75,3 +75,26 @@ body {
 .evidencia {
     color: var(--text);
 }
+
+/*textarea {
+    form-sizing: content;
+}*/
+
+.mes {
+    box-sizing: border-box;
+    margin-inline-start: 0;
+    position: relative;
+}
+
+.mes:before {
+    background-color: #dfd6ffd4;
+    border-radius: 2px;
+    left: -0.0rem;
+    content: "";
+    display: block;
+    height: 80%;
+    position: absolute;
+    width: calc(0.25em + .25ex);
+    top: 50%;
+    transform: translateY(-50%);
+}
