@@ -243,8 +243,6 @@ class Proyecto {
             this.cancel();
         });
 
-
-
         const buttonEliminar = document.createElement('button');
         buttonEliminar.className = "btn btn-secondary";
         buttonEliminar.textContent = 'Eliminar';
@@ -349,9 +347,11 @@ class Proyecto {
         }
 
         const proyecto = new Proyecto(objProyecto.titulo, objProyecto.descripcion, objProyecto.administrador, objProyecto.valor);
+        GLOBAL.state.proyecto = proyecto;
         proyecto.cumplido = objProyecto.cumplido;
         proyecto.objetivos = loadObjetivos(objProyecto.objetivos);
         proyecto.id = objProyecto.id;
+        proyecto.enumerarObjetivos();
 
         return proyecto;
     }
@@ -411,7 +411,8 @@ class Objetivo {
         contenedorObjetivo.className = "mt-3";
 
         const summary = document.createElement('summary');
-        summary.textContent = "Objetivos del proyecto / componente";
+        GLOBAL.state.proyecto.enumerarObjetivos();
+        summary.textContent = `Objetivo ${this.enumerador}`;
 
         const headObjetivo = document.createElement('div');
         headObjetivo.className = "row align-items-end";
@@ -497,6 +498,7 @@ class Actividad {
         this.evidencias = [];
 
         this.enumerador = null;
+        GLOBAL.state.proyecto.enumerarObjetivos();
     }
 
     calcularAvance() {
@@ -522,8 +524,15 @@ class Actividad {
     }
 
     initComponent() {
-        const component = document.createElement('div');
+        const component = document.createElement('details');
         component.className = "actividad rounded border mb-3 p-3";
+
+        const summary = document.createElement('summary');
+        GLOBAL.state.proyecto.enumerarObjetivos();
+        summary.textContent = `${this.enumerador} - ${this.nombre}`;
+
+        const contenedorActividad = document.createElement('div');
+        contenedorActividad.className = "mt-3";
 
         const contenedorEvidencias = document.createElement('div');
 
@@ -571,9 +580,12 @@ class Actividad {
         const hr = document.createElement('hr');
         hr.className = "my-3";
 
-        component.appendChild(row);
-        component.appendChild(hr);
-        component.appendChild(contenedorEvidencias);
+        contenedorActividad.appendChild(row);
+        contenedorActividad.appendChild(hr);
+        contenedorActividad.appendChild(contenedorEvidencias);
+
+        component.appendChild(summary);
+        component.appendChild(contenedorActividad);
 
         this.component = component;
     }
@@ -589,6 +601,7 @@ class Evidencia {
         this.cumplido = 0;
         this.meses = [];
         this.enumerador = null;
+        GLOBAL.state.proyecto.enumerarObjetivos();
     }
 
     calcularAvance() {
@@ -609,8 +622,15 @@ class Evidencia {
     }
 
     initComponent() {
-        const component = document.createElement('div');
-        component.className = "evidencia rounded border mb-3 p-3";
+        const component = document.createElement('details');
+        component.className = "actividad rounded border mb-3 p-3";
+
+        const summary = document.createElement('summary');
+        GLOBAL.state.proyecto.enumerarObjetivos();
+        summary.textContent = `Evidencia / Estrategia ${this.enumerador}`;
+
+        const contenedorEvidencia = document.createElement('div');
+        contenedorEvidencia.className = "mt-3";
 
         const labelDescripcion = document.createElement('label');
         labelDescripcion.textContent = 'Evidencia / Estrategia';
@@ -678,10 +698,13 @@ class Evidencia {
         row.appendChild(colIndicador);
         row.appendChild(btnMes);
 
-        component.appendChild(labelDescripcion);
-        component.appendChild(descripcion);
-        component.appendChild(row);
-        component.appendChild(contenedorMeses);
+        contenedorEvidencia.appendChild(labelDescripcion);
+        contenedorEvidencia.appendChild(descripcion);
+        contenedorEvidencia.appendChild(row);
+        contenedorEvidencia.appendChild(contenedorMeses);
+
+        component.appendChild(summary);
+        component.appendChild(contenedorEvidencia);
 
         this.component = component;
     }
@@ -729,6 +752,7 @@ class Mes {
         fecha.type = 'date';
         fecha.placeholder = 'Fecha';
         fecha.addEventListener('input', () => this.fecha = fecha.value);
+        fecha.value = this.fecha;
 
         colFecha.appendChild(labelFecha);
         colFecha.appendChild(fecha);
@@ -748,6 +772,7 @@ class Mes {
             console.log(this.meta);
             this.updateAvance();
         });
+        meta.value = this.meta;
 
         colMeta.appendChild(labelMeta);
         colMeta.appendChild(meta);
@@ -768,6 +793,7 @@ class Mes {
             console.log(this.cumplido);
             this.updateAvance();
         });
+        cumplido.value = this.cumplido;
 
         colCumplido.appendChild(labelCumplido);
         colCumplido.appendChild(cumplido);
@@ -783,6 +809,7 @@ class Mes {
         avance.className = "fw-bold text-center";
         avance.textContent = '0%';
         this.h3Avance = avance;
+        this.updateAvance();
 
         colAvance.appendChild(labelAvance);
         colAvance.appendChild(avance);
