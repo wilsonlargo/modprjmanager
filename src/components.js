@@ -417,7 +417,8 @@ class Objetivo {
         const summary = document.createElement('summary');
         GLOBAL.state.proyecto.enumerarObjetivos();
         summary.textContent = `Objetivo ${this.enumerador} - ${this.titulo ? this.titulo : 'Titulo proyecto'}`; 
-        summary.className = "bg-warning p-3 border rounded text-uppercase fs-6";
+        summary.className = "p-3 border rounded text-uppercase text-white fs-6";
+        summary.style.background="#707B7C"
 
         const headObjetivo = document.createElement('div');
         headObjetivo.className = "row align-items-end";
@@ -534,11 +535,12 @@ class Actividad {
         const component = document.createElement('details');
         component.className = "actividad rounded border mb-3 p-3";
 
+        //Control encabezado arcordeon de actividades 
         const summary = document.createElement('summary');
         GLOBAL.state.proyecto.enumerarObjetivos();
         summary.textContent = `${this.enumerador}`;
         summary.className = "p-3 border rounded text-uppercase fs-6";
-        summary.style.background="#FCF3CF"
+        summary.style.background="#B2BABB"
 
         const contenedorActividad = document.createElement('div');
         contenedorActividad.className = "mt-3";
@@ -639,7 +641,7 @@ class Evidencia {
         GLOBAL.state.proyecto.enumerarObjetivos();
         summary.textContent = `Evidencia / Estrategia ${this.enumerador}`;
         summary.className = "p-3 border rounded text-uppercase fs-6";
-        summary.style.background="#FEF9E7"
+        summary.style.background="#F2F4F4 "
 
         const contenedorEvidencia = document.createElement('div');
         contenedorEvidencia.className = "mt-3";
