@@ -615,7 +615,7 @@ class Evidencia {
         labelDescripcion.textContent = 'Descripción';
         labelDescripcion.className = "mb-2";
         const descripcion = document.createElement('input');
-        descripcion.className = "form-control";
+        descripcion.className = "form-control mb-3";
         descripcion.type = 'text';
         descripcion.placeholder = 'Descripción';
         descripcion.value = this.descripcion;
@@ -645,12 +645,7 @@ class Evidencia {
 
         const row = document.createElement('div');
         row.className = "row align-items-end";
-
-        const colDescripcion = document.createElement('div');
-        colDescripcion.className = "col";
-        colDescripcion.appendChild(labelDescripcion);
-        colDescripcion.appendChild(descripcion);
-
+        
         const colMeta = document.createElement('div');
         colMeta.className = "col";
         colMeta.appendChild(labelMeta);
@@ -674,11 +669,12 @@ class Evidencia {
             contenedorMeses.appendChild(mes.component);
         });
 
-        row.appendChild(colDescripcion);
         row.appendChild(colMeta);
         row.appendChild(colIndicador);
         row.appendChild(btnMes);
 
+        component.appendChild(labelDescripcion);
+        component.appendChild(descripcion);
         component.appendChild(row);
         component.appendChild(contenedorMeses);
 
