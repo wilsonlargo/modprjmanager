@@ -409,8 +409,9 @@ class Objetivo {
 
         this.actividades.forEach(actividad => {
             actividad.evidencias.forEach(evidencia => {
-                ponderado += evidencia.calcularAvance() * parseInt(evidencia.porcentaje);
-                pesos += parseInt(evidencia.porcentaje);
+                const porcentaje = parseInt(evidencia.porcentaje ?? 0);
+                ponderado += evidencia.calcularAvance() * porcentaje;
+                pesos += porcentaje;
             });
         });
 
@@ -570,8 +571,9 @@ class Actividad {
         let pesos = 0;
 
         this.evidencias.forEach(evidencia => {
-            ponderado += evidencia.calcularAvance() * parseInt(evidencia.porcentaje ?? 0);
-            pesos += parseInt(evidencia.porcentaje);
+            const porcentaje = parseInt(evidencia.porcentaje ?? 0);
+            ponderado += evidencia.calcularAvance() * porcentaje;
+            pesos += porcentaje;
         });
 
         return pesos === 0 ? 0 : ponderado / pesos;
