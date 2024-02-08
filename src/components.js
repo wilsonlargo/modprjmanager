@@ -759,7 +759,7 @@ class Evidencia {
         porcentaje.placeholder = 'Porcentaje';
         porcentaje.value = this.porcentaje ? this.porcentaje : 0;
         porcentaje.addEventListener('input', () => {
-            this.porcentaje = porcentaje.value
+            this.porcentaje = porcentaje.value ? porcentaje.value : 0;
             this.updateAvance();
         });
 
