@@ -125,11 +125,13 @@ class Proyecto {
     }
 
     initComponent() {
+        //Inicio un contenedor DIV con sus estilos
         const component = document.createElement('div');
         component.className = "proyecto";
+        component.classList.add("container-fluid");
 
         const labelTitulo = document.createElement('label');
-        labelTitulo.textContent = 'Título';
+        labelTitulo.textContent = 'Nombre del proyecto';
 
         const titulo = document.createElement('input');
         titulo.className = "form-control";
