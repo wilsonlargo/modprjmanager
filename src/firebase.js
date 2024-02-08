@@ -13,6 +13,7 @@ import {
 import {
     getFirestore,
     collection,
+    onSnapshot,
     doc,
     addDoc,
     setDoc,
@@ -82,6 +83,20 @@ async function updateProyecto(proyecto) {
     const docRef = doc(db, "proyectos", proyecto.id);
     await setDoc(docRef, proyecto);
 }
+
+
+// Escuchar si hay en un cambio en la coleccion de proyectos y actualizar automaticamente la lista de proyectos
+onSnapshot(coleccionProyectos, (querySnapshot) => {
+    const proyectos = [];
+    querySnapshot.forEach((doc) => {
+        proyectos.push({
+            ...doc.data(),
+            id: doc.id,
+        });
+    });
+    GLOBAL.state.proyectos = proyectos;
+});
+
 
 // Exponer las funciones globalmente
 GLOBAL.firestore = {
