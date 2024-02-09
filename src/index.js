@@ -13,6 +13,17 @@ function mostrarPlano() {
     let objetObjetivos = GLOBAL.state.proyecto.objetivos;
 
     objetObjetivos.forEach(objetivo => {
+        //Agregar un encabezado por cada objetivo, para identificar las partes
+
+        let headObjetivos = document.createElement("div")
+        headObjetivos.innerHTML = `
+        <div class="row align-items-start ms-3 mb-2 fw-medium text-secondary">
+            <div class="col">OBJETIVO</div>
+            <div class="col">PONDERADO EN EL PROYECTO</div>
+        </div>
+        `
+
+
         //Creo div por cada objetivo
         let divObjetivo = document.createElement("div");
 
@@ -28,19 +39,28 @@ function mostrarPlano() {
 
         //Creo y agrego una columna con el porcentaje del objetivo
         let colPorcentaje = document.createElement("div");
-        colPorcentaje.className = "col fs-3";
+        colPorcentaje.className = "col";
         colPorcentaje.textContent = " % " + objetivo.porcentaje;
         rowObjetivo.appendChild(colPorcentaje)
 
         //Contar cuantas actividades hay en este objetivo
-        let objetActividades = objetivo.actividades;;
+        let objetActividades = objetivo.actividades;
         objetActividades.forEach(actividad => {
+            //Encabezado para la actividad
+            let headActividades = document.createElement("div")
+            headActividades.innerHTML = `
+            <div class="row align-items-start ms-3 mt-2 fw-medium text-secondary">
+                <div class="col">ACTIVIDADES</div>
+            </div>
+            `
+
+
             let divActividades = document.createElement("div");
             divActividades.className = "ms-3";
 
             //Creo una fila para colocar la actividad y el porcentaje
             let rowActividad = document.createElement("div");
-            rowActividad.className = "row align-items-start mt-2";
+            rowActividad.className = "row align-items-start mt-2 ms-3";
 
             //Creo y agrego una columna con el nombre de la actividad
             let colNombre = document.createElement("div");
@@ -55,9 +75,20 @@ function mostrarPlano() {
             rowActividad.appendChild(colPorcentajeAC)
 
             //Ahora contamos cuantas evidencias hay
-            let objetEvidencias = actividad.evidencias;;
+            let objetEvidencias = actividad.evidencias;
 
             objetEvidencias.forEach(evidencia => {
+                //Encabezado para la actividad
+                let headEvidencias = document.createElement("div")
+                headEvidencias.innerHTML = `
+                <div class="row align-items-start ms-3 mt-2 fw-medium text-secondary">
+                    <div class="col">EVIDENCIA/ESTRATEGIA</div>
+                    <div class="col">META</div>
+                    <div class="col">INDICADOR</div>
+                    <div class="col">PONDERADO EN LA ACTIVIDAD</div>
+                </div>
+                `
+
                 let divEvidencias = document.createElement("div");
                 divActividades.className = "ms-3 mt-3";
                 //Creo una fila para colocar la evidencia y su información
@@ -85,13 +116,79 @@ function mostrarPlano() {
                 colPorcentajeEvi.textContent = "Ponderado en el objetivo %" + evidencia.porcentaje;
                 rowEvidencia.appendChild(colPorcentajeEvi)
 
+
+                //Ahora contamos cuantas meses hay
+                let objetMeses = evidencia.meses;
+
+
+                //Creamos encabezados para los meses
+                let headMeses = document.createElement("div")
+                headMeses.className="row align-items-start mt-2 fw-medium text-secondary"
+
+
+                //Creamos una fila larga para colocar meses enlinea
+                let rowMeses = document.createElement("div")
+                rowMeses.className = "row mt-2 ms-10"
+
+                let rowMetas = document.createElement("div")
+                rowMetas.className = "row mt-2"
+
+                let rowCumplido = document.createElement("div")
+                rowCumplido.className = "row mt-2"
+
+                objetMeses.forEach(mes => {
+                    let dt = new Date(mes.fecha)
+                    let cHMes = document.createElement("div")
+                    cHMes.className = "col"
+                    cHMes.textContent = dt.toLocaleString('default', { month: 'long' })
+                    headMeses.appendChild(cHMes)
+
+
+                    //Creamos las columnas pormes para agreagr a la fila
+                    let cMes = document.createElement("div")
+                    cMes.className = "col"
+                    cMes.textContent = "Fecha: " + mes.fecha
+                    rowMeses.appendChild(cMes)
+
+                    let cMeta = document.createElement("div")
+                    cMeta.className = "col"
+                    cMeta.textContent = "Meta: " + mes.meta
+                    rowMetas.appendChild(cMeta)
+
+                    let cCumpl = document.createElement("div")
+                    cCumpl.className = "col"
+                    cCumpl.textContent = "Cumplimiento: " + mes.cumplido
+                    rowCumplido.appendChild(cCumpl)
+
+
+
+                    
+                });
+
+
+
+                
+                rowActividad.appendChild(headEvidencias)
                 rowActividad.appendChild(rowEvidencia)
+                
+                rowEvidencia.appendChild(headMeses)
+                rowActividad.appendChild(rowMeses)
+                rowActividad.appendChild(rowMetas)
+                rowActividad.appendChild(rowCumplido)
+                
+
+                
+
+
 
             });
 
+
+            rowObjetivo.appendChild(headActividades)
             rowObjetivo.appendChild(rowActividad)
         })
 
+        docDiv.appendChild(headObjetivos)
         docDiv.appendChild(rowObjetivo)
 
     });
