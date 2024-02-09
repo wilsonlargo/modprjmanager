@@ -48,11 +48,12 @@ class Proyecto {
         this.cumplido = 0;
         this.objetivos = [];
         this.id = null;
+        this.tagAvance = null;
     }
 
     updateAvance() {
         const avance = this.calcularAvance()
-        //this.tagAvance.textContent = `${parseFloat(avance.toFixed(2))}%`;
+        if (this.tagAvance) this.tagAvance.textContent = `${parseFloat(avance.toFixed(2))}%`;
     }
 
     calcularAvance() {
@@ -275,9 +276,20 @@ class Proyecto {
 
         const rowTitulo = document.createElement('div');
         rowTitulo.className = "d-flex justify-content-between align-items-center mb-3";
+
+        const buttonsDiv = document.createElement('div');
+        buttonsDiv.className = "d-flex justify-content-between align-items-center gap-2";
+
+        if (this.id) buttonsDiv.appendChild(buttonEliminar);
+        buttonsDiv.appendChild(buttonCancelar);
+
+        const tagAvance = document.createElement('h5');
+        this.tagAvance = tagAvance;
+        this.updateAvance();
+
         rowTitulo.appendChild(labelTitulo);
-        if (this.id) rowTitulo.appendChild(buttonEliminar);
-        rowTitulo.appendChild(buttonCancelar);
+        rowTitulo.appendChild(tagAvance);
+        rowTitulo.appendChild(buttonsDiv);
 
         component.appendChild(rowTitulo);
         component.appendChild(titulo);
