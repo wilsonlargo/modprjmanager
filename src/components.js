@@ -38,7 +38,26 @@ const estructura = {
     ],
 }
 
+
+
+/**
+ * @class
+ * @classdesc Representa un componente con propiedades como título, descripción, administrador y valor.
+ * @param {string} titulo - El título del componente.
+ * @param {string} descripcion - La descripción del componente.
+ * @param {string} administrador - El administrador del componente.
+ * @param {number} valor - El valor del componente.
+ */
 class Proyecto {
+
+    /**
+     * @class
+     * @classdesc Representa un componente con propiedades como título, descripción, administrador y valor.
+     * @param {string} titulo - El título del componente.
+     * @param {string} descripcion - La descripción del componente.
+     * @param {string} administrador - El administrador del componente.
+     * @param {number} valor - El valor del componente.
+     */
     constructor(titulo, descripcion, administrador, valor) {
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -51,11 +70,18 @@ class Proyecto {
         this.tagAvance = null;
     }
 
+    /**
+     * Actualiza el avance del componente.
+     */
     updateAvance() {
         const avance = this.calcularAvance()
         if (this.tagAvance) this.tagAvance.textContent = `Avance: ${parseFloat(avance.toFixed(2))}%`;
     }
 
+    /**
+     * Calcula el avance ponderado de los objetivos.
+     * @returns {number} El avance ponderado.
+     */
     calcularAvance() {
         let ponderado = 0;
         let pesos = 0;
@@ -68,6 +94,9 @@ class Proyecto {
         return pesos === 0 ? 0 : ponderado / pesos;
     }
 
+    /**
+     * Enumera los objetivos y asigna enumeradores a las actividades y evidencias.
+     */
     enumerarObjetivos() {
         this.objetivos.forEach((objetivo, i) => {
             const indexObjetivo = i + 1;
@@ -85,6 +114,10 @@ class Proyecto {
         });
     }
 
+    /**
+     * Verifica si la suma de los porcentajes de los objetivos es igual a 100.
+     * @returns {boolean} True si la suma de los porcentajes es igual a 100, de lo contrario False.
+     */
     verificarPorcentajes() {
         let porcentaje = 0;
 
@@ -96,14 +129,26 @@ class Proyecto {
     }
 
     /* Funciones CRUD para los objetivos */
+
+    /**
+     * Agrega un objetivo a la lista de objetivos.
+     * @param {any} objetivo - El objetivo a agregar.
+     */
     addObjetivo(objetivo) {
         this.objetivos.push(objetivo);
     }
 
+    /**
+     * Elimina un objetivo de la lista de objetivos.
+     * @param {number} id - El índice del objetivo a eliminar.
+     */
     deleteObjetivo(id) {
         this.objetivos.splice(id, 1);
     }
 
+    /**
+     * Guarda el objeto en la base de datos.
+     */
     saveInDB() {
         const id = GLOBAL.firestore.addProyecto(
             JSON.parse(this.convertToJSON())
@@ -111,17 +156,29 @@ class Proyecto {
         this.id = id;
     }
 
+    /**
+     * Elimina el proyecto de la base de datos.
+     */
     deleteInDB() {
         GLOBAL.firestore.borrarProyecto(this.id);
     }
 
+    /**
+     * Actualiza los datos del proyecto en la base de datos.
+     */
     updateInDB() {
         GLOBAL.firestore.updateProyecto(
             JSON.parse(this.convertToJSON())
         );
     }
 
+    /**
+     * Convierte el objeto actual a una cadena JSON.
+     * @returns {string} La representación JSON del objeto actual.
+     */
     convertToJSON() {
+        // Evitar ciclos en objetos
+        // eliminando las referencias circulares
         const cache = [];
         return JSON.stringify(this, (key, value) => {
             if (typeof value === 'object' && value !== null) {
@@ -132,6 +189,9 @@ class Proyecto {
         });
     }
 
+    /**
+     * Cancela la operación actual y elimina el componente.
+     */
     cancel() {
         this.component.remove();
         GLOBAL.state.proyecto = null;
@@ -312,6 +372,12 @@ class Proyecto {
         this.component = component;
     }
 
+    /**
+     * Devuelve un componente de vista previa del proyecto.
+     * 
+     * @param {object} objProyecto - El objeto del proyecto.
+     * @returns {HTMLElement} - El componente de vista previa del proyecto.
+     */
     static getPreviewComponent(objProyecto) {
 
         const proyecto = Proyecto.loadAsInstance(objProyecto);
@@ -357,6 +423,11 @@ class Proyecto {
         return component;
     }
 
+    /**
+     * Carga un objeto de proyecto como una instancia de Proyecto.
+     * @param {Object} objProyecto - El objeto de proyecto a cargar.
+     * @returns {Proyecto} - La instancia de Proyecto cargada.
+     */
     static loadAsInstance(objProyecto) {
         const loadObjetivos = (objetivos, parent) => {
             return objetivos.map(objetivo => {
@@ -407,7 +478,18 @@ class Proyecto {
     }
 }
 
+/**
+ * Clase que representa un objetivo.
+ * @class
+ */
 class Objetivo {
+    /**
+     * Crea una instancia de la clase Objetivo.
+     * @constructor
+     * @param {string} titulo - El título del objetivo.
+     * @param {number} porcentaje - El porcentaje de avance del objetivo.
+     * @param {Object} parent - Referencia al elemento padre.
+     */
     constructor(titulo, porcentaje, parent) {
         this.titulo = titulo;
         this.cumplido = 0;
@@ -419,12 +501,19 @@ class Objetivo {
         this.parent = parent; // Referencia al elemento padre
     }
 
+    /**
+     * Actualiza el avance del objetivo y muestra el porcentaje de avance en el elemento correspondiente.
+     */
     updateAvance() {
         this.parent.updateAvance();
         const avance = this.calcularAvance()
         this.tagAvance.textContent = `${parseFloat(avance.toFixed(2))}%`;
     }
 
+    /**
+     * Calcula el avance del objetivo en base al avance de sus actividades y evidencias.
+     * @returns {number} El porcentaje de avance del objetivo.
+     */
     calcularAvance() {
         let ponderado = 0;
         let pesos = 0;
@@ -440,6 +529,10 @@ class Objetivo {
         return pesos === 0 ? 0 : ponderado / pesos;
     }
 
+    /**
+     * Verifica si la suma de los porcentajes de las evidencias de las actividades del objetivo es igual a 100.
+     * @returns {boolean} true si los porcentajes suman 100, de lo contrario false.
+     */
     verificarPorcentajes() {
         let porcentaje = 0;
 
@@ -452,15 +545,25 @@ class Objetivo {
         return porcentaje == 100;
     }
 
-    /* Funciones CRUD para las actividades */
+    /**
+     * Agrega una actividad al objetivo.
+     * @param {Object} actividad - La actividad a agregar.
+     */
     addActividad(actividad) {
         this.actividades.push(actividad);
     }
 
+    /**
+     * Elimina una actividad del objetivo.
+     * @param {number} id - El índice de la actividad a eliminar.
+     */
     deleteActividad(id) {
         this.actividades.splice(id, 1);
     }
 
+    /**
+     * Inicializa el componente del objetivo.
+     */
     initComponent() {
 
         const component = document.createElement('details');
@@ -572,7 +675,17 @@ class Objetivo {
     }
 }
 
+/**
+ * Clase que representa una actividad.
+ * @class
+ */
 class Actividad {
+    /**
+     * Crea una instancia de la clase Actividad.
+     * @constructor
+     * @param {string} nombre - El nombre de la actividad.
+     * @param {object} parent - El elemento padre de la actividad.
+     */
     constructor(nombre, parent) {
         this.nombre = nombre;
         this.cumplido = 0;
@@ -583,12 +696,19 @@ class Actividad {
         this.parent = parent; // Referencia al elemento padre
     }
 
+    /**
+     * Actualiza el avance de la actividad y su elemento padre.
+     */
     updateAvance() {
         this.parent.updateAvance();
         const avance = this.calcularAvance()
         this.tagAvance.textContent = `${parseFloat(avance.toFixed(2))}%`;
     }
 
+    /**
+     * Calcula el avance de la actividad.
+     * @returns {number} El avance de la actividad en porcentaje.
+     */
     calcularAvance() {
 
         let ponderado = 0;
@@ -604,14 +724,26 @@ class Actividad {
     }
 
     /* Funciones CRUD para las evidencias */
+
+    /**
+     * Agrega una evidencia a la actividad.
+     * @param {object} evidencia - La evidencia a agregar.
+     */
     addEvidencia(evidencia) {
         this.evidencias.push(evidencia);
     }
 
+    /**
+     * Elimina una evidencia de la actividad.
+     * @param {number} id - El ID de la evidencia a eliminar.
+     */
     deleteEvidencia(id) {
         this.evidencias.splice(id, 1);
     }
 
+    /**
+     * Inicializa el componente de la actividad.
+     */
     initComponent() {
         const component = document.createElement('details');
         component.className = "actividad rounded border mb-3";
@@ -697,7 +829,20 @@ class Actividad {
     }
 }
 
+/**
+ * Clase que representa una Evidencia o Estrategia.
+ * @class
+ */
 class Evidencia {
+    /**
+     * Crea una instancia de la clase Evidencia.
+     * @constructor
+     * @param {string} descripcion - La descripción de la evidencia o estrategia.
+     * @param {string} indicador - El indicador asociado a la evidencia o estrategia.
+     * @param {number} meta - La meta de la evidencia o estrategia.
+     * @param {number} porcentaje - El porcentaje de cumplimiento de la evidencia o estrategia.
+     * @param {object} parent - El elemento padre de la evidencia o estrategia.
+     */
     constructor(descripcion, indicador, meta, porcentaje, parent) {
         this.descripcion = descripcion;
         this.indicador = indicador;
@@ -712,6 +857,9 @@ class Evidencia {
         this.parent = parent; // Referencia al elemento padre
     }
 
+    /**
+     * Actualiza el avance de la evidencia o estrategia.
+     */
     updateAvance() {
         this.parent.updateAvance();
 
@@ -719,21 +867,36 @@ class Evidencia {
         this.tagAvance.textContent = `${parseFloat(avance.toFixed(2))}%`;
     }
 
+    /**
+     * Calcula el avance de la evidencia o estrategia.
+     * @returns {number} El avance de la evidencia o estrategia.
+     */
     calcularAvance() {
-
         const sumCumplido = this.meses.reduce((acc, mes) => acc + parseInt(mes.cumplido), 0);
         return calcPorcenaje(sumCumplido, this.meta);
     }
 
     /* Funciones CRUD para los meses */
+
+    /**
+     * Agrega un mes a la evidencia o estrategia.
+     * @param {object} mes - El mes a agregar.
+     */
     addMes(mes) {
         this.meses.push(mes);
     }
 
+    /**
+     * Elimina un mes de la evidencia o estrategia.
+     * @param {number} id - El id del mes a eliminar.
+     */
     deleteMes(id) {
         this.meses.splice(id, 1);
     }
 
+    /**
+     * Inicializa el componente de la evidencia o estrategia.
+     */
     initComponent() {
 
         const component = document.createElement('details');
@@ -869,7 +1032,18 @@ class Evidencia {
     }
 }
 
+/**
+ * Representa un mes.
+ * @class
+ */
 class Mes {
+    /**
+     * Crea una instancia de Mes.
+     * @constructor
+     * @param {string} fecha - La fecha del mes.
+     * @param {number} meta - La meta para el mes.
+     * @param {object} parent - La referencia al elemento padre.
+     */
     constructor(fecha, meta, parent) {
         this.fecha = fecha; // Fecha del mes
         this.meta = meta; // Meta del mes
@@ -880,6 +1054,9 @@ class Mes {
         this.parent = parent; // Referencia al elemento padre
     }
 
+    /**
+     * Actualiza el porcentaje de avance y el estilo.
+     */
     updateAvance() {
         this.parent.updateAvance();
         const avance = this.calcularAvance();
@@ -888,6 +1065,10 @@ class Mes {
         avance >= 50 && avance < 100 ? this.tagAvance.classList.add('text-warning') : this.tagAvance.classList.remove('text-warning');
     }
 
+    /**
+     * Calcula el porcentaje de avance.
+     * @returns {number} El porcentaje de avance.
+     */
     calcularAvance() {
         const avance = calcPorcenaje(this.cumplido, this.meta)
         return parseFloat(
@@ -895,6 +1076,9 @@ class Mes {
         );
     }
 
+    /**
+     * Inicializa el componente creando los elementos HTML necesarios.
+     */
     initComponent() {
         const component = document.createElement('div');
         component.className = "mes mb-3 p-3";
@@ -985,10 +1169,18 @@ class Mes {
     }
 }
 
+/**
+ * Limpia el contenido del contenedor del proyecto.
+ */
 function limpiarContenedor() {
     document.getElementById('contenedor-proyecto').innerHTML = '';
 }
 
+/**
+ * Función que maneja la creación de un proyecto.
+ * Limpia el contenedor, crea una instancia de Proyecto, inicializa el componente,
+ * asigna el proyecto a la variable GLOBAL.state.proyecto y agrega el componente al contenedor.
+ */
 function handlerCrearProyecto() {
     limpiarContenedor();
     const proyecto = new Proyecto('', '', '', 0);
@@ -1006,6 +1198,12 @@ function handlerCargarProyecto(proyectoObj) {
     document.getElementById('contenedor-proyecto').appendChild(proyecto.component);
 }
 
+/**
+ * Función que se encarga de cargar todos los proyectos en el contenedor.
+ * Limpia el contenedor actual, oculta el documento plano y muestra el contenedor de proyectos.
+ * Si no hay proyectos en la base de datos, muestra una alerta.
+ * Para cada proyecto, obtiene el componente de vista previa y lo agrega al contenedor.
+ */
 function handlerCargarTodo() {
     limpiarContenedor();
     document.getElementById("docPlain").hidden = true
