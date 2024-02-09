@@ -53,7 +53,7 @@ class Proyecto {
 
     updateAvance() {
         const avance = this.calcularAvance()
-        if (this.tagAvance) this.tagAvance.textContent = `${parseFloat(avance.toFixed(2))}%`;
+        if (this.tagAvance) this.tagAvance.textContent = `Avance: ${parseFloat(avance.toFixed(2))}%`;
     }
 
     calcularAvance() {
@@ -477,9 +477,10 @@ class Objetivo {
         GLOBAL.state.proyecto.enumerarObjetivos();
 
         const summaryHead = document.createElement('div');
-        summaryHead.className = "d-flex justify-content-between align-items-center";
+        summaryHead.className = "d-flex justify-content-between align-items-center gap-2";
 
         const h3 = document.createElement('h5');
+        h3.className = "objetivo-titulo";
         h3.textContent = `${this.enumerador} - ${this.titulo ? this.titulo : 'Titulo proyecto'}`;
 
         const totalAvance = document.createElement('h5');
@@ -1008,7 +1009,7 @@ function handlerCargarProyecto(proyectoObj) {
 function handlerCargarTodo() {
     limpiarContenedor();
     document.getElementById("docPlain").hidden = true
-    document.getElementById("contenedor-proyecto").hidden=false
+    document.getElementById("contenedor-proyecto").hidden = false
     const proyectos = GLOBAL.state.proyectos;
     const contenedor = document.getElementById('contenedor-proyecto');
     if (proyectos.length === 0) {
