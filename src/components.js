@@ -581,7 +581,7 @@ class Objetivo {
         summaryHead.className = "d-flex justify-content-between align-items-center gap-2";
 
         const h3 = document.createElement('h5');
-        h3.className = "objetivo-titulo";
+        h3.className = "objetivo-titulo text-white";
         h3.textContent = `${this.enumerador} - ${this.titulo ? this.titulo : 'Descripción objetivo'}`;
 
         const totalAvance = document.createElement('h5');
