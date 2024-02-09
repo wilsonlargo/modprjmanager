@@ -106,6 +106,16 @@ summary {
     list-style: none;
 }
 
-h3, h4, h5, h6 {
+h3,
+h4,
+h5,
+h6 {
     margin-block-end: 0rem;
+}
+
+.objetivo-titulo {
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
