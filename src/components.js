@@ -38,8 +38,6 @@ const estructura = {
     ],
 }
 
-
-
 /**
  * @class
  * @classdesc Representa un componente con propiedades como título, descripción, administrador y valor.
@@ -596,16 +594,14 @@ class Objetivo {
         summary.appendChild(summaryHead);
 
         const headObjetivo = document.createElement('div');
-        headObjetivo.className = "row align-items-end";
+        headObjetivo.className = "row align-items-start";
 
         const labelTitulo = document.createElement('label');
         labelTitulo.textContent = 'Objetivo';
         labelTitulo.className = "mb-2 text-secondary";
 
-
-        const titulo = document.createElement('input');
+        const titulo = document.createElement('textarea');
         titulo.className = "form-control";
-        titulo.type = 'text';
         titulo.placeholder = 'Título';
         titulo.addEventListener('input', () => {
             this.titulo = titulo.value;
@@ -625,6 +621,10 @@ class Objetivo {
 
         const contenedorActividades = document.createElement('div');
 
+        const labelActividad = document.createElement('label');
+        labelActividad.textContent = 'Agregar';
+        labelActividad.className = "mb-2 text-secondary";
+
         const btnActividad = document.createElement('button');
         btnActividad.className = "btn btn-secondary";
         btnActividad.textContent = '+ Actividad';
@@ -643,17 +643,18 @@ class Objetivo {
         });
 
         const colTitulo = document.createElement('div');
-        colTitulo.className = "col-5";
+        colTitulo.className = "col-8";
         colTitulo.appendChild(labelTitulo);
         colTitulo.appendChild(titulo);
 
         const colPorcentaje = document.createElement('div');
-        colPorcentaje.className = "col-5";
+        colPorcentaje.className = "col-2";
         colPorcentaje.appendChild(labelPorcentaje);
         colPorcentaje.appendChild(porcentaje);
 
         const colBtn = document.createElement('div');
         colBtn.className = "col-2";
+        colBtn.appendChild(labelActividad);
         colBtn.appendChild(btnActividad);
 
         headObjetivo.appendChild(colTitulo);
@@ -774,15 +775,17 @@ class Actividad {
         const contenedorEvidencias = document.createElement('div');
 
         const labelNombre = document.createElement('label');
-        labelNombre.textContent = 'Nombre actividad';
-        labelNombre.className = "mb-2";
-        const nombre = document.createElement('input');
+        labelNombre.textContent = 'Actividad';
+        labelNombre.className = "mb-2 text-secondary";
+        const nombre = document.createElement('textarea');
         nombre.className = "form-control";
-        nombre.type = 'text';
         nombre.placeholder = 'Nombre';
         nombre.addEventListener('input', () => this.nombre = nombre.value);
         nombre.value = this.nombre;
 
+        const labelAgregar = document.createElement('label');
+        labelAgregar.textContent = 'Agregar';
+        labelAgregar.className = "mb-2 text-secondary";
         const btnEvidencia = document.createElement('button');
         btnEvidencia.className = "btn btn-secondary";
         btnEvidencia.textContent = '+ Evidencia';
@@ -801,7 +804,7 @@ class Actividad {
         });
 
         const row = document.createElement('div');
-        row.className = "row align-items-end";
+        row.className = "row align-items-start";
 
         const colNombre = document.createElement('div');
         colNombre.className = "col-10";
@@ -810,6 +813,7 @@ class Actividad {
 
         const colBtn = document.createElement('div');
         colBtn.className = "col-2";
+        colBtn.appendChild(labelAgregar);
         colBtn.appendChild(btnEvidencia);
 
         row.appendChild(colNombre);
