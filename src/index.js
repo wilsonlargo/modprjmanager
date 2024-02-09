@@ -123,18 +123,17 @@ function mostrarPlano() {
 
                 //Creamos encabezados para los meses
                 let headMeses = document.createElement("div")
-                headMeses.className="row align-items-start mt-2 fw-medium text-secondary"
-
+                headMeses.className="row align-items-start mt-2 fw-medium text-secondary ms-4"
 
                 //Creamos una fila larga para colocar meses enlinea
                 let rowMeses = document.createElement("div")
-                rowMeses.className = "row mt-2 ms-10"
+                rowMeses.className = "row mt-2 ms-4"
 
                 let rowMetas = document.createElement("div")
-                rowMetas.className = "row mt-2"
+                rowMetas.className = "row mt-2 ms-4"
 
                 let rowCumplido = document.createElement("div")
-                rowCumplido.className = "row mt-2"
+                rowCumplido.className = "row mt-2 ms-4"
 
                 objetMeses.forEach(mes => {
                     let dt = new Date(mes.fecha)
@@ -172,9 +171,9 @@ function mostrarPlano() {
                 rowActividad.appendChild(rowEvidencia)
                 
                 rowEvidencia.appendChild(headMeses)
-                rowActividad.appendChild(rowMeses)
-                rowActividad.appendChild(rowMetas)
-                rowActividad.appendChild(rowCumplido)
+                rowEvidencia.appendChild(rowMeses)
+                rowEvidencia.appendChild(rowMetas)
+                rowEvidencia.appendChild(rowCumplido)
                 
 
                 
