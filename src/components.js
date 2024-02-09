@@ -995,7 +995,8 @@ function handlerCargarProyecto(proyectoObj) {
 
 function handlerCargarTodo() {
     limpiarContenedor();
-
+    document.getElementById("docPlain").hidden = true
+    document.getElementById("contenedor-proyecto").hidden=false
     const proyectos = GLOBAL.state.proyectos;
     const contenedor = document.getElementById('contenedor-proyecto');
     if (proyectos.length === 0) {
