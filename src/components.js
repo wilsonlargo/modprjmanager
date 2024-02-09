@@ -584,7 +584,7 @@ class Objetivo {
 
         const h3 = document.createElement('h5');
         h3.className = "objetivo-titulo";
-        h3.textContent = `${this.enumerador} - ${this.titulo ? this.titulo : 'Titulo proyecto'}`;
+        h3.textContent = `${this.enumerador} - ${this.titulo ? this.titulo : 'Descripción objetivo'}`;
 
         const totalAvance = document.createElement('h5');
         totalAvance.textContent = `${this.calcularAvance()}%`;

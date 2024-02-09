@@ -82,7 +82,7 @@ function mostrarPlano() {
 
                 let colPorcentajeEvi = document.createElement("div");
                 colPorcentajeEvi.className = "col";
-                colPorcentajeEvi.textContent = "Avance del %" + evidencia.porcentaje;
+                colPorcentajeEvi.textContent = "Ponderado en el objetivo %" + evidencia.porcentaje;
                 rowEvidencia.appendChild(colPorcentajeEvi)
 
                 rowActividad.appendChild(rowEvidencia)
