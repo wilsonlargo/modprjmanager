@@ -775,15 +775,17 @@ class Actividad {
         const contenedorEvidencias = document.createElement('div');
 
         const labelNombre = document.createElement('label');
-        labelNombre.textContent = 'Nombre actividad';
-        labelNombre.className = "mb-2";
-        const nombre = document.createElement('input');
+        labelNombre.textContent = 'Actividad';
+        labelNombre.className = "mb-2 text-secondary";
+        const nombre = document.createElement('textarea');
         nombre.className = "form-control";
-        nombre.type = 'text';
         nombre.placeholder = 'Nombre';
         nombre.addEventListener('input', () => this.nombre = nombre.value);
         nombre.value = this.nombre;
 
+        const labelAgregar = document.createElement('label');
+        labelAgregar.textContent = 'Agregar';
+        labelAgregar.className = "mb-2 text-secondary";
         const btnEvidencia = document.createElement('button');
         btnEvidencia.className = "btn btn-secondary";
         btnEvidencia.textContent = '+ Evidencia';
@@ -802,7 +804,7 @@ class Actividad {
         });
 
         const row = document.createElement('div');
-        row.className = "row align-items-end";
+        row.className = "row align-items-start";
 
         const colNombre = document.createElement('div');
         colNombre.className = "col-10";
@@ -811,6 +813,7 @@ class Actividad {
 
         const colBtn = document.createElement('div');
         colBtn.className = "col-2";
+        colBtn.appendChild(labelAgregar);
         colBtn.appendChild(btnEvidencia);
 
         row.appendChild(colNombre);
