@@ -297,7 +297,7 @@ class Proyecto {
             this.enumerarObjetivos();
 
             const buttonConfirmar = document.getElementById('btn-modal-confirmar');
-            document.getElementById('modal-confirmar-body').textContent = this.id ? 'Desea guardar los cambios realizados?' : 'Desea guardar el proyecto en la base de datos?';
+            document.getElementById('modal-confirmar-body').textContent = 'Desea guardar los cambios realizados?'
 
             buttonConfirmar.onclick = () => {
                 this.id ? this.updateInDB() : this.saveInDB();

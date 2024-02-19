@@ -1,5 +1,29 @@
+const HTMLf = {
+    labelControl(ind,text){
+        const controlHTML = document.createElement("div");
+        
+
+        controlHTML.innerHTML = `
+        <div id="docPlain" class=" container">
+        <div class="input-group mb-3">
+            <span class="input-group-text text-white bg-secondary">${ind}</span>
+            <input type="text" class="form-control"
+            value="${text}" disabled style="background-color: white;">
+          </div>
+        </div>
+        `
+
+        return controlHTML;
+    }, 
+
+
+}
+
+
 function mostrarPlano() {
     document.getElementById("contenedor-proyecto").hidden = true;
+
+
     let docDiv = document.getElementById("docPlain");
     docDiv.innerHTML = "";
 
@@ -22,7 +46,7 @@ function mostrarPlano() {
             <div class="col">PONDERADO EN EL PROYECTO</div>
         </div>
         `
-
+      
 
         //Creo div por cada objetivo
         let divObjetivo = document.createElement("div");
@@ -34,14 +58,13 @@ function mostrarPlano() {
         //Creo y agrego una columna con el titulo del objetivo
         let colTitulo = document.createElement("div");
         colTitulo.className = "col";
-        colTitulo.textContent = objetivo.enumerador + " " + objetivo.titulo;
-        rowObjetivo.appendChild(colTitulo)
+        rowObjetivo.appendChild(HTMLf.labelControl(objetivo.enumerador,objetivo.titulo))
 
         //Creo y agrego una columna con el porcentaje del objetivo
         let colPorcentaje = document.createElement("div");
         colPorcentaje.className = "col";
-        colPorcentaje.textContent = " % " + objetivo.porcentaje;
-        rowObjetivo.appendChild(colPorcentaje)
+        //colPorcentaje.textContent = " % " + objetivo.porcentaje;
+        rowObjetivo.appendChild(HTMLf.labelControl("%",objetivo.porcentaje))
 
         //Contar cuantas actividades hay en este objetivo
         let objetActividades = objetivo.actividades;
@@ -189,6 +212,8 @@ function mostrarPlano() {
 
         docDiv.appendChild(headObjetivos)
         docDiv.appendChild(rowObjetivo)
+
+
 
     });
 
