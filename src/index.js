@@ -4,12 +4,24 @@ const HTMLf = {
         
 
         controlHTML.innerHTML = `
-        <div id="docPlain" class=" container">
-        <div class="input-group mb-3">
+        <div class="input-group">
             <span class="input-group-text text-white bg-secondary">${ind}</span>
             <input type="text" class="form-control"
             value="${text}" disabled style="background-color: white;">
-          </div>
+        </div>
+        `
+
+        return controlHTML;
+    },
+    TextControl(ind,text){
+        const controlHTML = document.createElement("div");
+        
+
+        controlHTML.innerHTML = `
+        <div class="input-group">
+            <span class="input-group-text text-white bg-secondary">${ind}</span>
+            <textarea type="text" class="form-control"
+            disabled style="background-color: white;">${text}</textarea>
         </div>
         `
 
@@ -43,7 +55,7 @@ function mostrarPlano() {
         headObjetivos.innerHTML = `
         <div class="row align-items-start ms-3 mb-2 fw-medium text-secondary">
             <div class="col">OBJETIVO</div>
-            <div class="col">PONDERADO EN EL PROYECTO</div>
+            <div class="col-2">% EN PROYECTO</div>
         </div>
         `
       
@@ -58,13 +70,14 @@ function mostrarPlano() {
         //Creo y agrego una columna con el titulo del objetivo
         let colTitulo = document.createElement("div");
         colTitulo.className = "col";
-        rowObjetivo.appendChild(HTMLf.labelControl(objetivo.enumerador,objetivo.titulo))
+        colTitulo.appendChild(HTMLf.TextControl(objetivo.enumerador,objetivo.titulo))
+        rowObjetivo.appendChild(colTitulo)
 
         //Creo y agrego una columna con el porcentaje del objetivo
         let colPorcentaje = document.createElement("div");
-        colPorcentaje.className = "col";
-        //colPorcentaje.textContent = " % " + objetivo.porcentaje;
-        rowObjetivo.appendChild(HTMLf.labelControl("%",objetivo.porcentaje))
+        colPorcentaje.className = "col-2";
+        colPorcentaje.appendChild(HTMLf.labelControl("%",objetivo.porcentaje))
+        rowObjetivo.appendChild(colPorcentaje)
 
         //Contar cuantas actividades hay en este objetivo
         let objetActividades = objetivo.actividades;
@@ -79,7 +92,7 @@ function mostrarPlano() {
 
 
             let divActividades = document.createElement("div");
-            divActividades.className = "ms-3";
+            divActividades.className = "";
 
             //Creo una fila para colocar la actividad y el porcentaje
             let rowActividad = document.createElement("div");
@@ -88,14 +101,14 @@ function mostrarPlano() {
             //Creo y agrego una columna con el nombre de la actividad
             let colNombre = document.createElement("div");
             colNombre.className = "col";
-            colNombre.textContent = actividad.enumerador + " " + actividad.nombre;
+            colNombre.appendChild(HTMLf.TextControl(actividad.enumerador,actividad.nombre))
             rowActividad.appendChild(colNombre)
 
             //Creo y agrego una columna con el porcentaje de la actividad
             let colPorcentajeAC = document.createElement("div");
-            colPorcentajeAC.className = "col fs-3 text-success";
-            colPorcentajeAC.textContent = "";
-            rowActividad.appendChild(colPorcentajeAC)
+            colPorcentajeAC.className = "col-2";
+            //colPorcentajeAC.appendChild(HTMLf.TextControl(actividad.enumerador,actividad.nombre))
+            //rowActividad.appendChild(colPorcentajeAC)
 
             //Ahora contamos cuantas evidencias hay
             let objetEvidencias = actividad.evidencias;
@@ -105,10 +118,10 @@ function mostrarPlano() {
                 let headEvidencias = document.createElement("div")
                 headEvidencias.innerHTML = `
                 <div class="row align-items-start ms-3 mt-2 fw-medium text-secondary">
-                    <div class="col">EVIDENCIA/ESTRATEGIA</div>
-                    <div class="col">META</div>
-                    <div class="col">INDICADOR</div>
-                    <div class="col">PONDERADO EN LA ACTIVIDAD</div>
+                    <div class="col-7">EVIDENCIA/ESTRATEGIA</div>
+                    <div class="col-2">META</div>
+                    <div class="col-2">INDICADOR</div>
+                    <div class="col-1">%/A</div>
                 </div>
                 `
 
@@ -116,27 +129,27 @@ function mostrarPlano() {
                 divActividades.className = "ms-3 mt-3";
                 //Creo una fila para colocar la evidencia y su información
                 let rowEvidencia = document.createElement("div");
-                rowEvidencia.className = "row align-items-start mt-3 ms-3";
+                rowEvidencia.className = "row align-items-start mt-3 ms-3 border";
 
                 //Creo y agrego una columna con el nombre de la actividad
                 let colEvidencia = document.createElement("div");
-                colEvidencia.className = "col";
+                colEvidencia.className = "col-7";
                 colEvidencia.textContent = evidencia.enumerador + ". " + evidencia.descripcion;
                 rowEvidencia.appendChild(colEvidencia)
 
                 let colMetaEvi = document.createElement("div");
-                colMetaEvi.className = "col";
+                colMetaEvi.className = "col-2";
                 colMetaEvi.textContent = evidencia.meta;
                 rowEvidencia.appendChild(colMetaEvi)
 
                 let colIndicadorEvi = document.createElement("div");
-                colIndicadorEvi.className = "col";
+                colIndicadorEvi.className = "col-2";
                 colIndicadorEvi.textContent = evidencia.indicador;
                 rowEvidencia.appendChild(colIndicadorEvi)
 
                 let colPorcentajeEvi = document.createElement("div");
-                colPorcentajeEvi.className = "col";
-                colPorcentajeEvi.textContent = "Ponderado en el objetivo %" + evidencia.porcentaje;
+                colPorcentajeEvi.className = "col-1";
+                colPorcentajeEvi.textContent = "% " + evidencia.porcentaje;
                 rowEvidencia.appendChild(colPorcentajeEvi)
 
 
@@ -146,17 +159,17 @@ function mostrarPlano() {
 
                 //Creamos encabezados para los meses
                 let headMeses = document.createElement("div")
-                headMeses.className="row align-items-start mt-2 fw-medium text-secondary ms-4"
+                headMeses.className="row align-items-start mt-2 fw-medium text-secondary ms-2"
 
                 //Creamos una fila larga para colocar meses enlinea
                 let rowMeses = document.createElement("div")
-                rowMeses.className = "row mt-2 ms-4"
+                rowMeses.className = "row mt-2 ms-2"
 
                 let rowMetas = document.createElement("div")
-                rowMetas.className = "row mt-2 ms-4"
+                rowMetas.className = "row mt-2 ms-2"
 
                 let rowCumplido = document.createElement("div")
-                rowCumplido.className = "row mt-2 ms-4"
+                rowCumplido.className = "row mt-2 ms-2"
 
                 objetMeses.forEach(mes => {
                     let dt = new Date(mes.fecha)
